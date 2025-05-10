@@ -14,7 +14,7 @@ if (isset($_SESSION["nombre"])) {
 
     // Si es un usuario normal
     } else {
-        require_once("view/menu.php");
+        // require_once("view/menu.php");
         include("view/dashboard_user.php");
         echo "<p>HOLA MUNDO</p>";
         echo "<p>ESTÁS CONECTADO COMO " . htmlspecialchars($_SESSION["nombre"]) . "</p>";
