@@ -1,0 +1,64 @@
+.bg-gradient-orange {
+    background: linear-gradient(135deg, #111922 0%, #3a5574 100%);
+}
+
+.login-wrapper {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 420px) !important;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 0;
+}
+.login-card {
+    margin-top: -80px; /* Sube el formulario para que cruce con el header */
+    z-index: 10;
+}
+
+
+.header-fitpro img {
+    height: 240px;
+    object-fit: contain;
+}
+
+.header-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    z-index: 0;
+}
+
+.header-fitpro {
+    height: 420px;
+    background-color: #111922 !important;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Input del formulario */
+  .form-control {
+    background-color: #2d425a !important;
+    color: #ffffff !important;
+    border: none !important;
+  }
+  
+  .form-control::placeholder {
+    color: #e0e0e0 !important;
+  }
+  
+  .form-label {
+    color: #111922 !important;
+    font-weight: bold !important;
+  }
+  
+  .btn-primary {
+    background-color: #2d425a !important;
+    border: none !important;
+  }
+  
+  .btn-primary:hover {
+    background-color: #b9b9b9    !important;
+    color: #2d425a !important;
+  }
