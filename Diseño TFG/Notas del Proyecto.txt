@@ -1,0 +1,13 @@
+Estilos:
+
+Dark Theme
+Blue Color: #1568c1
+Font: Lexend
+
+Plugins:
+- Datatable
+- Table2
+- Calendar
+- Boostrap
+- PDFSpreed
+- QR

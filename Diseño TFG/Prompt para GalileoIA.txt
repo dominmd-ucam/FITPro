@@ -1,0 +1,85 @@
+Diseña una aplicación web para la gestión integral de un gimnasio. El sistema debe incluir una interfaz amigable y responsive, compatible con dispositivos móviles. Las pantallas necesarias son:
+
+Pantalla de Log-In: Campos de usuario y contraseña, opción de "recordarme", "olvidé mi contraseña" y botón de acceso.
+
+Gestión de Miembros: Alta, baja y edición de usuarios del gimnasio.
+
+Reservas y Horarios: Calendario interactivo donde los usuarios pueden reservar, ver y cancelar clases.
+
+Control de Acceso: Registro de entradas y salidas mediante generación y escaneo de códigos QR.
+
+Gestión de Inventario: Panel para administrar máquinas, suplementos, ropa deportiva y otros productos.
+
+Dashboard Principal: Página central con acceso a todas las funcionalidades.
+
+Diseño Responsive: Adaptado a escritorio y dispositivos móviles con buena UX.
+
+Reserva de Actividades (vista de usuario): Pantalla para que el usuario vea clases disponibles, horarios y pueda reservar o cancelar fácilmente.
+
+Rutina de Entrenamiento (vista de usuario): Página con el plan de entrenamiento personalizado del usuario, progreso, ejercicios programados y espacio para registrar resultados.
+
+Plan de Nutrición (vista de usuario): Sección con dieta semanal personalizada, información nutricional y seguimiento de objetivos alimenticios.
+
+Landing Page del Gimnasio: Diseño visualmente atractivo con presentación del gimnasio, servicios, planes de membresía, testimonios y formulario de registro.
+
+Usa una estética moderna, profesional y limpia. Enfatiza la facilidad de navegación, especialmente en móviles. Utiliza componentes UI comunes (tarjetas, botones, sliders, formularios) con buen contraste y jerarquía visual.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Diseña una aplicación web para la gestión integral de un gimnasio. El sistema debe incluir una interfaz amigable y responsive, compatible con dispositivos móviles. Las pantallas necesarias son:
+
+Pantalla de Log-In: Campos de usuario y contraseña, opción de "recordarme", "olvidé mi contraseña" y botón de acceso.
+
+Gestión de Miembros: Alta, baja y edición de usuarios del gimnasio. Reservas y Horarios: Calendario interactivo donde los usuarios pueden reservar, ver y cancelar clases.
+
+Control de Acceso: Registro de entradas y salidas mediante generación y escaneo de códigos QR.
+
+Gestión de Inventario: Panel para administrar máquinas, suplementos, ropa deportiva y otros productos.
+
+Dashboard Principal: Página central con acceso a todas las funcionalidades. Diseño Responsive: Adaptado a escritorio y dispositivos móviles con buena UX.
+
+Reserva de Actividades (vista de usuario): Pantalla para que el usuario vea clases disponibles, horarios y pueda reservar o cancelar fácilmente.
+
+Rutina de Entrenamiento (vista de usuario): Página con el plan de entrenamiento personalizado del usuario, progreso, ejercicios programados y espacio para registrar resultados.
+
+Plan de Nutrición (vista de usuario): Sección con dieta semanal personalizada, información nutricional y seguimiento de objetivos alimenticios.
+
+Landing Page del Gimnasio: Diseño visualmente atractivo con presentación del gimnasio, servicios, planes de membresía, testimonios y formulario de registro.
+
+Usa una estética moderna, profesional y limpia. Enfatiza la facilidad de navegación, especialmente en móviles. Utiliza componentes UI comunes (tarjetas, botones, sliders, formularios) con buen contraste y jerarquía visual.
