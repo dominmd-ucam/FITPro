@@ -81,7 +81,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-4">
-                <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1568c1] text-white text-sm font-bold leading-normal tracking-[0.015em]">
+                <button id="newMemberBtn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1568c1] text-white text-sm font-bold leading-normal tracking-[0.015em]">
                   <span class="truncate">New member</span>
                 </button>
                 <div class="flex flex-col gap-1">
@@ -347,5 +347,596 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal para New Member -->
+    <div id="newMemberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-[#111418] rounded-xl p-6 w-[500px]">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-white text-xl font-bold">Nuevo Miembro</h3>
+          <button onclick="closeModal()" class="text-[#93adc8] hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="mt-4">
+          <form id="newMemberForm" class="space-y-4">
+            <div>
+              <label for="nombre" class="block text-sm font-medium text-[#93adc8] mb-1">Nombre</label>
+              <input type="text" id="nombre" name="nombre" required
+                class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-[#93adc8] mb-1">Email</label>
+              <input type="email" id="email" name="email" required
+                class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+            </div>
+            
+            <div>
+              <label for="passwd" class="block text-sm font-medium text-[#93adc8] mb-1">Contraseña</label>
+              <input type="password" id="passwd" name="passwd" required
+                class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+            </div>
+
+            <div>
+              <label for="tipo" class="block text-sm font-medium text-[#93adc8] mb-1">Tipo de Usuario</label>
+              <select id="tipo" name="tipo" required
+                class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+                <option value="cliente">Cliente</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="flex justify-end gap-3 mt-6">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-[#243547] text-white hover:bg-[#344c65]">
+            Cancelar
+          </button>
+          <button onclick="saveMember()" class="px-4 py-2 rounded-xl bg-[#1568c1] text-white hover:bg-[#1a5aa3]">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Edit Member -->
+    <div id="editMemberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-[#111418] rounded-xl p-6 w-[800px] max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-white text-xl font-bold">Editar Miembro</h3>
+          <button onclick="closeEditModal()" class="text-[#93adc8] hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Tabs de navegación -->
+        <div class="flex border-b border-[#344c65] mb-4" role="tablist">
+          <button id="datos-basicos-tab" class="tab-button active px-4 py-2 text-white border-b-2 border-[#1568c1]" 
+                  role="tab" aria-selected="true" aria-controls="datos-basicos-content">Datos Básicos</button>
+          <button id="membresia-tab" class="tab-button px-4 py-2 text-[#93adc8]" 
+                  role="tab" aria-selected="false" aria-controls="membresia-content">Membresía</button>
+          <button id="rutinas-tab" class="tab-button px-4 py-2 text-[#93adc8]" 
+                  role="tab" aria-selected="false" aria-controls="rutinas-content">Rutinas</button>
+          <button id="accesos-tab" class="tab-button px-4 py-2 text-[#93adc8]" 
+                  role="tab" aria-selected="false" aria-controls="accesos-content">Accesos</button>
+          <button id="progreso-tab" class="tab-button px-4 py-2 text-[#93adc8]" 
+                  role="tab" aria-selected="false" aria-controls="progreso-content">Progreso</button>
+          <button id="nutricion-tab" class="tab-button px-4 py-2 text-[#93adc8]" 
+                  role="tab" aria-selected="false" aria-controls="nutricion-content">Nutrición</button>
+          <button id="clases-tab" class="tab-button px-4 py-2 text-[#93adc8]" 
+                  role="tab" aria-selected="false" aria-controls="clases-content">Clases</button>
+        </div>
+
+        <!-- Contenido de las tabs -->
+        <div class="tab-content">
+          <!-- Datos Básicos -->
+          <div id="datos-basicos-content" class="tab-pane active" role="tabpanel">
+            <form id="editMemberForm" class="space-y-4">
+              <input type="hidden" id="edit_id_usuario" name="id_usuario">
+              <div>
+                <label for="edit_nombre" class="block text-sm font-medium text-[#93adc8] mb-1">Nombre</label>
+                <input type="text" id="edit_nombre" name="nombre" required
+                  class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+              </div>
+              <div>
+                <label for="edit_email" class="block text-sm font-medium text-[#93adc8] mb-1">Email</label>
+                <input type="email" id="edit_email" name="email" required
+                  class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+              </div>
+              <div>
+                <label for="edit_passwd" class="block text-sm font-medium text-[#93adc8] mb-1">Contraseña</label>
+                <input type="password" id="edit_passwd" name="passwd"
+                  class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+                <small class="text-[#93adc8]">Dejar en blanco para mantener la contraseña actual</small>
+              </div>
+              <div>
+                <label for="edit_tipo" class="block text-sm font-medium text-[#93adc8] mb-1">Tipo de Usuario</label>
+                <select id="edit_tipo" name="tipo" required
+                  class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]">
+                  <option value="cliente">Cliente</option>
+                  <option value="admin">Administrador</option>
+                </select>
+              </div>
+            </form>
+          </div>
+
+          <!-- Membresía -->
+          <div id="membresia-content" class="tab-pane hidden" role="tabpanel">
+            <div class="space-y-4">
+              <div id="membresia-actual" class="p-4 bg-[#243547] rounded-xl">
+                <h4 class="text-white font-bold mb-2">Membresía Actual</h4>
+                <div id="membresia-info" class="text-[#93adc8]">
+                  <!-- Se llenará dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rutinas -->
+          <div id="rutinas-content" class="tab-pane hidden" role="tabpanel">
+            <div class="space-y-4">
+              <div id="rutinas-actuales" class="p-4 bg-[#243547] rounded-xl">
+                <h4 class="text-white font-bold mb-2">Rutinas Asignadas</h4>
+                <div id="rutinas-info" class="text-[#93adc8]">
+                  <!-- Se llenará dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accesos -->
+          <div id="accesos-content" class="tab-pane hidden" role="tabpanel">
+            <div class="space-y-4">
+              <div class="p-4 bg-[#243547] rounded-xl">
+                <h4 class="text-white font-bold mb-2">Últimos Accesos</h4>
+                <div id="accesos-info" class="text-[#93adc8]">
+                  <!-- Se llenará dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progreso -->
+          <div id="progreso-content" class="tab-pane hidden" role="tabpanel">
+            <div class="space-y-4">
+              <div id="progreso-actual" class="p-4 bg-[#243547] rounded-xl">
+                <h4 class="text-white font-bold mb-2">Historial de Progreso</h4>
+                <div id="progreso-info" class="text-[#93adc8]">
+                  <!-- Se llenará dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nutrición -->
+          <div id="nutricion-content" class="tab-pane hidden" role="tabpanel">
+            <div class="space-y-4">
+              <div id="plan-actual" class="p-4 bg-[#243547] rounded-xl">
+                <h4 class="text-white font-bold mb-2">Plan Nutricional Actual</h4>
+                <div id="plan-info" class="text-[#93adc8]">
+                  <!-- Se llenará dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clases -->
+          <div id="clases-content" class="tab-pane hidden" role="tabpanel">
+            <div class="space-y-4">
+              <div id="clases-actuales" class="p-4 bg-[#243547] rounded-xl">
+                <h4 class="text-white font-bold mb-2">Clases Inscritas</h4>
+                <div id="clases-info" class="text-[#93adc8]">
+                  <!-- Se llenará dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3 mt-6">
+          <button onclick="closeEditModal()" class="px-4 py-2 rounded-xl bg-[#243547] text-white hover:bg-[#344c65]">
+            Cancelar
+          </button>
+          <button onclick="saveEdit()" class="px-4 py-2 rounded-xl bg-[#1568c1] text-white hover:bg-[#1a5aa3]">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    function openModal() {
+      document.getElementById('newMemberModal').classList.remove('hidden');
+      document.getElementById('newMemberModal').classList.add('flex');
+    }
+
+    function closeModal() {
+      document.getElementById('newMemberModal').classList.add('hidden');
+      document.getElementById('newMemberModal').classList.remove('flex');
+      // Limpiar el formulario al cerrar
+      document.getElementById('newMemberForm').reset();
+    }
+
+    function saveMember() {
+      const form = document.getElementById('newMemberForm');
+      const formData = new FormData(form);
+      
+      // Validar que todos los campos requeridos estén llenos
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Enviar datos al servidor
+      fetch('index.php?controlador=miembros&action=crear_miembro', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text().then(text => {
+          try {
+            return JSON.parse(text);
+          } catch (e) {
+            console.error('Error parsing JSON:', text);
+            throw new Error('Invalid JSON response from server');
+          }
+        });
+      })
+      .then(data => {
+        if (data.success) {
+          // Recargar la página para mostrar el nuevo miembro
+          window.location.reload();
+        } else {
+          // Mostrar mensaje de error
+          alert('Error: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error completo:', error);
+        alert('Error al crear el miembro: ' + error.message);
+      });
+    }
+
+    // Agregar el evento click al botón New Member
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('newMemberBtn').addEventListener('click', openModal);
+
+      // Agregar evento click a los botones de edición
+      document.querySelectorAll('.edit-member-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const id = this.getAttribute('data-id');
+          openEditModal(id);
+        });
+      });
+    });
+
+    function openEditModal(id) {
+      // Obtener los datos del miembro
+      fetch('index.php?controlador=miembros&action=get_member_data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'id=' + id
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text().then(text => {
+          try {
+            return JSON.parse(text);
+          } catch (e) {
+            console.error('Error parsing JSON:', text);
+            throw new Error('Invalid JSON response from server');
+          }
+        });
+      })
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+          return;
+        }
+        
+        // Llenar el formulario con los datos
+        document.getElementById('edit_id_usuario').value = data.id_usuario;
+        document.getElementById('edit_nombre').value = data.nombre;
+        document.getElementById('edit_email').value = data.email;
+        document.getElementById('edit_tipo').value = data.tipo;
+        
+        // Mostrar el modal
+        document.getElementById('editMemberModal').classList.remove('hidden');
+        document.getElementById('editMemberModal').classList.add('flex');
+      })
+      .catch(error => {
+        console.error('Error completo:', error);
+        alert('Error al cargar los datos del miembro: ' + error.message);
+      });
+    }
+
+    // Función para cargar los datos de cada pestaña
+    function loadTabData(tabId) {
+      const memberId = document.getElementById('editMemberForm').querySelector('input[name="id_usuario"]').value;
+      
+      switch(tabId) {
+        case 'membresia-tab':
+          loadMembresiaData(memberId);
+          break;
+        case 'rutinas-tab':
+          loadRutinasData(memberId);
+          break;
+        case 'accesos-tab':
+          loadAccesosData(memberId);
+          break;
+        case 'progreso-tab':
+          loadProgresoData(memberId);
+          break;
+        case 'nutricion-tab':
+          loadNutricionData(memberId);
+          break;
+        case 'clases-tab':
+          loadClasesData(memberId);
+          break;
+      }
+    }
+
+    // Función para cargar datos de membresía
+    function loadMembresiaData(memberId) {
+      fetch(`index.php?controlador=miembros&action=get_membresia_data&id=${memberId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const membresiaData = data.data;
+            const container = document.getElementById('membresia-content');
+            if (membresiaData) {
+              container.innerHTML = `
+                <div class="p-4">
+                  <h3 class="text-lg font-semibold mb-2">Membresía Actual</h3>
+                  <p><strong>Tipo:</strong> ${membresiaData.tipo_nombre}</p>
+                  <p><strong>Fecha Inicio:</strong> ${membresiaData.fecha_inicio}</p>
+                  <p><strong>Fecha Fin:</strong> ${membresiaData.fecha_fin}</p>
+                  <p><strong>Estado:</strong> ${membresiaData.estado}</p>
+                </div>
+              `;
+            } else {
+              container.innerHTML = '<p class="p-4">No hay datos de membresía disponibles.</p>';
+            }
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Función para cargar datos de rutinas
+    function loadRutinasData(memberId) {
+      fetch(`index.php?controlador=miembros&action=get_rutinas_data&id=${memberId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const rutinas = data.data;
+            const container = document.getElementById('rutinas-content');
+            if (rutinas && rutinas.length > 0) {
+              let html = '<div class="p-4"><h3 class="text-lg font-semibold mb-2">Rutinas Asignadas</h3><ul>';
+              rutinas.forEach(rutina => {
+                html += `
+                  <li class="mb-2">
+                    <p><strong>Nombre:</strong> ${rutina.nombre}</p>
+                    <p><strong>Fecha Asignación:</strong> ${rutina.fecha_asignacion}</p>
+                  </li>
+                `;
+              });
+              html += '</ul></div>';
+              container.innerHTML = html;
+            } else {
+              container.innerHTML = '<p class="p-4">No hay rutinas asignadas.</p>';
+            }
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Función para cargar datos de accesos
+    function loadAccesosData(memberId) {
+      fetch(`index.php?controlador=miembros&action=get_accesos_data&id=${memberId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const accesos = data.data;
+            const container = document.getElementById('accesos-content');
+            if (accesos && accesos.length > 0) {
+              let html = '<div class="p-4"><h3 class="text-lg font-semibold mb-2">Últimos Accesos</h3><ul>';
+              accesos.forEach(acceso => {
+                html += `
+                  <li class="mb-2">
+                    <p><strong>Fecha:</strong> ${acceso.fecha}</p>
+                    <p><strong>Hora:</strong> ${acceso.hora}</p>
+                  </li>
+                `;
+              });
+              html += '</ul></div>';
+              container.innerHTML = html;
+            } else {
+              container.innerHTML = '<p class="p-4">No hay registros de acceso.</p>';
+            }
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Función para cargar datos de progreso
+    function loadProgresoData(memberId) {
+      fetch(`index.php?controlador=miembros&action=get_progreso_data&id=${memberId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const progreso = data.data;
+            const container = document.getElementById('progreso-content');
+            if (progreso && progreso.length > 0) {
+              let html = '<div class="p-4"><h3 class="text-lg font-semibold mb-2">Registro de Progreso</h3><ul>';
+              progreso.forEach(registro => {
+                html += `
+                  <li class="mb-2">
+                    <p><strong>Fecha:</strong> ${registro.fecha}</p>
+                    <p><strong>Peso:</strong> ${registro.peso} kg</p>
+                    <p><strong>Grasa Corporal:</strong> ${registro.grasa_corporal}%</p>
+                    <p><strong>Músculo:</strong> ${registro.musculo}%</p>
+                    <p><strong>Notas:</strong> ${registro.notas || 'Sin notas'}</p>
+                  </li>
+                `;
+              });
+              html += '</ul></div>';
+              container.innerHTML = html;
+            } else {
+              container.innerHTML = '<p class="p-4">No hay registros de progreso.</p>';
+            }
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Función para cargar datos de nutrición
+    function loadNutricionData(memberId) {
+      fetch(`index.php?controlador=miembros&action=get_nutricion_data&id=${memberId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const nutricion = data.data;
+            const container = document.getElementById('nutricion-content');
+            if (nutricion) {
+              container.innerHTML = `
+                <div class="p-4">
+                  <h3 class="text-lg font-semibold mb-2">Plan de Nutrición</h3>
+                  <p><strong>Objetivo:</strong> ${nutricion.objetivo_nombre}</p>
+                  <p><strong>Calorías Diarias:</strong> ${nutricion.calorias_diarias}</p>
+                  <p><strong>Fecha Inicio:</strong> ${nutricion.fecha_inicio}</p>
+                  <p><strong>Recomendaciones:</strong> ${nutricion.recomendaciones}</p>
+                </div>
+              `;
+            } else {
+              container.innerHTML = '<p class="p-4">No hay plan de nutrición asignado.</p>';
+            }
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Función para cargar datos de clases
+    function loadClasesData(memberId) {
+      fetch(`index.php?controlador=miembros&action=get_clases_data&id=${memberId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const clases = data.data;
+            const container = document.getElementById('clases-content');
+            if (clases && clases.length > 0) {
+              let html = '<div class="p-4"><h3 class="text-lg font-semibold mb-2">Clases Asignadas</h3><ul>';
+              clases.forEach(clase => {
+                html += `
+                  <li class="mb-2">
+                    <p><strong>Clase:</strong> ${clase.nombre}</p>
+                    <p><strong>Día:</strong> ${clase.dia}</p>
+                    <p><strong>Horario:</strong> ${clase.hora_inicio} - ${clase.hora_fin}</p>
+                    <p><strong>Instructor:</strong> ${clase.instructor}</p>
+                  </li>
+                `;
+              });
+              html += '</ul></div>';
+              container.innerHTML = html;
+            } else {
+              container.innerHTML = '<p class="p-4">No hay clases asignadas.</p>';
+            }
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Agregar event listeners para las pestañas
+    document.querySelectorAll('[role="tab"]').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remover clase activa de todas las pestañas
+        document.querySelectorAll('[role="tab"]').forEach(t => {
+          t.classList.remove('active', 'text-white', 'border-b-2', 'border-[#1568c1]');
+          t.classList.add('text-[#93adc8]');
+          t.setAttribute('aria-selected', 'false');
+        });
+        
+        // Agregar clase activa a la pestaña seleccionada
+        this.classList.add('active', 'text-white', 'border-b-2', 'border-[#1568c1]');
+        this.classList.remove('text-[#93adc8]');
+        this.setAttribute('aria-selected', 'true');
+        
+        // Ocultar todos los paneles
+        document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
+          panel.classList.add('hidden');
+        });
+        
+        // Mostrar el panel correspondiente
+        const targetId = this.getAttribute('aria-controls');
+        const targetPane = document.getElementById(targetId);
+        targetPane.classList.remove('hidden');
+        
+        // Cargar los datos de la pestaña
+        loadTabData(this.id);
+      });
+    });
+
+    function closeEditModal() {
+      document.getElementById('editMemberModal').classList.add('hidden');
+      document.getElementById('editMemberModal').classList.remove('flex');
+    }
+
+    function saveEdit() {
+      const form = document.getElementById('editMemberForm');
+      const formData = new FormData(form);
+      
+      // Validar que todos los campos requeridos estén llenos
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      fetch('index.php?controlador=miembros&action=update_member', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text().then(text => {
+          try {
+            return JSON.parse(text);
+          } catch (e) {
+            console.error('Error parsing JSON:', text);
+            throw new Error('Invalid JSON response from server');
+          }
+        });
+      })
+      .then(data => {
+        if (data.success) {
+          // Actualizar la fila en la tabla sin recargar la página
+          const row = document.querySelector(`.edit-member-btn[data-id="${formData.get('id_usuario')}"]`).closest('tr');
+          const cells = row.cells;
+          
+          cells[0].textContent = formData.get('nombre');
+          cells[1].textContent = formData.get('email');
+          cells[3].querySelector('span').textContent = formData.get('tipo');
+          
+          closeEditModal();
+        } else {
+          alert('Error al actualizar el miembro: ' + (data.message || 'Error desconocido'));
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error al actualizar el miembro: ' + error.message);
+      });
+    }
+    </script>
   </body>
 </html>
