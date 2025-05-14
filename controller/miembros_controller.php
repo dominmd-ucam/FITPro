@@ -23,7 +23,9 @@ function home(){
         $html .= '<span class="truncate">Active</span>';
         $html .= '</button>';
         $html .= '</td>';
-        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-720 h-[72px] px-4 py-2 w-60 text-[#93adc8] text-sm font-bold leading-normal tracking-[0.015em]">Edit</td>';
+        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-720 h-[72px] px-4 py-2 w-60 text-[#93adc8] text-sm font-bold leading-normal tracking-[0.015em]">';
+        $html .= '<button class="edit-member-btn cursor-pointer" data-id="' . $row['id_usuario'] . '">Edit</button>';
+        $html .= '</td>';
         $html .= '</tr>';
     }
     
@@ -88,4 +90,215 @@ function registrar() {
     }
 
     require_once("view/registro_view.php");
+}
+
+function crear_miembro() {
+    // Asegurarnos de que no hay salida antes de los headers
+    ob_clean();
+    
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
+    
+    $response = array('success' => false, 'message' => '');
+    
+    try {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nombre = trim($_POST['nombre'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $passwd = trim($_POST['passwd'] ?? '');
+            $tipo = trim($_POST['tipo'] ?? 'cliente');
+            
+            if (empty($nombre) || empty($email) || empty($passwd)) {
+                $response['message'] = "Todos los campos son obligatorios.";
+            } elseif ($datos->usuario_existe($nombre)) {
+                $response['message'] = "El usuario ya existe. Intenta con otro nombre.";
+            } elseif ($datos->email_existe($email)) {
+                $response['message'] = "El email ya está registrado.";
+            } else {
+                if ($datos->registrar_usuario($nombre, $email, $passwd, $tipo)) {
+                    $response['success'] = true;
+                    $response['message'] = "Miembro creado exitosamente.";
+                } else {
+                    $response['message'] = "Error al crear el miembro en la base de datos.";
+                }
+            }
+        } else {
+            $response['message'] = "Método de solicitud no válido.";
+        }
+    } catch (Exception $e) {
+        $response['message'] = "Error: " . $e->getMessage();
+    }
+    
+    // Asegurarnos de que no hay salida antes de los headers
+    if (ob_get_length()) ob_clean();
+    
+    // Establecer los headers correctos
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
+    // Enviar la respuesta JSON
+    echo json_encode($response);
+    exit();
+}
+
+function get_member_data() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
+    try {
+        if (isset($_POST['id'])) {
+            $id = intval($_POST['id']);
+            $resultado = $datos->get_member_complete_data($id);
+            
+            if ($resultado) {
+                echo json_encode($resultado);
+            } else {
+                echo json_encode(['error' => 'No se encontró el miembro']);
+            }
+        } else {
+            echo json_encode(['error' => 'ID no proporcionado']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['error' => 'Error al obtener datos del miembro: ' . $e->getMessage()]);
+    }
+    
+    exit();
+}
+
+function update_member() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
+    try {
+        if (isset($_POST['id_usuario'])) {
+            $id = $_POST['id_usuario'];
+            $nombre = $_POST['nombre'];
+            $email = $_POST['email'];
+            $tipo = $_POST['tipo'];
+            $passwd = isset($_POST['passwd']) && !empty($_POST['passwd']) ? $_POST['passwd'] : null;
+            
+            $resultado = $datos->update_member($id, $nombre, $email, $tipo, $passwd);
+            
+            if ($resultado) {
+                echo json_encode(['success' => true, 'message' => 'Miembro actualizado correctamente']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al actualizar el miembro']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    }
+    exit();
+}
+
+function get_membresia_data() {
+    if (!isset($_GET['id'])) {
+        echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+        return;
+    }
+
+    $id = $_GET['id'];
+    $membresia = $this->model->get_membresia_data($id);
+    
+    if ($membresia) {
+        echo json_encode(['success' => true, 'data' => $membresia]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No se encontró la membresía']);
+    }
+}
+
+function get_rutinas_data() {
+    if (!isset($_GET['id'])) {
+        echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+        return;
+    }
+
+    $id = $_GET['id'];
+    $rutinas = $this->model->get_rutinas_data($id);
+    
+    if ($rutinas) {
+        echo json_encode(['success' => true, 'data' => $rutinas]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No se encontraron rutinas']);
+    }
+}
+
+function get_accesos_data() {
+    if (!isset($_GET['id'])) {
+        echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+        return;
+    }
+
+    $id = $_GET['id'];
+    $accesos = $this->model->get_accesos_data($id);
+    
+    if ($accesos) {
+        echo json_encode(['success' => true, 'data' => $accesos]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No se encontraron accesos']);
+    }
+}
+
+function get_progreso_data() {
+    if (!isset($_GET['id'])) {
+        echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+        return;
+    }
+
+    $id = $_GET['id'];
+    $progreso = $this->model->get_progreso_data($id);
+    
+    if ($progreso) {
+        echo json_encode(['success' => true, 'data' => $progreso]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No se encontró progreso']);
+    }
+}
+
+function get_nutricion_data() {
+    if (!isset($_GET['id'])) {
+        echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+        return;
+    }
+
+    $id = $_GET['id'];
+    $nutricion = $this->model->get_nutricion_data($id);
+    
+    if ($nutricion) {
+        echo json_encode(['success' => true, 'data' => $nutricion]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No se encontró plan nutricional']);
+    }
+}
+
+function get_clases_data() {
+    if (!isset($_GET['id'])) {
+        echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+        return;
+    }
+
+    $id = $_GET['id'];
+    $clases = $this->model->get_clases_data($id);
+    
+    if ($clases) {
+        echo json_encode(['success' => true, 'data' => $clases]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'No se encontraron clases']);
+    }
 }
