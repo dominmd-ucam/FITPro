@@ -15,12 +15,12 @@
   border-radius: 0rem;
 }
 
-.position-absolute{
+/* .position-absolute{
   margin-top: -20px !important;
 }
 .card{
   margin-top: -200px !important;
-}
+} */
 
 .login-card {
   margin-top: -80px; /* Sube el formulario para que cruce con el header */
