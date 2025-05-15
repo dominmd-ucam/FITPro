@@ -1,0 +1,82 @@
+ /* Estilos globales para modo oscuro */
+body {
+  font-family: 'sora', 'Noto Sans', sans-serif !important;
+  background-color: #111418 !important;
+  color: #ffffff !important;
+}
+
+/* Tarjetas personalizadas */
+.card-custom {
+  background-color: #1c2126 !important;
+  border: 1px solid #3c4753 !important;
+  color: #e6e6e6 !important;
+}
+
+/* Botones personalizados */
+.btn-primary-custom {
+  background-color: #1568c1 !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.btn-dark-custom {
+  background-color: #293038 !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+/* Badges personalizadas */
+.badge-custom {
+  background-color: #1568c1 !important;
+  color: #ffffff !important;
+}
+
+/* Imagen circular para testimonios */
+.testimonial-img {
+  width: 40px !important;
+  height: 40px !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border-radius: 50% !important;
+}
+
+/* Sección con imagen de fondo */
+.bg-cover-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url('https://cdn.usegalileo.ai/sdxl10/52438fbe-66f7-43b4-af05-22b7ef8b670a.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border-radius: 1rem !important;
+}
+
+/* Listas y textos dentro de tarjetas */
+.card-custom ul li,
+.card-custom p,
+.card-custom small {
+  color: #f8f9fa !important;
+  font-size: 0.95rem !important;
+}
+
+/* Precio y nombre del plan */
+.card-custom h5,
+.card-custom h2 {
+  color: #ffffff !important;
+}
+
+.card-custom small {
+  color: #d1d1d1 !important;
+  font-weight: 600 !important;
+}
+
+/* Nombres de usuario en testimonios */
+.testimonial-img + strong {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Aumentar legibilidad en pantallas pequeñas */
+@media (max-width: 576px) {
+  .card-custom {
+    font-size: 1rem !important;
+  }
+}
+

@@ -8,6 +8,11 @@ html, body {
 /* Estilos generales del header FitPro */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap');
 
+
+*{
+     font-family: 'Sora', sans-serif;
+}
+
 .main-page-header {
     font-family: 'Sora', sans-serif;
     font-size: 15px;
@@ -62,6 +67,7 @@ html, body {
 .title-wrapper i {
     font-size: 1.2em;
     color: #f7fafc;
+    margin-left: 20px !important;
 }
 
 .js-service-menu .service-links-inline {
@@ -255,7 +261,7 @@ html, body {
   font-weight: bold !important;
   text-transform: uppercase !important;
   text-decoration: none !important;
-  border-radius: 0px !important;
+  border-radius: 10px !important;
   transition: all 0.3s ease !important;
 }
 
@@ -265,4 +271,86 @@ html, body {
 }
 .title-wrapper i {
   color: #1568c1 !important;
+}
+
+
+/* Estilos del menú hamburguesa */
+.hamburger-btn {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10000;
+}
+
+/* Menú móvil */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #1e2c3c;
+    padding: 20px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-menu ul li {
+    margin-bottom: 15px;
+}
+
+.mobile-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.mobile-menu.open {
+    display: flex;
+}
+
+/* Responsive: mostrar solo en móviles/tablets */
+@media screen and (max-width: 1024px) {
+    .desktop-menu {
+        display: none !important;
+    }
+
+    .hamburger-btn {
+        display: block;
+    }
+
+    .mobile-menu {
+        display: none;
+    }
+
+    .mobile-menu.open {
+        display: flex;
+    }
+}
+/* Ocultar fila USP solo en móviles y tablets */
+@media screen and (max-width: 1024px) {
+  .header-row-usp {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block !important;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .mobile-only {
+    display: none !important;
+  }
 }

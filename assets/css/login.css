@@ -1,64 +1,98 @@
+
+
 .bg-gradient-orange {
-    background: linear-gradient(135deg, #111922 0%, #3a5574 100%);
+  background: linear-gradient(135deg, #111922 0%, #3a5574 100%);
+  border-radius: 0rem;
 }
 
 .login-wrapper {
-    background-color: #f8f9fa;
-    min-height: calc(100vh - 420px) !important;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 0;
-}
-.login-card {
-    margin-top: -80px; /* Sube el formulario para que cruce con el header */
-    z-index: 10;
+  background-color: #1568c1 !important;
+  min-height: calc(100vh - 420px) !important;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+  border-radius: 0rem;
 }
 
+.position-absolute{
+  margin-top: -20px !important;
+}
+.card{
+  margin-top: -200px !important;
+}
+
+.login-card {
+  margin-top: -80px; /* Sube el formulario para que cruce con el header */
+  z-index: 10;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
 
 .header-fitpro img {
-    height: 240px;
-    object-fit: contain;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 0rem;
 }
 
 .header-decoration {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 200px;
-    z-index: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  z-index: 0;
+  border-radius: 0 0 0 2rem;
 }
 
 .header-fitpro {
-    height: 420px;
-    background-color: #111922 !important;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Input del formulario */
-  .form-control {
-    background-color: #2d425a !important;
-    color: #ffffff !important;
-    border: none !important;
-  }
-  
-  .form-control::placeholder {
-    color: #e0e0e0 !important;
-  }
-  
-  .form-label {
-    color: #111922 !important;
-    font-weight: bold !important;
-  }
-  
-  .btn-primary {
-    background-color: #2d425a !important;
-    border: none !important;
-  }
-  
-  .btn-primary:hover {
-    background-color: #b9b9b9    !important;
-    color: #2d425a !important;
-  }
+  height: 420px;
+  background-color: #111922 !important;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 0rem;
+  border-bottom-right-radius: 0rem;
+}
+
+/* Input del formulario */
+.form-control {
+  background-color: #2d425a !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 0.75rem 1rem;
+}
+
+.form-control::placeholder {
+  color: #e0e0e0 !important;
+}
+
+.form-label {
+  color: #111922 !important;
+  font-weight: bold !important;
+  font-family: 'Sora', sans-serif;
+}
+
+.btn-primary {
+  background-color: #2d425a !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 0.6rem 1.2rem;
+}
+
+.btn-primary:hover {
+  background-color: #1568c1 !important;
+  color: #fff !important;
+}
+
+        @media (max-width: 767.98px) {
+          .login-card {
+          margin-top: -180px !important;
+          }
+          .login-wrapper {
+  padding-bottom: 2rem;
+}
+
+        }
+     

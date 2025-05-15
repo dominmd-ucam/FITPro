@@ -16,8 +16,7 @@ if (isset($_SESSION["nombre"])) {
     } else {
         // require_once("view/menu.php");
         include("view/dashboard_user.php");
-        echo "<p>HOLA MUNDO</p>";
-        echo "<p>ESTÁS CONECTADO COMO " . htmlspecialchars($_SESSION["nombre"]) . "</p>";
+       
     }
 
 // Usuario no conectado: mostrar landing
