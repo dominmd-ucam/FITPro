@@ -937,6 +937,34 @@
         alert('Error al actualizar el miembro: ' + error.message);
       });
     }
+
+    // Función para confirmar y borrar miembro
+    window.confirmarBorrado = function(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este miembro? Esta acción no se puede deshacer.')) {
+            fetch('index.php?controlador=miembros&action=delete_member', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id=' + id
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    // Actualizar la tabla usando DataTables
+                    const table = $('#membersTable').DataTable();
+                    table.row($(`button[onclick="confirmarBorrado(${id})"]`).closest('tr')).remove().draw();
+                } else {
+                    alert(data.message || 'Error al eliminar el miembro');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar el miembro');
+            });
+        }
+    }
     </script>
   </body>
 </html>

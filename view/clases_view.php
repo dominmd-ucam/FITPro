@@ -345,5 +345,428 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal para crear clase -->
+    <div id="newClassModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+      <div class="bg-[#111922] rounded-xl p-6 w-[500px]">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-white text-xl font-bold">Nueva Clase</h2>
+          <button id="closeModal" class="text-white hover:text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        </div>
+        <form id="newClassForm" class="space-y-4">
+          <div>
+            <label for="nombre" class="block text-white text-sm font-medium mb-2">Nombre</label>
+            <input type="text" id="nombre" name="nombre" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="descripcion" class="block text-white text-sm font-medium mb-2">Descripción</label>
+            <textarea id="descripcion" name="descripcion" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1] h-24" required></textarea>
+          </div>
+          <div>
+            <label for="entrenador_id" class="block text-white text-sm font-medium mb-2">Entrenador</label>
+            <select id="entrenador_id" name="entrenador_id" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+              <option value="">Seleccionar entrenador</option>
+            </select>
+          </div>
+          <div>
+            <label for="dia_semana" class="block text-white text-sm font-medium mb-2">Día de la semana</label>
+            <select id="dia_semana" name="dia_semana" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+              <option value="">Seleccionar día</option>
+              <option value="Lunes">Lunes</option>
+              <option value="Martes">Martes</option>
+              <option value="Miércoles">Miércoles</option>
+              <option value="Jueves">Jueves</option>
+              <option value="Viernes">Viernes</option>
+              <option value="Sábado">Sábado</option>
+              <option value="Domingo">Domingo</option>
+            </select>
+          </div>
+          <div>
+            <label for="hora_inicio" class="block text-white text-sm font-medium mb-2">Hora de inicio</label>
+            <input type="time" id="hora_inicio" name="hora_inicio" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="hora_fin" class="block text-white text-sm font-medium mb-2">Hora de fin</label>
+            <input type="time" id="hora_fin" name="hora_fin" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div class="flex justify-end gap-4 mt-6">
+            <button type="button" id="cancelNewClass" class="px-4 py-2 rounded-xl bg-[#243547] text-white hover:bg-[#344c65]">Cancelar</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-[#1568c1] text-white hover:bg-[#1a5aa3]">Crear Clase</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div id="editClassModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Clase</h2>
+            <form id="editClassForm">
+                <input type="hidden" id="edit_class_id" name="id">
+                <div class="form-group">
+                    <label for="edit_nombre">Nombre:</label>
+                    <input type="text" id="edit_nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_descripcion">Descripción:</label>
+                    <textarea id="edit_descripcion" name="descripcion" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit_entrenador_id">Entrenador:</label>
+                    <select id="edit_entrenador_id" name="entrenador_id" required>
+                        <option value="">Seleccione un entrenador</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit_dia_semana">Día de la semana:</label>
+                    <select id="edit_dia_semana" name="dia_semana" required>
+                        <option value="Lunes">Lunes</option>
+                        <option value="Martes">Martes</option>
+                        <option value="Miércoles">Miércoles</option>
+                        <option value="Jueves">Jueves</option>
+                        <option value="Viernes">Viernes</option>
+                        <option value="Sábado">Sábado</option>
+                        <option value="Domingo">Domingo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit_hora_inicio">Hora de inicio:</label>
+                    <input type="time" id="edit_hora_inicio" name="hora_inicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_hora_fin">Hora de fin:</label>
+                    <input type="time" id="edit_hora_fin" name="hora_fin" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideEditModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+    /* Estilos para el modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+        background-color: #111922;
+        margin: 5% auto;
+        padding: 2rem;
+        border-radius: 1rem;
+        width: 500px;
+        position: relative;
+    }
+
+    .close {
+        color: #93adc8;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover {
+        color: white;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        color: white;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        background-color: #243547;
+        border: none;
+        color: white;
+        font-size: 0.875rem;
+    }
+
+    .form-group textarea {
+        height: 6rem;
+        resize: vertical;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #1568c1;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #1a5aa3;
+    }
+
+    .btn-secondary {
+        background-color: #243547;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #344c65;
+    }
+    </style>
+
+    <script>
+    // Funciones globales para el modal de edición
+    function showEditModal(id) {
+        const modal = document.getElementById('editClassModal');
+        modal.style.display = 'block';
+        
+        // Primero cargar los entrenadores
+        loadTrainersForEdit().then(() => {
+            // Luego cargar los datos de la clase
+            fetch('index.php?controlador=clases&action=get_clase_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id=' + id
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                    hideEditModal();
+                    return;
+                }
+                
+                document.getElementById('edit_class_id').value = data.id;
+                document.getElementById('edit_nombre').value = data.nombre;
+                document.getElementById('edit_descripcion').value = data.descripcion;
+                document.getElementById('edit_entrenador_id').value = data.entrenador_id;
+                document.getElementById('edit_dia_semana').value = data.dia_semana;
+                document.getElementById('edit_hora_inicio').value = data.hora_inicio;
+                document.getElementById('edit_hora_fin').value = data.hora_fin;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al cargar los datos de la clase');
+                hideEditModal();
+            });
+        });
+    }
+
+    function hideEditModal() {
+        const modal = document.getElementById('editClassModal');
+        modal.style.display = 'none';
+    }
+
+    // Función para cargar entrenadores en el select de edición
+    async function loadTrainersForEdit() {
+        try {
+            const response = await fetch('index.php?controlador=clases&action=get_trainers');
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            const data = await response.json();
+            
+            const select = document.getElementById('edit_entrenador_id');
+            select.innerHTML = '<option value="">Seleccione un entrenador</option>';
+            
+            if (Array.isArray(data)) {
+                data.forEach(trainer => {
+                    const option = document.createElement('option');
+                    option.value = trainer.id;
+                    option.textContent = trainer.nombre;
+                    select.appendChild(option);
+                });
+            }
+            return Promise.resolve();
+        } catch (error) {
+            console.error('Error al cargar entrenadores:', error);
+            alert('Error al cargar la lista de entrenadores');
+            return Promise.reject(error);
+        }
+    }
+
+    // Funciones para el modal de nueva clase
+    function showNewClassModal() {
+        const modal = document.getElementById('newClassModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        loadTrainers(); // Cargar entrenadores al abrir el modal
+    }
+
+    function hideNewClassModal() {
+        const modal = document.getElementById('newClassModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.getElementById('newClassForm').reset();
+    }
+
+    // Función para cargar entrenadores en el select de nueva clase
+    async function loadTrainers() {
+        try {
+            const response = await fetch('index.php?controlador=clases&action=get_trainers');
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            const data = await response.json();
+            
+            const select = document.getElementById('entrenador_id');
+            select.innerHTML = '<option value="">Seleccionar entrenador</option>';
+            
+            if (Array.isArray(data)) {
+                data.forEach(trainer => {
+                    const option = document.createElement('option');
+                    option.value = trainer.id;
+                    option.textContent = trainer.nombre;
+                    select.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Error al cargar entrenadores:', error);
+            alert('Error al cargar la lista de entrenadores');
+        }
+    }
+
+    $(document).ready(function() {
+        // ... existing DataTable initialization code ...
+
+        // Event listeners para el modal de nueva clase
+        $('button:has(span:contains("New class"))').on('click', showNewClassModal);
+        $('#closeModal').on('click', hideNewClassModal);
+        $('#cancelNewClass').on('click', hideNewClassModal);
+
+        // Cerrar modal de nueva clase al hacer clic fuera
+        $('#newClassModal').on('click', function(e) {
+            if (e.target === this) {
+                hideNewClassModal();
+            }
+        });
+
+        // Manejar el envío del formulario de nueva clase
+        $('#newClassForm').on('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('index.php?controlador=clases&action=crear_clase', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(data.message);
+                    hideNewClassModal();
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al crear la clase');
+            }
+        });
+
+        // Event listeners para el modal de edición
+        $('#editClassModal .close').on('click', hideEditModal);
+        
+        // Cerrar modal de edición al hacer clic fuera
+        $('#editClassModal').on('click', function(e) {
+            if (e.target === this) {
+                hideEditModal();
+            }
+        });
+
+        // Manejar el envío del formulario de edición
+        $('#editClassForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('index.php?controlador=clases&action=update_clase', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Clase actualizada exitosamente');
+                    hideEditModal();
+                    location.reload();
+                } else {
+                    alert(data.message || 'Error al actualizar la clase');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al actualizar la clase');
+            });
+        });
+
+        // ... rest of your existing code ...
+    });
+
+    // Añadir la función de confirmación y borrado en el script
+    function confirmarBorrado(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar esta clase? Esta acción no se puede deshacer.')) {
+            fetch('index.php?controlador=clases&action=eliminar_clase', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'id=' + id
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.message || 'Error al eliminar la clase');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar la clase');
+            });
+        }
+    }
+    </script>
   </body>
 </html> 

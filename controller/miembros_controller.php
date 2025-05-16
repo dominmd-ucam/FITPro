@@ -24,7 +24,10 @@ function home(){
         $html .= '</button>';
         $html .= '</td>';
         $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-720 h-[72px] px-4 py-2 w-60 text-[#93adc8] text-sm font-bold leading-normal tracking-[0.015em]">';
+        $html .= '<div class="flex gap-2">';
         $html .= '<button class="edit-member-btn cursor-pointer" data-id="' . $row['id_usuario'] . '">Edit</button>';
+        $html .= '<button onclick="confirmarBorrado(' . $row['id_usuario'] . ')" class="text-red-500 hover:text-red-700">Delete</button>';
+        $html .= '</div>';
         $html .= '</td>';
         $html .= '</tr>';
     }
@@ -300,5 +303,30 @@ function get_clases_data() {
         echo json_encode(['success' => true, 'data' => $clases]);
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontraron clases']);
+    }
+}
+
+function delete_member() {
+    if (ob_get_length()) ob_clean();
+    
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id = $_POST['id'] ?? 0;
+        
+        if (empty($id)) {
+            echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+            exit();
+        }
+
+        require_once("model/miembros_model.php");
+        $datos = new Miembros_model();
+        $result = $datos->delete_member($id);
+        echo json_encode($result);
+        exit();
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Método no permitido']);
+        exit();
     }
 }

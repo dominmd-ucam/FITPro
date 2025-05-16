@@ -345,5 +345,249 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal para crear entrenador -->
+    <div id="newTrainerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+      <div class="bg-[#111922] rounded-xl p-6 w-[500px]">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-white text-xl font-bold">Nuevo Entrenador</h2>
+          <button id="closeModal" class="text-white hover:text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        </div>
+        <form id="newTrainerForm" class="space-y-4">
+          <div>
+            <label for="nombre" class="block text-white text-sm font-medium mb-2">Nombre</label>
+            <input type="text" id="nombre" name="nombre" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="email" class="block text-white text-sm font-medium mb-2">Email</label>
+            <input type="email" id="email" name="email" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="telefono" class="block text-white text-sm font-medium mb-2">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="especialidad" class="block text-white text-sm font-medium mb-2">Especialidad</label>
+            <input type="text" id="especialidad" name="especialidad" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div class="flex justify-end gap-4 mt-6">
+            <button type="button" id="cancelNewTrainer" class="px-4 py-2 rounded-xl bg-[#243547] text-white hover:bg-[#344c65]">Cancelar</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-[#1568c1] text-white hover:bg-[#1a5aa3]">Crear Entrenador</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para editar entrenador -->
+    <div id="editTrainerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+      <div class="bg-[#111922] rounded-xl p-6 w-[500px]">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-white text-xl font-bold">Editar Entrenador</h2>
+          <button id="closeEditModal" class="text-white hover:text-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        </div>
+        <form id="editTrainerForm" class="space-y-4">
+          <input type="hidden" id="edit_id" name="id">
+          <div>
+            <label for="edit_nombre" class="block text-white text-sm font-medium mb-2">Nombre</label>
+            <input type="text" id="edit_nombre" name="nombre" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="edit_email" class="block text-white text-sm font-medium mb-2">Email</label>
+            <input type="email" id="edit_email" name="email" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="edit_telefono" class="block text-white text-sm font-medium mb-2">Teléfono</label>
+            <input type="tel" id="edit_telefono" name="telefono" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div>
+            <label for="edit_especialidad" class="block text-white text-sm font-medium mb-2">Especialidad</label>
+            <input type="text" id="edit_especialidad" name="especialidad" class="w-full px-4 py-2 rounded-xl bg-[#243547] text-white border-none focus:outline-none focus:ring-2 focus:ring-[#1568c1]" required>
+          </div>
+          <div class="flex justify-end gap-4 mt-6">
+            <button type="button" id="cancelEditTrainer" class="px-4 py-2 rounded-xl bg-[#243547] text-white hover:bg-[#344c65]">Cancelar</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-[#1568c1] text-white hover:bg-[#1a5aa3]">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        // ... existing DataTable initialization code ...
+
+        // Funcionalidad del modal
+        const modal = $('#newTrainerModal');
+        const newTrainerBtn = $('button span:contains("New trainer")').parent();
+        const closeModal = $('#closeModal');
+        const cancelBtn = $('#cancelNewTrainer');
+        const form = $('#newTrainerForm');
+
+        function showModal() {
+          modal.removeClass('hidden').addClass('flex');
+        }
+
+        function hideModal() {
+          modal.addClass('hidden').removeClass('flex');
+          form[0].reset();
+        }
+
+        newTrainerBtn.on('click', showModal);
+        closeModal.on('click', hideModal);
+        cancelBtn.on('click', hideModal);
+
+        // Cerrar modal al hacer clic fuera
+        modal.on('click', function(e) {
+          if (e.target === this) {
+            hideModal();
+          }
+        });
+
+        // Manejar el envío del formulario
+        form.on('submit', async function(e) {
+          e.preventDefault();
+          
+          const formData = new FormData(this);
+          
+          try {
+            const response = await fetch('index.php?controlador=entrenadores&action=crear_entrenador', {
+              method: 'POST',
+              body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+              alert(data.message);
+              hideModal();
+              location.reload(); // Recargar la página para mostrar el nuevo entrenador
+            } else {
+              alert(data.message);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Error al crear el entrenador');
+          }
+        });
+
+        // Funcionalidad del modal de edición
+        const editModal = $('#editTrainerModal');
+        const closeEditModal = $('#closeEditModal');
+        const cancelEditBtn = $('#cancelEditTrainer');
+        const editForm = $('#editTrainerForm');
+
+        function showEditModal() {
+          editModal.removeClass('hidden').addClass('flex');
+        }
+
+        function hideEditModal() {
+          editModal.addClass('hidden').removeClass('flex');
+          editForm[0].reset();
+        }
+
+        // Manejar clic en el botón de editar
+        $(document).on('click', '.edit-trainer-btn', async function() {
+          const trainerId = $(this).data('id');
+          
+          try {
+            const response = await fetch('index.php?controlador=entrenadores&action=get_entrenador_data', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: `id=${trainerId}`
+            });
+            
+            const data = await response.json();
+            
+            if (data) {
+              $('#edit_id').val(data.id);
+              $('#edit_nombre').val(data.nombre);
+              $('#edit_email').val(data.email);
+              $('#edit_telefono').val(data.telefono);
+              $('#edit_especialidad').val(data.especialidad);
+              showEditModal();
+            } else {
+              alert('Error al cargar los datos del entrenador');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Error al cargar los datos del entrenador');
+          }
+        });
+
+        closeEditModal.on('click', hideEditModal);
+        cancelEditBtn.on('click', hideEditModal);
+
+        // Cerrar modal al hacer clic fuera
+        editModal.on('click', function(e) {
+          if (e.target === this) {
+            hideEditModal();
+          }
+        });
+
+        // Manejar el envío del formulario de edición
+        editForm.on('submit', async function(e) {
+          e.preventDefault();
+          
+          const formData = new FormData(this);
+          
+          try {
+            const response = await fetch('index.php?controlador=entrenadores&action=update_entrenador', {
+              method: 'POST',
+              body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+              alert(data.message);
+              hideEditModal();
+              location.reload(); // Recargar la página para mostrar los cambios
+            } else {
+              alert(data.message);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Error al actualizar el entrenador');
+          }
+        });
+
+        // Función para confirmar y borrar entrenador
+        window.confirmarBorrado = function(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este entrenador? Esta acción no se puede deshacer.')) {
+                fetch('index.php?controlador=entrenadores&action=delete_entrenador', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + id
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        // Actualizar la tabla usando DataTables
+                        const table = $('#trainersTable').DataTable();
+                        table.row($(`button[onclick="confirmarBorrado(${id})"]`).closest('tr')).remove().draw();
+                    } else {
+                        alert(data.message || 'Error al eliminar el entrenador');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al eliminar el entrenador');
+                });
+            }
+        }
+      });
+    </script>
   </body>
 </html> 

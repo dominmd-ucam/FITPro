@@ -225,5 +225,20 @@ class Miembros_model {
             return null;
         }
     }
+
+    public function delete_member($id) {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM usuarios WHERE id_usuario = ?");
+            $stmt->bind_param("i", $id);
+            
+            if ($stmt->execute()) {
+                return ['success' => true, 'message' => 'Miembro eliminado correctamente'];
+            } else {
+                return ['success' => false, 'message' => 'Error al eliminar el miembro'];
+            }
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
+        }
+    }
 }
 ?>
