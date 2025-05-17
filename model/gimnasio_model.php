@@ -2,7 +2,7 @@
 require_once 'conectar.php';
 
 class Gimnasio_model {
-    private $db;
+    public $db;
     private $datos;
     
     public function __construct() {
@@ -179,6 +179,123 @@ class Gimnasio_model {
         $this->get_rutinas();
         $this->get_planes_nutricionales();
         return $this->datos;
+    }
+
+    // Método para obtener las clases del usuario para hoy
+    public function get_clases_hoy_usuario($usuario_id) {
+        // Primero obtenemos el día actual y lo convertimos a español
+        $sql_dia = "SELECT CASE DAYNAME(CURDATE())
+            WHEN 'Monday' THEN 'Lunes'
+            WHEN 'Tuesday' THEN 'Martes'
+            WHEN 'Wednesday' THEN 'Miércoles'
+            WHEN 'Thursday' THEN 'Jueves'
+            WHEN 'Friday' THEN 'Viernes'
+            WHEN 'Saturday' THEN 'Sábado'
+            WHEN 'Sunday' THEN 'Domingo'
+        END as dia_actual";
+        
+        $resultado_dia = $this->db->query($sql_dia);
+        $dia_actual = $resultado_dia->fetch_assoc()['dia_actual'];
+        
+        error_log("Día actual en español: " . $dia_actual);
+        error_log("ID de usuario: " . $usuario_id);
+
+        // Primero verificamos todas las clases del usuario sin filtrar por día
+        $sql_check = "SELECT c.nombre, h.dia_semana, h.hora_inicio, h.hora_fin 
+                     FROM inscripciones i 
+                     JOIN clases c ON i.clase_id = c.id 
+                     JOIN horarios h ON i.horario_id = h.id 
+                     WHERE i.usuario_id = ?";
+        
+        $stmt = $this->db->prepare($sql_check);
+        $stmt->bind_param("i", $usuario_id);
+        $stmt->execute();
+        $resultado_check = $stmt->get_result();
+        
+        error_log("Todas las clases del usuario:");
+        while($row = $resultado_check->fetch_assoc()) {
+            error_log(print_r($row, true));
+        }
+
+        // Ahora la consulta principal
+        $sql = "SELECT c.nombre, c.descripcion, e.nombre as nombre_entrenador, h.dia_semana, h.hora_inicio, h.hora_fin 
+                FROM inscripciones i 
+                JOIN clases c ON i.clase_id = c.id 
+                JOIN horarios h ON i.horario_id = h.id 
+                JOIN entrenadores e ON c.entrenador_id = e.id 
+                WHERE i.usuario_id = ? 
+                AND h.dia_semana = ?
+                ORDER BY h.hora_inicio";
+        
+        error_log("SQL Query (clases hoy): " . $sql);
+        error_log("Parámetros: usuario_id=" . $usuario_id . ", dia_actual=" . $dia_actual);
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("is", $usuario_id, $dia_actual);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        
+        $clases = array();
+        while($row = $resultado->fetch_assoc()) {
+            $clases[] = $row;
+            error_log("Clase encontrada: " . print_r($row, true));
+        }
+        
+        error_log("Número de clases hoy encontradas: " . count($clases));
+        return $clases;
+    }
+
+    // Método para obtener las próximas clases del usuario
+    public function get_proximas_clases_usuario($usuario_id) {
+        // Primero obtenemos el día actual y lo convertimos a español
+        $sql_dia = "SELECT CASE DAYNAME(CURDATE())
+            WHEN 'Monday' THEN 'Lunes'
+            WHEN 'Tuesday' THEN 'Martes'
+            WHEN 'Wednesday' THEN 'Miércoles'
+            WHEN 'Thursday' THEN 'Jueves'
+            WHEN 'Friday' THEN 'Viernes'
+            WHEN 'Saturday' THEN 'Sábado'
+            WHEN 'Sunday' THEN 'Domingo'
+        END as dia_actual";
+        
+        $resultado_dia = $this->db->query($sql_dia);
+        $dia_actual = $resultado_dia->fetch_assoc()['dia_actual'];
+        
+        error_log("Día actual en español (próximas): " . $dia_actual);
+
+        $sql = "SELECT c.nombre, c.descripcion, e.nombre as nombre_entrenador, h.dia_semana, h.hora_inicio, h.hora_fin 
+                FROM inscripciones i 
+                JOIN clases c ON i.clase_id = c.id 
+                JOIN horarios h ON i.horario_id = h.id 
+                JOIN entrenadores e ON c.entrenador_id = e.id 
+                WHERE i.usuario_id = ? 
+                AND h.dia_semana != ?
+                ORDER BY 
+                    CASE h.dia_semana 
+                        WHEN 'Lunes' THEN 1 
+                        WHEN 'Martes' THEN 2 
+                        WHEN 'Miércoles' THEN 3 
+                        WHEN 'Jueves' THEN 4 
+                        WHEN 'Viernes' THEN 5 
+                        WHEN 'Sábado' THEN 6 
+                        WHEN 'Domingo' THEN 7 
+                    END,
+                    h.hora_inicio";
+        
+        error_log("SQL Query (próximas clases): " . $sql);
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("is", $usuario_id, $dia_actual);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        
+        $clases = array();
+        while($row = $resultado->fetch_assoc()) {
+            $clases[] = $row;
+        }
+        
+        error_log("Número de próximas clases encontradas: " . count($clases));
+        return $clases;
     }
 }
 ?>

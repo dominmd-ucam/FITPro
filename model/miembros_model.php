@@ -240,5 +240,14 @@ class Miembros_model {
             return ['success' => false, 'message' => 'Error: ' . $e->getMessage()];
         }
     }
+
+    public function getUserIdByEmail($email) {
+        $sql = "SELECT id_usuario FROM usuarios WHERE email = '$email'";
+        $resultado = $this->db->query($sql);
+        if ($row = $resultado->fetch_assoc()) {
+            return $row['id_usuario'];
+        }
+        return null;
+    }
 }
 ?>
