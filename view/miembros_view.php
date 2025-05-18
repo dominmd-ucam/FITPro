@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
     <link
       rel="stylesheet"
@@ -8,6 +9,7 @@
       onload="this.rel='stylesheet'"
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
@@ -29,12 +31,87 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <!-- Botones de exportación -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <style>
+      @media (max-width: 768px) {
+        .layout-content-container {
+          margin-left: 0 !important;
+          width: 100%;
+        }
+        .sidebar {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 280px;
+          height: auto;
+          max-height: 90vh;
+          margin: 1rem;
+          z-index: 1000;
+          background-color: #111418;
+          border-radius: 1rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          overflow-y: auto;
+        }
+        .sidebar.active {
+          display: block;
+        }
+        .hamburger-menu {
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          position: fixed;
+          top: 1rem;
+          right: 1rem;
+          z-index: 1001;
+          background: #1568c1;
+          padding: 0.75rem;
+          border-radius: 0.5rem;
+          color: white;
+          width: 40px;
+          height: 40px;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .hamburger-menu i {
+          font-size: 20px;
+        }
+        .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+        }
+        .overlay.active {
+          display: block;
+        }
+      }
+      .hamburger-menu {
+        display: none;
+      }
+      .layout-content-container.ml-[320px] {
+        margin-left: 320px;
+      }
+      @media (max-width: 768px) {
+        .layout-content-container.ml-[320px] {
+          margin-left: 0 !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+      <div class="overlay" onclick="toggleSidebar()"></div>
+      <button type="button" class="hamburger-menu" onclick="toggleSidebar()">
+        <i class="fa fa-bars"></i>
+      </button>
       <div class="layout-container flex h-full grow flex-col">
         <div class="gap-1 px-6 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col w-80 fixed left-6 top-5 bottom-5">
+          <div class="sidebar layout-content-container flex flex-col w-80 fixed left-6 top-5 bottom-5">
             <div class="flex h-full min-h-[700px] flex-col justify-between bg-[#111418] p-4">
               <div class="flex flex-col gap-4">
                 <div class="flex flex-col gap-2">
@@ -964,6 +1041,13 @@
                 alert('Error al eliminar el miembro');
             });
         }
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.overlay');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
     }
     </script>
   </body>
