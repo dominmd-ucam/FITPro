@@ -126,11 +126,24 @@ class Gimnasio_model {
     }
     
     public function get_ejercicios_by_rutina($rutina_id) {
-        $sql = "SELECT re.*, e.nombre, e.grupo_muscular 
-                FROM rutina_ejercicios re 
-                JOIN ejercicios e ON re.ejercicio_id = e.id 
-                WHERE re.rutina_id = $rutina_id";
-        $resultado = $this->db->query($sql);
+        $sql = "SELECT e.*, re.series, re.repeticiones, re.dia_semana 
+                FROM ejercicios e 
+                INNER JOIN rutina_ejercicios re ON e.id = re.ejercicio_id 
+                WHERE re.rutina_id = ? 
+                ORDER BY 
+                    CASE re.dia_semana 
+                        WHEN 'Lunes' THEN 1 
+                        WHEN 'Martes' THEN 2 
+                        WHEN 'Miércoles' THEN 3 
+                        WHEN 'Jueves' THEN 4 
+                        WHEN 'Viernes' THEN 5 
+                        WHEN 'Sábado' THEN 6 
+                        WHEN 'Domingo' THEN 7 
+                    END";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $rutina_id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
         $ejercicios = array();
         while($row = $resultado->fetch_assoc()) {
             $ejercicios[] = $row;
@@ -150,12 +163,16 @@ class Gimnasio_model {
         return $this->datos;
     }
     
-    public function get_plan_nutricional_by_id($id) {
+    public function get_plan_nutricional_by_id($nombre) {
         $sql = "SELECT p.*, u.nombre as nombre_usuario 
                 FROM planes_nutricionales p 
                 JOIN usuarios u ON p.usuario_id = u.id_usuario 
-                WHERE p.id = $id";
-        $resultado = $this->db->query($sql);
+                WHERE u.nombre = ?";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $nombre);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
         return $resultado->fetch_assoc();
     }
     
@@ -296,6 +313,58 @@ class Gimnasio_model {
         
         error_log("Número de próximas clases encontradas: " . count($clases));
         return $clases;
+    }
+
+    public function get_info_nutricional_plan($plan_id) {
+        $sql = "SELECT 
+                SUM(a.calorias) as total_calorias,
+                SUM(a.proteinas) as total_proteinas,
+                SUM(a.carbohidratos) as total_carbohidratos,
+                SUM(a.grasas) as total_grasas
+                FROM dieta_diaria d
+                JOIN alimentos a ON d.descripcion LIKE CONCAT('%', a.nombre, '%')
+                WHERE d.plan_id = ?";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $plan_id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        return $resultado->fetch_assoc();
+    }
+
+    public function get_rutina_by_usuario($nombre_usuario) {
+        $sql = "SELECT r.* FROM rutinas r 
+                INNER JOIN usuarios u ON r.usuario_id = u.id_usuario 
+                WHERE u.nombre = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $nombre_usuario);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function get_progreso_rutina($rutina_id) {
+        $sql = "SELECT e.nombre, p.peso, p.repeticiones, p.fecha 
+                FROM progreso_ejercicios p 
+                INNER JOIN ejercicios e ON p.ejercicio_id = e.id 
+                WHERE p.rutina_id = ? 
+                ORDER BY p.fecha DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $rutina_id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $progreso = array();
+        while($row = $resultado->fetch_assoc()) {
+            $progreso[] = $row;
+        }
+        return $progreso;
+    }
+
+    public function registrar_progreso_ejercicio($rutina_id, $ejercicio_id, $peso, $repeticiones) {
+        $sql = "INSERT INTO progreso_ejercicios (rutina_id, ejercicio_id, peso, repeticiones, fecha) 
+                VALUES (?, ?, ?, ?, NOW())";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("iiii", $rutina_id, $ejercicio_id, $peso, $repeticiones);
+        return $stmt->execute();
     }
 }
 ?>

@@ -1,3 +1,14 @@
+<?php
+// Verificar si hay un plan nutricional
+if (!isset($plan_nutricional) || empty($plan_nutricional)) {
+    echo '<div class="text-center p-8">
+            <h2 class="text-white text-2xl font-bold mb-4">No tienes un plan nutricional activo</h2>
+            <p class="text-[#9daab8] mb-4">Contacta con un entrenador para obtener un plan personalizado</p>
+            <button class="bg-[#1568c1] text-white px-6 py-2 rounded-xl">Contactar Entrenador</button>
+          </div>';
+    exit;
+}
+?>
 <html>
   <head>
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
@@ -8,7 +19,7 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
 
-    <title>Plan de Nutricion</title>
+    <title>Plan Nutricional - GymTrack</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -16,176 +27,158 @@
   <body>
     <div class="relative flex size-full min-h-screen flex-col bg-[#111418] dark group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
       <div class="layout-container flex h-full grow flex-col">
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#293038] px-10 py-3">
-          <div class="flex items-center gap-4 text-white">
-            <div class="size-4">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path>
-              </svg>
+        <div class="gap-1 px-6 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col w-80 fixed left-6 top-5 bottom-5">
+            <div class="flex h-full min-h-[700px] flex-col justify-between bg-[#111418] p-4">
+              <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-white" data-icon="House" data-size="24px" data-weight="fill">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
+                      </svg>
+                    </div>
+                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=home&action=home">Dashboard</a>
+                  </div>
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-white" data-icon="Calendar" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM48,48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"></path>
+                      </svg>
+                    </div>
+                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=classShedule&action=home">Mis Clases</a>
+                  </div>
+                  <div class="flex items-center gap-3 px-3 py-2 rounded-xl bg-[#293038]">
+                    <div class="text-white" data-icon="Apple" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M208,88a8,8,0,0,0-8-8H56a8,8,0,0,0,0,16H200A8,8,0,0,0,208,88Zm-8,72H56a8,8,0,0,0,0,16H200a8,8,0,0,0,0-16Zm0-32H56a8,8,0,0,0,0,16H200a8,8,0,0,0,0-16Z"></path>
+                      </svg>
+                    </div>
+                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=nutricionPlan&action=home">Plan Nutricional</a>
+                  </div>
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-white" data-icon="Dumbbell" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M104,40H64A16,16,0,0,0,48,56v64a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,80H64V56h40v64Zm88-80H152a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V56A16,16,0,0,0,192,40Zm0,80H152V56h40v64Z"></path>
+                      </svg>
+                    </div>
+                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=rutina&action=home">Rutina de Entrenamiento</a>
+                  </div>
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-white" data-icon="Chart" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h40A8,8,0,0,1,176,128Z"></path>
+                      </svg>
+                    </div>
+                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=progreso&action=home">Mis Progresos</a>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="text-white" data-icon="Question" data-size="24px" data-weight="regular">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8" />
+                        <path d="M7 12h10M7 12l4-4M7 12l4 4" />
+                      </svg>
+                    </div>
+                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=miembros&action=desconectar">Cerrar Sesion</a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">FITPro</h2>
           </div>
-          <div class="flex flex-1 justify-end gap-8">
-            <div class="flex items-center gap-9">
-              <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=home&action=home">Dashboard</a>
-              <a class="text-white text-sm font-medium leading-normal" href="#">Members</a>
-              <a class="text-white text-sm font-medium leading-normal" href="#">Workouts</a>
-              <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=classShedule&action=home">Classes</a>
-              <a class="text-white text-sm font-medium leading-normal" href="#">Community</a>
-              <a class="text-white text-sm font-medium leading-normal" href="#">Reports</a>
-            </div>
-            <div class="flex gap-2">
-              <button
-                class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#293038] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
-              >
-                <div class="text-white" data-icon="MagnifyingGlass" data-size="20px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
-                    ></path>
-                  </svg>
-                </div>
-              </button>
-              <button
-                class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#293038] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
-              >
-                <div class="text-white" data-icon="ChatCircleDots" data-size="20px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128ZM84,116a12,12,0,1,0,12,12A12,12,0,0,0,84,116Zm88,0a12,12,0,1,0,12,12A12,12,0,0,0,172,116Zm60,12A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z"
-                    ></path>
-                  </svg>
-                </div>
-              </button>
-              <button
-                class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#293038] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
-              >
-                <div class="text-white" data-icon="Bell" data-size="20px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"
-                    ></path>
-                  </svg>
-                </div>
-              </button>
-            </div>
-            <div
-              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-              style='background-image: url("https://cdn.usegalileo.ai/sdxl10/5ee9e619-ec66-4791-99b0-fe51f07eb54e.png");'
-            ></div>
-          </div>
-        </header>
-        <div class="px-40 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1 ml-[320px]">
             <div class="flex flex-wrap justify-between gap-3 p-4">
-              <p class="text-white tracking-light text-[32px] font-bold leading-tight min-w-72">Weekly Meal Plan</p>
-              <button
-                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#293038] text-white text-sm font-medium leading-normal"
-              >
-                <span class="truncate">Generate a new plan</span>
-              </button>
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-white tracking-light text-[32px] font-bold leading-tight">Tu plan nutricional</p>
+                <p class="text-[#9daab8] text-sm font-normal leading-normal">Inicio: <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_inicio'])); ?></p>
+              </div>
             </div>
-            <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Monday</h3>
+            <div class="flex flex-wrap gap-4 p-4">
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#3c4753]">
+                <p class="text-white text-base font-medium leading-normal">Calorías</p>
+                <p class="text-white tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_calorias']); ?></p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#3c4753]">
+                <p class="text-white text-base font-medium leading-normal">Proteínas</p>
+                <p class="text-white tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_proteinas']); ?>g</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#3c4753]">
+                <p class="text-white text-base font-medium leading-normal">Carbohidratos</p>
+                <p class="text-white tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_carbohidratos']); ?>g</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#3c4753]">
+                <p class="text-white text-base font-medium leading-normal">Grasas</p>
+                <p class="text-white tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_grasas']); ?>g</p>
+              </div>
+            </div>
+            <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Plan Semanal</h2>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+              <?php
+              $dias_semana = [
+                'Lunes' => 'https://travelingua.es/wp-content/uploads/2023/11/comida-tipica-canada.jpg',
+                'Martes' => 'https://sophiederam.com/wp-content/uploads/2022/05/alimentos-saudaveis-para-o-almoco.png',
+                'Miércoles' => 'https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2023/04/plato-harvard-3006638.jpg?tf=3840x',
+                'Jueves' => 'https://xurrosymas.mx/wp-content/uploads/2024/08/comida-saludable-1024x675.jpg',
+                'Viernes' => 'https://www.clarin.com/2024/08/18/GwjPHUqMQ_2000x1500__1.jpg',
+                'Sábado' => 'https://media-cdn.tripadvisor.com/media/photo-s/1a/44/72/cf/aprende-a-cocinar-comida.jpg',
+                'Domingo' => 'https://cdn-3.expansion.mx/dims4/default/dc6563f/2147483647/strip/true/crop/1253x658+0+89/resize/1200x630!/format/jpg/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fa9%2F68%2F255e44db4bc1be07dcc0b495e5ef%2Ftacos-comida-callejera-mexico.jpg'
+              ];
+              foreach ($dias_semana as $dia => $imagen) {
+                  $comidas_dia = array_filter($dieta_diaria, function($comida) use ($dia) {
+                      return $comida['dia_semana'] === $dia;
+                  });
+              ?>
               <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/7cb13b2f-c9b2-497b-b7d8-75f3103ec362.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Breakfast</p>
+                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style="background-image: url('<?php echo $imagen; ?>');"></div>
+                <div>
+                  <p class="text-white text-base font-medium leading-normal"><?php echo $dia; ?></p>
+                  <?php foreach ($comidas_dia as $comida): ?>
+                  <p class="text-[#9daab8] text-sm font-normal leading-normal">
+                    <?php echo $comida['comida']; ?>: <?php echo $comida['descripcion']; ?>
+                  </p>
+                  <?php endforeach; ?>
+                </div>
               </div>
-              <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/4a67866b-2af5-4f66-a7a0-ef875c3b9dc7.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Lunch</p>
-              </div>
-              <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/b527259b-592b-45f8-bb06-322afb507a8d.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Dinner</p>
-              </div>
-              <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/51938008-14e3-424c-bd68-5e5846546076.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Snack</p>
-              </div>
+              <?php } ?>
             </div>
             <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Breakfast</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 80%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">300/400 calories</p>
-            </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Lunch</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 50%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">500/1000 calories</p>
-            </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Dinner</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 20%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">200/1000 calories</p>
-            </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Snack</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 70%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">350/500 calories</p>
-            </div>
-            <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Tuesday</h3>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-              <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/19a51f16-e27b-4282-b012-a370ace93525.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Breakfast</p>
+              <div class="flex gap-6 justify-between">
+                <p class="text-white text-base font-medium leading-normal">Progreso del Plan</p>
               </div>
-              <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/a6a20c33-78c8-419b-acb6-e403efc74e96.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Lunch</p>
+              <div class="rounded bg-[#3c4753]">
+                <?php 
+                $dias_transcurridos = (strtotime(date('Y-m-d')) - strtotime($plan_nutricional['fecha_inicio'])) / (60 * 60 * 24);
+                $dias_totales = (strtotime($plan_nutricional['fecha_fin']) - strtotime($plan_nutricional['fecha_inicio'])) / (60 * 60 * 24);
+                $porcentaje = min(100, max(0, ($dias_transcurridos / $dias_totales) * 100));
+                ?>
+                <div class="h-2 rounded bg-white" style="width: <?php echo $porcentaje; ?>%;"></div>
               </div>
-              <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/f4aca105-26bb-409c-967c-d14ca5aa795b.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Dinner</p>
-              </div>
-              <div class="flex flex-col gap-3 pb-3">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/1eab7991-eb30-4492-a88e-c82fa64de1fe.png");'
-                ></div>
-                <p class="text-white text-base font-medium leading-normal">Snack</p>
-              </div>
+              <p class="text-[#9daab8] text-sm font-normal leading-normal">
+                <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_inicio'])); ?> - 
+                <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_fin'])); ?>
+              </p>
             </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Breakfast</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 100%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">400/400 calories</p>
-            </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Lunch</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 80%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">800/1000 calories</p>
-            </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Dinner</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 50%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">500/1000 calories</p>
-            </div>
-            <div class="flex flex-col gap-3 p-4">
-              <div class="flex gap-6 justify-between"><p class="text-white text-base font-medium leading-normal">Snack</p></div>
-              <div class="rounded bg-[#3c4753]"><div class="h-2 rounded bg-white" style="width: 90%;"></div></div>
-              <p class="text-[#9daab8] text-sm font-normal leading-normal">450/500 calories</p>
+            <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Objetivos Nutricionales</h2>
+            <div class="px-4">
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-[#3c4753] border-2 bg-transparent text-[#1568c1] checked:bg-[#1568c1] checked:border-[#1568c1] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#3c4753] focus:outline-none" />
+                <p class="text-white text-base font-normal leading-normal">Mantener el objetivo de calorías diarias</p>
+              </label>
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-[#3c4753] border-2 bg-transparent text-[#1568c1] checked:bg-[#1568c1] checked:border-[#1568c1] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#3c4753] focus:outline-none" />
+                <p class="text-white text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_proteinas']); ?>g de proteínas diarias</p>
+              </label>
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-[#3c4753] border-2 bg-transparent text-[#1568c1] checked:bg-[#1568c1] checked:border-[#1568c1] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#3c4753] focus:outline-none" />
+                <p class="text-white text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_carbohidratos']); ?>g de carbohidratos diarios</p>
+              </label>
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-[#3c4753] border-2 bg-transparent text-[#1568c1] checked:bg-[#1568c1] checked:border-[#1568c1] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#3c4753] focus:outline-none" />
+                <p class="text-white text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_grasas']); ?>g de grasas diarias</p>
+              </label>
             </div>
           </div>
         </div>
