@@ -30,9 +30,8 @@ git clone https://github.com/tu-usuario/gimnasio-mvc.git
 ```
 
 2. Importa la base de datos:
-```bash
+
 mysql -u root -p < assets/gimnasio_db.sql
-```
 
 3. Configura la conexión a la base de datos en `model/conectar.php`:
 ```php
