@@ -1,0 +1,131 @@
+A continuación te doy una explicación **detallada y textual del diseño de datos** de la base de datos `gimnasio_db`, basada en el archivo SQL que has proporcionado. Esta base de datos está orientada a la **gestión integral de un gimnasio**, cubriendo aspectos como usuarios, entrenadores, clases, rutinas, progreso, nutrición, membresías y más.
+
+---
+
+## 🎯 **Diseño General del Modelo Entidad-Relación**
+
+El modelo sigue una estructura relacional clásica, organizada en torno a la entidad principal `usuarios`. A partir de esta entidad, se ramifican múltiples relaciones hacia otras tablas que cubren distintas áreas funcionales del gimnasio: entrenamiento físico, seguimiento, nutrición, control de accesos y suscripciones.
+
+---
+
+## 🔑 **Entidades Principales y su Propósito**
+
+### 1. **usuarios**
+
+Contiene la información básica de todos los usuarios del sistema, incluyendo su tipo (`cliente` o `admin`), email, contraseña y fecha de registro. Sirve como eje central de múltiples relaciones.
+
+### 2. **entrenadores**
+
+Define a los entrenadores del gimnasio, cada uno con nombre, especialidad y contacto. Está relacionado directamente con las clases.
+
+### 3. **clases**
+
+Representa las clases dirigidas del gimnasio (ej. yoga, crossfit, zumba). Cada clase está asociada a un entrenador.
+
+### 4. **horarios**
+
+Define los días y horas específicas en que se imparte cada clase. Está ligado directamente a la tabla `clases`.
+
+### 5. **inscripciones**
+
+Registra cuándo un usuario se inscribe en una clase en un horario determinado. Une a `usuarios`, `clases` y `horarios`.
+
+### 6. **inventario**
+
+Administra el equipamiento del gimnasio, su cantidad y estado. Esta tabla no se relaciona con otras, pero es clave para la gestión interna.
+
+---
+
+## 🥗 **Área de Nutrición**
+
+### 7. **alimentos**
+
+Tabla de referencia que lista alimentos con su información nutricional (calorías, proteínas, carbohidratos, grasas).
+
+### 8. **planes\_nutricionales**
+
+Asocia un plan de alimentación a un usuario, con fechas de inicio y fin, y un objetivo (pérdida de peso, ganancia muscular, mantenimiento).
+
+### 9. **dieta\_diaria**
+
+Desglosa cada día de la semana y comida del día dentro de un plan nutricional. Se vincula con `planes_nutricionales`.
+
+---
+
+## 💪 **Área de Entrenamiento y Seguimiento**
+
+### 10. **ejercicios**
+
+Lista de ejercicios disponibles, con descripción, grupo muscular y equipo necesario.
+
+### 11. **rutinas**
+
+Define un conjunto de ejercicios asignados a un usuario en un intervalo de tiempo. Se vincula con `usuarios`.
+
+### 12. **rutina\_ejercicios**
+
+Intermedia entre `rutinas` y `ejercicios`, indicando qué ejercicios forman parte de una rutina, cuántas series/repeticiones y en qué día se realizan.
+
+### 13. **progreso\_ejercicios**
+
+Registra los pesos y repeticiones realizados por un usuario para un ejercicio dentro de una rutina, en una fecha y hora determinada.
+
+### 14. **progreso\_usuario**
+
+Almacena datos físicos del usuario (peso, grasa corporal, masa muscular) en fechas específicas, permitiendo el seguimiento de su evolución.
+
+---
+
+## 🔒 **Acceso y Control**
+
+### 15. **registro\_accesos**
+
+Registra entradas y salidas de usuarios al gimnasio, con fecha, hora y código QR. Se vincula con `usuarios`.
+
+---
+
+## 💳 **Área de Membresías**
+
+### 16. **membresias**
+
+Define tipos de membresías con nombre, precio y duración (en días).
+
+### 17. **usuarios\_membresias**
+
+Registra la contratación de membresías por parte de los usuarios, incluyendo fechas de inicio y fin.
+
+---
+
+## 🔗 **Relaciones Clave del Modelo**
+
+| Relación                                | Tipo  | Justificación lógica                                           |
+| --------------------------------------- | ----- | -------------------------------------------------------------- |
+| `usuarios` ↔ `inscripciones`            | 1 a N | Un usuario puede inscribirse a muchas clases                   |
+| `usuarios` ↔ `planes_nutricionales`     | 1 a N | Un usuario puede seguir distintos planes a lo largo del tiempo |
+| `planes_nutricionales` ↔ `dieta_diaria` | 1 a N | Un plan incluye múltiples comidas diarias por semana           |
+| `usuarios` ↔ `progreso_usuario`         | 1 a N | Cada usuario tiene múltiples registros de progreso físico      |
+| `usuarios` ↔ `registro_accesos`         | 1 a N | Se registran varias entradas/salidas por usuario               |
+| `usuarios` ↔ `rutinas`                  | 1 a N | Varias rutinas personalizadas por usuario                      |
+| `rutinas` ↔ `rutina_ejercicios`         | 1 a N | Una rutina puede incluir múltiples ejercicios                  |
+| `ejercicios` ↔ `rutina_ejercicios`      | 1 a N | Un ejercicio puede estar en muchas rutinas                     |
+| `rutinas` ↔ `progreso_ejercicios`       | 1 a N | Para hacer seguimiento de ejercicios en esa rutina             |
+| `usuarios` ↔ `usuarios_membresias`      | 1 a N | Un usuario puede contratar diferentes membresías               |
+| `membresias` ↔ `usuarios_membresias`    | 1 a N | Cada membresía puede ser contratada muchas veces               |
+| `clases` ↔ `horarios`                   | 1 a N | Una clase se imparte en varios horarios distintos              |
+| `clases` ↔ `inscripciones`              | 1 a N | Muchos usuarios pueden inscribirse a una misma clase           |
+| `horarios` ↔ `inscripciones`            | 1 a N | La inscripción depende también del horario                     |
+| `entrenadores` ↔ `clases`               | 1 a N | Un entrenador puede impartir varias clases                     |
+
+---
+
+## 📌 Observaciones sobre el diseño
+
+1. **Normalización:** La base está correctamente normalizada hasta 3FN, evitando redundancias innecesarias.
+2. **Escalabilidad:** Permite añadir más ejercicios, alimentos, tipos de clases o membresías sin reestructuración.
+3. **Flexibilidad:** Soporta múltiples objetivos (físicos y nutricionales), y seguimiento detallado por fecha.
+4. **Integridad:** Las claves foráneas y tipos `ENUM` contribuyen a mantener integridad referencial y semántica.
+5. **Extensibilidad:** Sería fácil añadir módulos como facturación, reservas de equipos, notificaciones, etc.
+
+---
+
+¿Te gustaría que convierta esta explicación en un documento Word o PDF? ¿O prefieres una presentación tipo resumen ejecutivo?
