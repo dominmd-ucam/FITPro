@@ -9,6 +9,7 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
     exit;
 }
 ?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,11 +32,11 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
           margin-left: 0 !important;
           width: 100%;
         }
-        .sidebar {
+        .sidebar-container {
           display: none;
           position: absolute;
-          top: 2rem;
-          left: 2rem;
+          top: 1rem;
+          left: 1rem;
           width: 280px;
           height: auto;
           max-height: 90vh;
@@ -45,7 +46,7 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           overflow-y: auto;
         }
-        .sidebar.active {
+        .sidebar-container.active {
           display: block;
         }
         .hamburger-menu {
@@ -111,6 +112,7 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
         width: 320px;
         padding: 2rem 1rem;
         background-color: #f8fafc;
+        z-index: 1000;
       }
       
       .sidebar-inner {
@@ -118,11 +120,14 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
         border-radius: 1rem;
         height: 100%;
         padding: 1rem;
+        position: relative;
+        z-index: 1000;
       }
       
       .content-container {
         flex: 1;
         padding: 2rem 1rem;
+        position: relative;
       }
       
       @media (max-width: 1650px) {
@@ -141,7 +146,7 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
           position: absolute;
           top: 0;
           left: 0;
-          z-index: 100;
+          z-index: 1000;
         }
         
         .content-container {
@@ -354,6 +359,18 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
         sidebar.classList.toggle('active');
         overlay.classList.toggle('active');
       }
+
+      // Cerrar el menú al hacer click en un enlace
+      document.querySelectorAll('.sidebar-container a').forEach(link => {
+        link.addEventListener('click', () => {
+          const sidebar = document.querySelector('.sidebar-container');
+          const overlay = document.querySelector('.overlay');
+          if (window.innerWidth <= 768) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+          }
+        });
+      });
     </script>
   </body>
 </html>

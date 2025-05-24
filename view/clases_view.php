@@ -37,11 +37,11 @@
           margin-left: 0 !important;
           width: 100%;
         }
-        .sidebar {
+        .sidebar-container {
           display: none;
           position: absolute;
-          top: 2rem;
-          left: 2rem;
+          top: 1rem;
+          left: 1rem;
           width: 280px;
           height: auto;
           max-height: 90vh;
@@ -51,7 +51,7 @@
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           overflow-y: auto;
         }
-        .sidebar.active {
+        .sidebar-container.active {
           display: block;
         }
         .hamburger-menu {
@@ -125,6 +125,7 @@
         width: 320px;
         padding: 2rem 1rem;
         background-color: #f8fafc;
+        z-index: 1000;
       }
       
       .sidebar-inner {
@@ -132,11 +133,14 @@
         border-radius: 1rem;
         height: 100%;
         padding: 1rem;
+        position: relative;
+        z-index: 1000;
       }
       
       .content-container {
         flex: 1;
         padding: 2rem 1rem;
+        position: relative;
       }
       
       @media (max-width: 1650px) {
@@ -155,7 +159,7 @@
           position: absolute;
           top: 0;
           left: 0;
-          z-index: 100;
+          z-index: 1000;
         }
         
         .content-container {
@@ -483,7 +487,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-4">
-                <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#0c77f2] text-white text-sm font-bold leading-normal tracking-[0.015em]">
+                <button id="newClassBtn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#0c77f2] text-white text-sm font-bold leading-normal tracking-[0.015em]">
                   <span class="truncate">New class</span>
                 </button>
                 <div class="flex flex-col gap-1">
@@ -863,7 +867,7 @@
         // ... existing DataTable initialization code ...
 
         // Event listeners para el modal de nueva clase
-        $('button:has(span:contains("New class"))').on('click', showNewClassModal);
+        $('#newClassBtn').on('click', showNewClassModal);
         $('#closeModal').on('click', hideNewClassModal);
         $('#cancelNewClass').on('click', hideNewClassModal);
 
@@ -936,8 +940,6 @@
                 alert('Error al actualizar la clase');
             });
         });
-
-        // ... rest of your existing code ...
     });
 
     // Añadir la función de confirmación y borrado en el script
@@ -967,12 +969,10 @@
     }
 
     function toggleSidebar() {
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
-        if (sidebar && overlay) {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
+      const sidebar = document.querySelector('.sidebar-container');
+      const overlay = document.querySelector('.overlay');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
     }
     </script>
   </body>

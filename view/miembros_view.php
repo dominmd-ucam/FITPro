@@ -37,11 +37,11 @@
           margin-left: 0 !important;
           width: 100%;
         }
-        .sidebar {
+        .sidebar-container {
           display: none;
           position: absolute;
-          top: 2rem;
-          left: 2rem;
+          top: 1rem;
+          left: 1rem;
           width: 280px;
           height: auto;
           max-height: 90vh;
@@ -51,7 +51,7 @@
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           overflow-y: auto;
         }
-        .sidebar.active {
+        .sidebar-container.active {
           display: block;
         }
         .hamburger-menu {
@@ -117,6 +117,7 @@
         width: 320px;
         padding: 2rem 1rem;
         background-color: #f8fafc;
+        z-index: 1000;
       }
       
       .sidebar-inner {
@@ -124,11 +125,14 @@
         border-radius: 1rem;
         height: 100%;
         padding: 1rem;
+        position: relative;
+        z-index: 1000;
       }
       
       .content-container {
         flex: 1;
         padding: 2rem 1rem;
+        position: relative;
       }
       
       @media (max-width: 1650px) {
@@ -147,7 +151,7 @@
           position: absolute;
           top: 0;
           left: 0;
-          z-index: 100;
+          z-index: 1000;
         }
         
         .content-container {
