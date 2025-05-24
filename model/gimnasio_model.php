@@ -217,25 +217,9 @@ class Gimnasio_model {
         error_log("Día actual en español: " . $dia_actual);
         error_log("ID de usuario: " . $usuario_id);
 
-        // Primero verificamos todas las clases del usuario sin filtrar por día
-        $sql_check = "SELECT c.nombre, h.dia_semana, h.hora_inicio, h.hora_fin 
-                     FROM inscripciones i 
-                     JOIN clases c ON i.clase_id = c.id 
-                     JOIN horarios h ON i.horario_id = h.id 
-                     WHERE i.usuario_id = ?";
-        
-        $stmt = $this->db->prepare($sql_check);
-        $stmt->bind_param("i", $usuario_id);
-        $stmt->execute();
-        $resultado_check = $stmt->get_result();
-        
-        error_log("Todas las clases del usuario:");
-        while($row = $resultado_check->fetch_assoc()) {
-            error_log(print_r($row, true));
-        }
-
-        // Ahora la consulta principal
-        $sql = "SELECT c.nombre, c.descripcion, e.nombre as nombre_entrenador, h.dia_semana, h.hora_inicio, h.hora_fin 
+        // Consulta principal mejorada
+        $sql = "SELECT c.id, c.nombre, c.descripcion, e.nombre as nombre_entrenador, 
+                       h.dia_semana, h.hora_inicio, h.hora_fin 
                 FROM inscripciones i 
                 JOIN clases c ON i.clase_id = c.id 
                 JOIN horarios h ON i.horario_id = h.id 
@@ -280,7 +264,9 @@ class Gimnasio_model {
         
         error_log("Día actual en español (próximas): " . $dia_actual);
 
-        $sql = "SELECT c.nombre, c.descripcion, e.nombre as nombre_entrenador, h.dia_semana, h.hora_inicio, h.hora_fin 
+        // Consulta mejorada para próximas clases
+        $sql = "SELECT c.id, c.nombre, c.descripcion, e.nombre as nombre_entrenador, 
+                       h.dia_semana, h.hora_inicio, h.hora_fin 
                 FROM inscripciones i 
                 JOIN clases c ON i.clase_id = c.id 
                 JOIN horarios h ON i.horario_id = h.id 
@@ -309,6 +295,7 @@ class Gimnasio_model {
         $clases = array();
         while($row = $resultado->fetch_assoc()) {
             $clases[] = $row;
+            error_log("Próxima clase encontrada: " . print_r($row, true));
         }
         
         error_log("Número de próximas clases encontradas: " . count($clases));
@@ -365,6 +352,28 @@ class Gimnasio_model {
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("iiii", $rutina_id, $ejercicio_id, $peso, $repeticiones);
         return $stmt->execute();
+    }
+
+    public function get_inscripciones_usuario($usuario_id) {
+        $sql = "SELECT i.id, c.nombre as nombre_clase, h.dia_semana, h.hora_inicio, h.hora_fin, 
+                       e.nombre as nombre_entrenador, i.fecha_inscripcion
+                FROM inscripciones i 
+                JOIN clases c ON i.clase_id = c.id 
+                JOIN horarios h ON i.horario_id = h.id 
+                JOIN entrenadores e ON c.entrenador_id = e.id 
+                WHERE i.usuario_id = ? 
+                ORDER BY h.dia_semana, h.hora_inicio";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $usuario_id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        
+        $inscripciones = array();
+        while($row = $resultado->fetch_assoc()) {
+            $inscripciones[] = $row;
+        }
+        return $inscripciones;
     }
 }
 ?>

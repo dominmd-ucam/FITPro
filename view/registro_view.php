@@ -1,86 +1,203 @@
-<!-- Header con logo y título -->
-<header class="header-fitpro w-100 bg-gradient-orange position-relative" style="height: 420px;">
-  <div class="container d-flex justify-content-start pt-4">
-    <a href="index.php">
-      <img src="assets/imagenes/logofitpro.png" alt="Logo FitPro" class="img-fluid" style="height: 180px;">
-    </a>
-  </div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Título centrado -->
-  <div class="position-absolute top-50 start-50 translate-middle text-center px-3 px-sm-0">
-    <h1 class="text-white text-uppercase fw-bold display-5 display-md-4 m-0" style="font-family: 'Sora', sans-serif;">
-      Registro
-    </h1>
-  </div>
+    <title>FitMax - Registro</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
-  <!-- Líneas decorativas SOLO para pantallas grandes -->
-  <div class="d-none d-lg-block">
-    <!-- SVG superior derecha -->
-    <div class="header-decoration position-absolute top-0 end-0">
-      <svg width="236" height="216" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M223.03 8 72.39 158.64" stroke="#1e2c3b" stroke-width="20" stroke-miterlimit="10" />
-        <path d="m228.681 71.99-70.64 70.64M78.64 79.74 8 150.381" stroke="#ffffff" stroke-width="20" stroke-miterlimit="10" />
-        <path d="m54.96 176.08-32.07 32.06" stroke="#3b4d61" stroke-width="20" stroke-miterlimit="10" />
-      </svg>
-    </div>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+      body {
+        background-color: #dce5ef;
+        font-family: Lexend, "Noto Sans", sans-serif;
+      }
+      
+      .main-card {
+        background-color: #f8fafc;
+        border-radius: 1.5rem;
+        margin: 2rem auto;
+        max-width: 1600px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
 
-    <!-- SVG reflejo inferior -->
-    <div class="header-decoration position-absolute" style="top: 216px; right: 0; transform: scaleY(-1);">
-      <svg width="236" height="216" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M223.03 8 72.39 158.64" stroke="#1e2c3b" stroke-width="20" stroke-miterlimit="10" />
-        <path d="m228.681 71.99-70.64 70.64M78.64 79.74 8 150.381" stroke="#ffffff" stroke-width="20" stroke-miterlimit="10" />
-        <path d="m54.96 176.08-32.07 32.06" stroke="#3b4d61" stroke-width="20" stroke-miterlimit="10" />
-      </svg>
-    </div>
-  </div>
-</header>
+      .login-header {
+        background-color: #49709c;
+        padding: 2rem;
+        border-radius: 1.5rem 1.5rem 0 0;
+        position: relative;
+        overflow: hidden;
+      }
 
-<!-- Formulario centrado debajo del header -->
-<div class="login-wrapper d-flex justify-content-center align-items-start px-3 px-sm-4" style="background-color: #f8f9fa; min-height: calc(100vh - 320px);">
-  <div class="login-card card border-0 w-100 shadow"
-       style="max-width: 420px; margin-top: -120px; z-index: 10; border-radius: 1rem;">
-    <div class="card-body p-4">
-      <!-- Mensaje de error -->
-      <?php if (!empty($message)) : ?>
-        <div class="alert alert-danger fw-bold text-center" role="alert">
-          <?= htmlspecialchars($message) ?>
-        </div>
-      <?php endif; ?>
+      .login-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+        border-radius: 50%;
+        transform: translate(30%, -30%);
+      }
 
-      <!-- Formulario -->
-      <form action="" method="post">
-        <div class="mb-4">
-          <label for="uname" class="form-label fw-bold fs-5">Usuario</label>
-          <input type="text" class="form-control fs-5"
-                 style="background-color: #2D425A; color: white; font-weight: bold;"
-                 id="uname" name="nombre" placeholder="Introduce tu usuario" required>
-        </div>
+      .login-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+        border-radius: 50%;
+        transform: translate(-30%, 30%);
+      }
 
-        <div class="mb-4">
-          <label for="email" class="form-label fw-bold fs-5">Email</label>
-          <input type="email" class="form-control fs-5"
-                 style="background-color: #2D425A; color: white; font-weight: bold;"
-                 id="email" name="email" placeholder="Introduce tu email" required>
-        </div>
+      .form-input {
+        background-color: #ffffff !important;
+        color: #0d141c !important;
+        border: 1px solid #49709c !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        width: 100%;
+        font-size: 1rem;
+        transition: all 0.2s;
+      }
 
-        <div class="mb-4">
-          <label for="pswd" class="form-label fw-bold fs-5">Contraseña</label>
-          <input type="password" class="form-control fs-5"
-                 style="background-color: #2D425A; color: white; font-weight: bold;"
-                 id="pswd" name="pswd" placeholder="Introduce tu contraseña" required>
-        </div>
+      .form-input:focus {
+        border-color: #0c77f2 !important;
+        box-shadow: 0 0 0 2px rgba(12, 119, 242, 0.1) !important;
+        outline: none;
+      }
 
-        <button type="submit" name="registro_submit" class="btn btn-primary w-100 fw-bold fs-5">
-          Registrarse
-        </button>
+      .form-input::placeholder {
+        color: #49709c !important;
+        opacity: 0.7;
+      }
 
-        <div class="text-center mt-3">
-          <span class="text-dark fw-bold">¿Ya tienes cuenta?</span>
-          <a href="index.php?controlador=miembros&action=login" class="fw-bold text-primary text-decoration-none">
-            Inicia sesión aquí
+      .btn-primary {
+        background-color: #49709c;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.2s;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      .btn-primary:hover {
+        background-color: #0c77f2;
+      }
+
+      .alert-danger {
+        background-color: #fee2e2;
+        color: #dc2626;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .login-link {
+        color: #49709c;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+
+      .login-link:hover {
+        color: #0c77f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-card">
+      <div class="login-header">
+        <div class="container mx-auto px-4">
+          <a href="index.php" class="inline-block">
+            <img src="assets/imagenes/logofitpro.png" alt="Logo FitPro" class="h-32">
           </a>
+          <h1 class="text-white text-4xl font-bold text-center mt-8">
+            Registro
+          </h1>
         </div>
-      </form>
+      </div>
+
+      <div class="p-8">
+        <div class="max-w-md mx-auto">
+          <!-- Mensaje de error -->
+          <?php if (!empty($message)) : ?>
+            <div class="alert-danger">
+              <?= htmlspecialchars($message) ?>
+            </div>
+          <?php endif; ?>
+
+          <!-- Formulario -->
+          <form action="" method="post" class="space-y-6">
+            <div>
+              <label for="uname" class="block text-[#0d141c] text-lg font-bold mb-2">
+                Usuario
+              </label>
+              <input type="text" 
+                     class="form-input"
+                     id="uname" 
+                     name="nombre" 
+                     placeholder="Introduce tu usuario" 
+                     required>
+            </div>
+
+            <div>
+              <label for="email" class="block text-[#0d141c] text-lg font-bold mb-2">
+                Email
+              </label>
+              <input type="email" 
+                     class="form-input"
+                     id="email" 
+                     name="email" 
+                     placeholder="Introduce tu email" 
+                     required>
+            </div>
+
+            <div>
+              <label for="pswd" class="block text-[#0d141c] text-lg font-bold mb-2">
+                Contraseña
+              </label>
+              <input type="password" 
+                     class="form-input"
+                     id="pswd" 
+                     name="pswd" 
+                     placeholder="Introduce tu contraseña" 
+                     required>
+            </div>
+
+            <button type="submit" name="registro_submit" class="btn-primary">
+              Registrarse
+            </button>
+
+            <div class="text-center mt-4">
+              <span class="text-[#0d141c] font-bold">¿Ya tienes cuenta?</span>
+              <a href="index.php?controlador=miembros&action=login" class="login-link ml-2">
+                Inicia sesión aquí
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </body>
+</html>

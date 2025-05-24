@@ -27,6 +27,22 @@ function home(){
     $proximas_clases = $datos->get_proximas_clases_usuario($usuario_id);
     error_log("Próximas clases en el controlador: " . print_r($proximas_clases, true));
     
+    // Obtener todas las inscripciones del usuario
+    $inscripciones = $datos->get_inscripciones_usuario($usuario_id);
+    error_log("Inscripciones del usuario: " . print_r($inscripciones, true));
+    
+    // Asegurarse de que todas las clases tengan la descripción
+    foreach ($clases_hoy as &$clase) {
+        if (!isset($clase['descripcion'])) {
+            $clase['descripcion'] = '';
+        }
+    }
+    foreach ($proximas_clases as &$clase) {
+        if (!isset($clase['descripcion'])) {
+            $clase['descripcion'] = '';
+        }
+    }
+    
     require_once("view/classShedule_view.php");
 }
 
