@@ -1,11 +1,32 @@
 <?php
 // Verificar si hay mensajes de éxito o error
 if (isset($_SESSION['mensaje'])) {
-    echo '<div class="bg-green-500 text-white p-4 mb-4">' . $_SESSION['mensaje'] . '</div>';
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '" . $_SESSION['mensaje'] . "',
+                confirmButtonColor: '#0c77f2',
+                showConfirmButton: true,
+                confirmButtonText: 'Aceptar'
+            });
+        });
+    </script>";
     unset($_SESSION['mensaje']);
 }
 if (isset($_SESSION['error'])) {
-    echo '<div class="bg-red-500 text-white p-4 mb-4">' . $_SESSION['error'] . '</div>';
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '" . $_SESSION['error'] . "',
+                confirmButtonColor: '#0c77f2',
+                confirmButtonText: 'Aceptar'
+            });
+        });
+    </script>";
     unset($_SESSION['error']);
 }
 ?>
@@ -21,11 +42,15 @@ if (isset($_SESSION['error'])) {
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 
     <title>FitMax - Mis Progresos</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <style>
       @media (max-width: 768px) {
         .layout-content-container {
@@ -296,18 +321,6 @@ if (isset($_SESSION['error'])) {
         
         <!-- Content -->
         <div class="content-container">
-          <?php
-          // Verificar si hay mensajes de éxito o error
-          if (isset($_SESSION['mensaje'])) {
-              echo '<div class="bg-green-500 text-white p-4 mb-4">' . $_SESSION['mensaje'] . '</div>';
-              unset($_SESSION['mensaje']);
-          }
-          if (isset($_SESSION['error'])) {
-              echo '<div class="bg-red-500 text-white p-4 mb-4">' . $_SESSION['error'] . '</div>';
-              unset($_SESSION['error']);
-          }
-          ?>
-          
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Mis Progresos</p>
             <button onclick="mostrarFormulario()" class="btn-primary">
@@ -419,7 +432,7 @@ if (isset($_SESSION['error'])) {
                   </p>
                   <?php endif; ?>
                 </div>
-                <form action="index.php?controlador=progreso&action=eliminarProgreso" method="POST" class="ml-auto">
+                <form action="index.php?controlador=progreso&action=eliminarProgreso" method="POST" class="ml-auto" onsubmit="return confirmarEliminacion(event)">
                   <input type="hidden" name="progreso_id" value="<?php echo $registro['id']; ?>">
                   <button type="submit" class="btn-danger">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
@@ -450,6 +463,28 @@ if (isset($_SESSION['error'])) {
         const overlay = document.querySelector('.overlay');
         sidebar.classList.toggle('active');
         overlay.classList.toggle('active');
+      }
+
+      function confirmarEliminacion(event) {
+        event.preventDefault();
+        const form = event.target;
+        
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: "Esta acción no se puede deshacer",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#0c77f2',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit();
+          }
+        });
+        
+        return false;
       }
 
       // Cerrar el menú al hacer click en un enlace

@@ -13,6 +13,8 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 
     <title>Members view Admin</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
@@ -31,6 +33,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <!-- Botones de exportación -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <style>
       @media (max-width: 768px) {
         .layout-content-container {
@@ -545,8 +549,8 @@
     </div>
 
     <!-- Modal para New Member -->
-    <div id="newMemberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-      <div class="bg-[#f8fafc] rounded-xl p-6 w-[500px]">
+    <div id="newMemberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-[9999]">
+      <div class="bg-[#f8fafc] rounded-xl p-6 w-[500px] relative">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-[#0d141c] text-xl font-bold">Nuevo Miembro</h3>
           <button onclick="closeModal()" class="text-[#49709c] hover:text-[#0d141c]">
@@ -597,8 +601,8 @@
     </div>
 
     <!-- Modal para Edit Member -->
-    <div id="editMemberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-      <div class="bg-[#f8fafc] rounded-xl p-6 w-[800px] max-h-[90vh] overflow-y-auto">
+    <div id="editMemberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-[9999]">
+      <div class="bg-[#f8fafc] rounded-xl p-6 w-[800px] max-h-[90vh] overflow-y-auto relative">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-[#0d141c] text-xl font-bold">Editar Miembro</h3>
           <button onclick="closeEditModal()" class="text-[#49709c] hover:text-[#0d141c]">
@@ -790,12 +794,22 @@
           window.location.reload();
         } else {
           // Mostrar mensaje de error
-          alert('Error: ' + data.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message,
+            confirmButtonColor: '#0c77f2'
+          });
         }
       })
       .catch(error => {
         console.error('Error completo:', error);
-        alert('Error al crear el miembro: ' + error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al crear el miembro: ' + error.message,
+          confirmButtonColor: '#0c77f2'
+        });
       });
     }
 
@@ -836,7 +850,12 @@
       })
       .then(data => {
         if (data.error) {
-          alert(data.error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.error,
+            confirmButtonColor: '#0c77f2'
+          });
           return;
         }
         
@@ -852,7 +871,12 @@
       })
       .catch(error => {
         console.error('Error completo:', error);
-        alert('Error al cargar los datos del miembro: ' + error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al cargar los datos del miembro: ' + error.message,
+          confirmButtonColor: '#0c77f2'
+        });
       });
     }
 
@@ -1125,41 +1149,77 @@
           
           closeEditModal();
         } else {
-          alert('Error al actualizar el miembro: ' + (data.message || 'Error desconocido'));
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al actualizar el miembro: ' + (data.message || 'Error desconocido'),
+            confirmButtonColor: '#0c77f2'
+          });
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Error al actualizar el miembro: ' + error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al actualizar el miembro: ' + error.message,
+          confirmButtonColor: '#0c77f2'
+        });
       });
     }
 
     // Función para confirmar y borrar miembro
     window.confirmarBorrado = function(id) {
-        if (confirm('¿Estás seguro de que deseas eliminar este miembro? Esta acción no se puede deshacer.')) {
-            fetch('index.php?controlador=miembros&action=delete_member', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'id=' + id
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    // Actualizar la tabla usando DataTables
-                    const table = $('#membersTable').DataTable();
-                    table.row($(`button[onclick="confirmarBorrado(${id})"]`).closest('tr')).remove().draw();
-                } else {
-                    alert(data.message || 'Error al eliminar el miembro');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al eliminar el miembro');
-            });
-        }
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0c77f2',
+            cancelButtonColor: '#49709c',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('index.php?controlador=miembros&action=delete_member', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + id
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: data.message,
+                            confirmButtonColor: '#0c77f2'
+                        });
+                        // Actualizar la tabla usando DataTables
+                        const table = $('#membersTable').DataTable();
+                        table.row($(`button[onclick="confirmarBorrado(${id})"]`).closest('tr')).remove().draw();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message || 'Error al eliminar el miembro',
+                            confirmButtonColor: '#0c77f2'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al eliminar el miembro',
+                        confirmButtonColor: '#0c77f2'
+                    });
+                });
+            }
+        });
     }
 
     function toggleSidebar() {

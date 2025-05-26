@@ -11,12 +11,16 @@
     onload="this.rel='stylesheet'"
     href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 
   <title>Class Schedule</title>
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
   
   <style>
     /* Ocultar elementos con x-cloak hasta que Alpine.js esté listo */
@@ -57,7 +61,7 @@
         width: 280px;
         height: auto;
         max-height: 90vh;
-        z-index: 1000;
+        z-index: 998;
         background-color: #e7edf4;
         border-radius: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -73,7 +77,7 @@
         position: absolute;
         top: 1rem;
         right: 1rem;
-        z-index: 1001;
+        z-index: 997;
         background: #0c77f2;
         padding: 0.75rem;
         border-radius: 0.5rem;
@@ -255,7 +259,7 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 40;
+      z-index: 9999;
       top: 0;
       right: 0;
       left: 0;
@@ -264,6 +268,21 @@
     }
     
     .modal.active {
+      display: block;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .overlay.active {
       display: block;
     }
   </style>
@@ -875,7 +894,12 @@
       .then(data => {
         console.log('Respuesta del servidor:', data);
         if (data.success) {
-          alert(data.message);
+          Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: data.message,
+            confirmButtonColor: '#0c77f2'
+          });
           closeAddClassModal();
           
           // Crear el nuevo evento
@@ -896,12 +920,22 @@
             location.reload();
           }, 500);
         } else {
-          alert(data.message || 'Error al inscribirse en la clase');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message || 'Error al inscribirse en la clase',
+            confirmButtonColor: '#0c77f2'
+          });
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Error al inscribirse en la clase');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al inscribirse en la clase',
+          confirmButtonColor: '#0c77f2'
+        });
       });
     }
 

@@ -289,10 +289,10 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
             $dias_semana = [
               'Lunes' => 'https://travelingua.es/wp-content/uploads/2023/11/comida-tipica-canada.jpg',
               'Martes' => 'https://sophiederam.com/wp-content/uploads/2022/05/alimentos-saudaveis-para-o-almoco.png',
-              'Miércoles' => 'https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2023/04/plato-harvard-3006638.jpg?tf=3840x',
+              'Miercoles' => 'https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2023/04/plato-harvard-3006638.jpg?tf=3840x',
               'Jueves' => 'https://xurrosymas.mx/wp-content/uploads/2024/08/comida-saludable-1024x675.jpg',
               'Viernes' => 'https://www.clarin.com/2024/08/18/GwjPHUqMQ_2000x1500__1.jpg',
-              'Sábado' => 'https://media-cdn.tripadvisor.com/media/photo-s/1a/44/72/cf/aprende-a-cocinar-comida.jpg',
+              'Sabado' => 'https://media-cdn.tripadvisor.com/media/photo-s/1a/44/72/cf/aprende-a-cocinar-comida.jpg',
               'Domingo' => 'https://cdn-3.expansion.mx/dims4/default/dc6563f/2147483647/strip/true/crop/1253x658+0+89/resize/1200x630!/format/jpg/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fa9%2F68%2F255e44db4bc1be07dcc0b495e5ef%2Ftacos-comida-callejera-mexico.jpg'
             ];
             foreach ($dias_semana as $dia => $imagen) {

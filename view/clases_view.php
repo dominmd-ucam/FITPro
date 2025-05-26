@@ -13,6 +13,8 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 
     <title>Classes view Admin</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
@@ -31,6 +33,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <!-- Botones de exportación -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <style>
       @media (max-width: 768px) {
         .layout-content-container {
@@ -428,6 +432,81 @@
       .text-red-500:hover {
           background-color: #fee2e2;
       }
+
+      /* Estilos para el modal de edición */
+      .form-group {
+          margin-bottom: 1rem;
+      }
+
+      .form-group label {
+          display: block;
+          color: #0d141c;
+          margin-bottom: 0.5rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+          width: 100%;
+          padding: 0.5rem 1rem;
+          border-radius: 0.75rem;
+          background-color: #e7edf4;
+          border: none;
+          color: #0d141c;
+          font-size: 0.875rem;
+      }
+
+      .form-group textarea {
+          height: 6rem;
+          resize: vertical;
+      }
+
+      .form-actions {
+          display: flex;
+          justify-content: flex-end;
+          gap: 1rem;
+          margin-top: 1.5rem;
+      }
+
+      .btn {
+          padding: 0.5rem 1rem;
+          border-radius: 0.75rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+          cursor: pointer;
+      }
+
+      .btn-primary {
+          background-color: #49709c;
+          color: white;
+      }
+
+      .btn-primary:hover {
+          background-color: #0c77f2;
+      }
+
+      .btn-secondary {
+          background-color: #e7edf4;
+          color: #0d141c;
+      }
+
+      .btn-secondary:hover {
+          background-color: #dce5ef;
+      }
+
+      .close {
+          color: #49709c;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          cursor: pointer;
+      }
+
+      .close:hover {
+          color: #0c77f2;
+      }
     </style>
   </head>
   <body>
@@ -646,8 +725,8 @@
     </div>
 
     <!-- Modal para crear clase -->
-    <div id="newClassModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
-      <div class="bg-[#f8fafc] rounded-xl p-6 w-[500px]">
+    <div id="newClassModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-[9999]">
+      <div class="bg-[#f8fafc] rounded-xl p-6 w-[500px] relative">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-[#0d141c] text-xl font-bold">Nueva Clase</h2>
           <button id="closeModal" class="text-[#49709c] hover:text-[#0c77f2]">
@@ -701,8 +780,8 @@
     </div>
 
     <!-- Modal de Edición -->
-    <div id="editClassModal" class="modal">
-        <div class="modal-content">
+    <div id="editClassModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-[9999]">
+        <div class="bg-[#f8fafc] rounded-xl p-6 w-[500px] relative">
             <span class="close">&times;</span>
             <h2 class="text-[#0d141c] text-xl font-bold mb-4">Editar Clase</h2>
             <form id="editClassForm">
@@ -753,7 +832,8 @@
     // Funciones globales para el modal de edición
     function showEditModal(id) {
         const modal = document.getElementById('editClassModal');
-        modal.style.display = 'block';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
         
         // Primero cargar los entrenadores
         loadTrainersForEdit().then(() => {
@@ -768,7 +848,12 @@
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
-                    alert(data.error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.error,
+                        confirmButtonColor: '#0c77f2'
+                    });
                     hideEditModal();
                     return;
                 }
@@ -783,7 +868,12 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error al cargar los datos de la clase');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al cargar los datos de la clase',
+                    confirmButtonColor: '#0c77f2'
+                });
                 hideEditModal();
             });
         });
@@ -791,7 +881,8 @@
 
     function hideEditModal() {
         const modal = document.getElementById('editClassModal');
-        modal.style.display = 'none';
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
     }
 
     // Función para cargar entrenadores en el select de edición
@@ -817,7 +908,12 @@
             return Promise.resolve();
         } catch (error) {
             console.error('Error al cargar entrenadores:', error);
-            alert('Error al cargar la lista de entrenadores');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al cargar la lista de entrenadores',
+                confirmButtonColor: '#0c77f2'
+            });
             return Promise.reject(error);
         }
     }
@@ -859,7 +955,12 @@
             }
         } catch (error) {
             console.error('Error al cargar entrenadores:', error);
-            alert('Error al cargar la lista de entrenadores');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al cargar la lista de entrenadores',
+                confirmButtonColor: '#0c77f2'
+            });
         }
     }
 
@@ -893,15 +994,30 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    alert(data.message);
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: data.message,
+                        confirmButtonColor: '#0c77f2'
+                    });
                     hideNewClassModal();
                     location.reload();
                 } else {
-                    alert(data.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message,
+                        confirmButtonColor: '#0c77f2'
+                    });
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error al crear la clase');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al crear la clase',
+                    confirmButtonColor: '#0c77f2'
+                });
             }
         });
 
@@ -928,44 +1044,85 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Clase actualizada exitosamente');
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Clase actualizada exitosamente',
+                        confirmButtonColor: '#0c77f2'
+                    });
                     hideEditModal();
                     location.reload();
                 } else {
-                    alert(data.message || 'Error al actualizar la clase');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message || 'Error al actualizar la clase',
+                        confirmButtonColor: '#0c77f2'
+                    });
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error al actualizar la clase');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al actualizar la clase',
+                    confirmButtonColor: '#0c77f2'
+                });
             });
         });
     });
 
     // Añadir la función de confirmación y borrado en el script
     function confirmarBorrado(id) {
-        if (confirm('¿Estás seguro de que deseas eliminar esta clase? Esta acción no se puede deshacer.')) {
-            fetch('index.php?controlador=clases&action=eliminar_clase', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'id=' + id
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    location.reload();
-                } else {
-                    alert(data.message || 'Error al eliminar la clase');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al eliminar la clase');
-            });
-        }
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0c77f2',
+            cancelButtonColor: '#49709c',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('index.php?controlador=clases&action=eliminar_clase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + id
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: data.message,
+                            confirmButtonColor: '#0c77f2'
+                        });
+                        location.reload();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message || 'Error al eliminar la clase',
+                            confirmButtonColor: '#0c77f2'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al eliminar la clase',
+                        confirmButtonColor: '#0c77f2'
+                    });
+                });
+            }
+        });
     }
 
     function toggleSidebar() {

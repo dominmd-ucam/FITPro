@@ -50,9 +50,9 @@ function registrarProgreso() {
 
         // Registrar el progreso
         if ($model->registrarProgreso($datos)) {
-            $_SESSION['mensaje'] = "Progreso registrado correctamente";
+            $_SESSION['mensaje'] = "¡Excelente! Tu progreso ha sido registrado exitosamente";
         } else {
-            $_SESSION['error'] = "Error al registrar el progreso";
+            $_SESSION['error'] = "Lo sentimos, hubo un error al registrar tu progreso. Por favor, intenta nuevamente";
         }
     }
 
@@ -73,9 +73,9 @@ function eliminarProgreso() {
     // Verificar si se recibió el ID del progreso
     if (isset($_POST['progreso_id'])) {
         if ($model->eliminarProgreso($_POST['progreso_id'])) {
-            $_SESSION['mensaje'] = "Progreso eliminado correctamente";
+            $_SESSION['mensaje'] = "¡Listo! El registro de progreso ha sido eliminado correctamente";
         } else {
-            $_SESSION['error'] = "Error al eliminar el progreso";
+            $_SESSION['error'] = "Lo sentimos, hubo un error al eliminar el registro. Por favor, intenta nuevamente";
         }
     }
 
