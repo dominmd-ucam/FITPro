@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 function home(){
     require_once("model/clases_model.php");
     $clases = new ClasesModel();

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 function home(){
     require_once("model/entrenadores_model.php");

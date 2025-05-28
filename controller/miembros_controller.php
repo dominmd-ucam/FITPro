@@ -1,5 +1,5 @@
 <?php
-session_start();
+// No necesitamos session_start() aquí porque ya se inició en el front_controller
 
 function home(){
     require_once("model/miembros_model.php");

@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 function contactar(){
     if (isset($_POST["enviar"])) {
     $to_email = "prueba@localhost.com";

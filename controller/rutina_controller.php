@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require_once 'model/gimnasio_model.php';
 
 class Rutina_controller {
