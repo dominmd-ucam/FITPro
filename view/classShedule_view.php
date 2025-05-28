@@ -37,6 +37,11 @@ if (!verificarSesionIniciada()) {
     [x-cloak] {
       display: none !important;
     }
+
+    /* Asegurar que SweetAlert2 aparezca por encima del modal */
+    .swal2-container {
+      z-index: 10000 !important;
+    }
   </style>
   
   <script>
@@ -449,7 +454,7 @@ if (!verificarSesionIniciada()) {
 
           <!-- Modal -->
           <div id="eventModal" class="modal">
-            <div class="p-4 max-w-xl mx-auto relative absolute left-0 right-0 overflow-hidden mt-24">
+            <div class="p-4 max-w-4xl mx-auto relative absolute left-0 right-0 overflow-hidden mt-24">
               <div class="shadow absolute right-0 top-0 w-10 h-10 rounded-full bg-white text-gray-500 hover:text-gray-800 inline-flex items-center justify-center cursor-pointer"
                 onclick="closeModal()">
                 <svg class="fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -468,6 +473,7 @@ if (!verificarSesionIniciada()) {
                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Día</th>
                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Horario</th>
                           <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entrenador</th>
+                          <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acción</th>
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200">
@@ -483,6 +489,12 @@ if (!verificarSesionIniciada()) {
                               ?>
                             </td>
                             <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlspecialchars($inscripcion['nombre_entrenador']); ?></td>
+                            <td class="px-4 py-2 text-sm text-gray-900">
+                              <button onclick="anularInscripcion(<?php echo $inscripcion['id']; ?>)" 
+                                      class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded-lg text-sm">
+                                Anular
+                              </button>
+                            </td>
                           </tr>
                         <?php endforeach; ?>
                       </tbody>
@@ -925,10 +937,14 @@ if (!verificarSesionIniciada()) {
           // Actualizar el calendario
           generateCalendar();
           
-          // Recargar la página después de un breve retraso
-          setTimeout(() => {
-            location.reload();
-          }, 500);
+          // Actualizar la sección de clases de hoy
+          actualizarClasesHoy();
+          
+          // Actualizar la sección de próximas clases
+          actualizarProximasClases();
+
+          // Recargar la página para actualizar el modal de inscripciones
+          window.location.reload();
         } else {
           Swal.fire({
             icon: 'error',
@@ -949,6 +965,82 @@ if (!verificarSesionIniciada()) {
       });
     }
 
+    // Función para actualizar la sección de clases de hoy
+    function actualizarClasesHoy() {
+      fetch('view/get_available_classes.php?dia=' + getDiaActual() + '&fecha=' + new Date().toISOString().split('T')[0])
+        .then(response => response.json())
+        .then(data => {
+          const contenedorClasesHoy = document.querySelector('.flex.flex-col.gap-2.px-4.rounded-xl.bg-\\[\\#e7edf4\\].p-4');
+          if (data.length === 0) {
+            contenedorClasesHoy.innerHTML = '<p class="text-[#0d141c] text-center py-4">No tienes clases programadas para hoy</p>';
+          } else {
+            let html = '';
+            data.forEach(clase => {
+              html += `
+                <div class="flex items-center gap-4 min-h-[72px] py-2 rounded-xl">
+                  <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14"
+                      style='background-image: url("https://cdn.usegalileo.ai/sdxl10/780c93d5-68e9-46a9-8978-e20d6d49192a.png");'></div>
+                  <div class="flex flex-col justify-center">
+                    <p class="text-[#0d141c] text-base font-medium leading-normal line-clamp-1">${clase.nombre}</p>
+                    <p class="text-[#49709c] text-sm font-normal leading-normal line-clamp-2">
+                      ${clase.dia_semana}, ${new Date('1970-01-01T' + clase.hora_inicio).toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})} - 
+                      ${new Date('1970-01-01T' + clase.hora_fin).toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}
+                    </p>
+                  </div>
+                </div>
+              `;
+            });
+            contenedorClasesHoy.innerHTML = html;
+          }
+        })
+        .catch(error => console.error('Error al actualizar clases de hoy:', error));
+    }
+
+    // Función para actualizar la sección de próximas clases
+    function actualizarProximasClases() {
+      fetch('view/get_available_classes.php?dia=' + getDiaActual() + '&fecha=' + new Date().toISOString().split('T')[0])
+        .then(response => response.json())
+        .then(data => {
+          const contenedorProximasClases = document.querySelectorAll('.flex.flex-col.gap-2.px-4.rounded-xl.bg-\\[\\#e7edf4\\].p-4')[1];
+          if (data.length === 0) {
+            contenedorProximasClases.innerHTML = '<p class="text-[#0d141c] text-center py-4">No tienes próximas clases programadas</p>';
+          } else {
+            let html = '';
+            data.forEach(clase => {
+              html += `
+                <div class="flex items-center gap-4 min-h-[72px] py-2 rounded-xl">
+                  <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14"
+                      style='background-image: url("https://cdn.usegalileo.ai/sdxl10/780c93d5-68e9-46a9-8978-e20d6d49192a.png");'></div>
+                  <div class="flex flex-col justify-center">
+                    <p class="text-[#0d141c] text-base font-medium leading-normal line-clamp-1">${clase.nombre}</p>
+                    <p class="text-[#49709c] text-sm font-normal leading-normal line-clamp-2">
+                      ${clase.dia_semana}, ${new Date('1970-01-01T' + clase.hora_inicio).toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})} - 
+                      ${new Date('1970-01-01T' + clase.hora_fin).toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'})}
+                    </p>
+                  </div>
+                </div>
+              `;
+            });
+            contenedorProximasClases.innerHTML = html;
+          }
+        })
+        .catch(error => console.error('Error al actualizar próximas clases:', error));
+    }
+
+    // Función auxiliar para obtener el día actual en español
+    function getDiaActual() {
+      const dias = {
+        'Monday': 'Lunes',
+        'Tuesday': 'Martes',
+        'Wednesday': 'Miércoles',
+        'Thursday': 'Jueves',
+        'Friday': 'Viernes',
+        'Saturday': 'Sábado',
+        'Sunday': 'Domingo'
+      };
+      return dias[new Date().toLocaleDateString('en-US', { weekday: 'long' })];
+    }
+
     // Cerrar el menú al hacer click en un enlace
     document.querySelectorAll('.sidebar-container a').forEach(link => {
       link.addEventListener('click', () => {
@@ -960,6 +1052,96 @@ if (!verificarSesionIniciada()) {
         }
       });
     });
+
+    // Función para anular una inscripción
+    function anularInscripcion(inscripcionId) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "No podrás revertir esta acción",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, anular inscripción',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Mostrar indicador de carga
+          Swal.fire({
+            title: 'Procesando...',
+            text: 'Por favor espere',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+
+          fetch('view/anular_inscripcion.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              inscripcion_id: inscripcionId
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Error en la respuesta del servidor');
+            }
+            return response.text().then(text => {
+              try {
+                return JSON.parse(text);
+              } catch (e) {
+                console.error('Error al parsear JSON:', text);
+                throw new Error('Respuesta inválida del servidor');
+              }
+            });
+          })
+          .then(data => {
+            console.log('Respuesta del servidor:', data);
+            if (data.success) {
+              Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: data.message,
+                confirmButtonColor: '#0c77f2'
+              });
+              
+              // Actualizar el calendario
+              actualizarCalendario();
+              
+              // Actualizar la sección de clases de hoy
+              actualizarClasesHoy();
+              
+              // Actualizar la sección de próximas clases
+              actualizarProximasClases();
+              
+              // Cerrar el modal de inscripciones
+              closeModal();
+            } else {
+              throw new Error(data.message || 'Error al anular la inscripción');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: error.message || 'Error al anular la inscripción',
+              confirmButtonColor: '#0c77f2'
+            });
+          });
+        }
+      });
+    }
+
+    // Función para actualizar el calendario
+    function actualizarCalendario() {
+      // Recargar la página para actualizar el calendario
+      window.location.reload();
+    }
   </script>
 </body>
 
