@@ -1,4 +1,12 @@
 <?php
+require_once("controller/front_controller.php");
+
+// Verificar si el usuario está logueado
+if (!verificarSesionIniciada()) {
+    header("Location: index.php?controlador=miembros&action=login");
+    exit();
+}
+
 // Verificar si hay mensajes de éxito o error
 if (isset($_SESSION['mensaje'])) {
     echo "<script>

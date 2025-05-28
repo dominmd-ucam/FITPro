@@ -1,4 +1,12 @@
 <?php
+require_once("controller/front_controller.php");
+
+// Verificar si el usuario está logueado
+if (!verificarSesionIniciada()) {
+    header("Location: index.php?controlador=miembros&action=login");
+    exit();
+}
+
 // Verificar si hay un plan nutricional
 if (!isset($plan_nutricional) || empty($plan_nutricional)) {
     echo '<div class="text-center p-8">

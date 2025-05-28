@@ -32,35 +32,27 @@
       }
 
       .login-header {
-        background-color: #49709c;
+        background: url('assets/imagenes/registro.jpg') center center/cover no-repeat, #49709c;
         padding: 2rem;
         border-radius: 1.5rem 1.5rem 0 0;
         position: relative;
         overflow: hidden;
+        min-height: 260px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
-
       .login-header::before {
         content: '';
         position: absolute;
-        top: 0;
-        right: 0;
-        width: 300px;
-        height: 300px;
-        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
-        border-radius: 50%;
-        transform: translate(30%, -30%);
+        inset: 0;
+        background: rgba(73, 112, 156, 0.6);
+        z-index: 1;
+        border-radius: 1.5rem 1.5rem 0 0;
       }
-
-      .login-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 200px;
-        height: 200px;
-        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
-        border-radius: 50%;
-        transform: translate(-30%, 30%);
+      .login-header > .container {
+        position: relative;
+        z-index: 2;
       }
 
       .form-input {

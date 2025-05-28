@@ -1,5 +1,12 @@
 <?php
-session_start();
+require_once("controller/front_controller.php");
+
+// Verificar si el usuario está logueado
+if (!verificarSesionIniciada()) {
+    header("Location: index.php?controlador=miembros&action=login");
+    exit();
+}
+
 require_once("../model/gimnasio_model.php");
 
 header('Content-Type: application/json; charset=utf-8');

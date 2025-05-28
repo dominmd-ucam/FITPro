@@ -1,6 +1,17 @@
+<?php
+require_once("controller/front_controller.php");
+
+// Verificar si el usuario está logueado
+if (!verificarSesionIniciada()) {
+    header("Location: index.php?controlador=miembros&action=login");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
     <link

@@ -72,14 +72,13 @@
               <span class="value">Entrenamientos y consejos</span>
             </a>
             <ul class="submenu">
-              <li><a href="index.php?controlador=entrenamientoyconsejo&action=mostrar">Todo sobre entrenamientos</a>
-</li>
-              <li><a href="index.php?controlador=entrenamientoyconsejo&action=nutricion">Todo sobre nutrición</a></li>
+              <li><a href="/entrenamiento/entrenamientos">Todo sobre entrenamientos</a></li>
+              <li><a href="/entrenamiento/nutricion">Todo sobre nutrición</a></li>
             </ul>
           </li>
-          <li class="main-header-menu-item"><a class="main-header-menu-link" href="index.php?controlador=entrenamientoyconsejo&action=homefichas"><span class="value">Entrenadores</span></a></li>
-          <li class="main-header-menu-item"><a class="main-header-menu-link" href="index.php?controlador=entrenamientoyconsejo&action=comunidad"><span class="value">Comunidad</span></a></li>
-          <li class="main-header-menu-item"><a class="main-header-menu-link" href="index.php?controlador=entrenamientoyconsejo&action=quienes_somos"><span class="value">Quienes somos</span></a></li>
+          <li class="main-header-menu-item"><a class="main-header-menu-link" href="/entrenadores"><span class="value">Entrenadores</span></a></li>
+          <li class="main-header-menu-item"><a class="main-header-menu-link" href="/comunidad"><span class="value">Comunidad</span></a></li>
+          <li class="main-header-menu-item"><a class="main-header-menu-link" href="/quienessomos"><span class="value">Quienes somos</span></a></li>
         </ul>
         <a class="btn btn--secondary become-member js-become-member custom-button" href="/member">
           APÚNTATE

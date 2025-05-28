@@ -1,3 +1,13 @@
+<?php
+require_once("controller/front_controller.php");
+
+// Verificar si el usuario está logueado
+if (!verificarSesionIniciada()) {
+    header("Location: index.php?controlador=miembros&action=login");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
