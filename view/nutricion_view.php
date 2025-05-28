@@ -15,7 +15,7 @@
 
     <!-- Imagen de portada -->
     <div class="w-full mb-10 rounded-xl overflow-hidden shadow-md">
-      <img src="assets/imagenes/plato-de-tazon-de-fuente-de-buda-con-verduras-y-legumbres-vista-superior.jpg" alt="Nutrición saludable" class="w-full h-72 object-cover">
+      <img src="assets/imagenes/platoTazonVerduras.jpg" alt="Nutrición saludable" class="w-full h-72 object-cover">
     </div>
 
     <!-- Título principal -->
@@ -41,7 +41,7 @@
 
     <!-- Imagen intermedia -->
     <div class="mb-12 rounded-xl overflow-hidden">
-      <img src="assets/imagenes/primer-plano-de-mujer-atletica-agregando-fresas-mientras-hace-ensalada-de-frutas-en-la-cocina.jpg" alt="Dieta equilibrada" class="w-full h-64 object-cover">
+      <img src="assets/imagenes/platoFresas.jpg" alt="Dieta equilibrada" class="w-full h-64 object-cover">
     </div>
 
     <!-- Beneficios + tarjeta -->

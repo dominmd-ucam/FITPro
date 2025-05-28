@@ -15,7 +15,7 @@
 
     <!-- Imagen de portada -->
     <div class="w-full mb-10 rounded-xl overflow-hidden shadow-md">
-      <img src="assets/imagenes/vista-de-angulo-bajo-del-hombre-musculoso-irreconocible-preparandose-para-levantar-una-barra-en-un-club-de-salud (1).jpg" alt="Entrenamiento físico" class="w-full h-72 object-cover">
+      <img src="assets/imagenes/levantarBarra.jpg" alt="Entrenamiento físico" class="w-full h-72 object-cover">
     </div>
 
     <!-- Título principal -->
@@ -40,7 +40,7 @@
 
     <!-- Imagen entre secciones -->
     <div class="mb-12 rounded-xl overflow-hidden">
-      <img src="assets/imagenes/personas-que-trabajan-en-el-interior-junto-con-pesas.jpg" alt="Personas entrenando" class="w-full h-64 object-cover">
+      <img src="assets/imagenes/personasPesas.jpg" alt="Personas entrenando" class="w-full h-64 object-cover">
     </div>
 
     <!-- Beneficios + tarjeta -->

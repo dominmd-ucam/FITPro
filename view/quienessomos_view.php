@@ -12,7 +12,7 @@
 <body class="bg-[#F8FAFC] text-white font-sans leading-relaxed">
 
   <!-- Hero -->
-  <section class="relative h-[350px] md:h-[420px] flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/imagenes/personas-que-trabajan-en-el-interior-junto-con-pesas.jpg');">
+  <section class="relative h-[350px] md:h-[420px] flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/imagenes/personasPesas.jpg');">
     <div class="absolute inset-0 bg-opacity-60"></div>
     <div class="relative z-10 text-center text-white px-4">
       <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in">Quiénes somos</h1>
@@ -58,7 +58,7 @@
     <!-- Equipo -->
     <section class="mb-20 fade-in">
       <div class="bg-gradient-to-r from-[#0C77F2]/10 to-transparent rounded-xl overflow-hidden shadow-md">
-        <img src="assets/imagenes/peso-saludable-cuidado-masculino-atletico.jpg" alt="Equipo FitPro" class="w-full h-80 object-cover rounded-xl">
+        <img src="assets/imagenes/pesoSaludable.jpg" alt="Equipo FitPro" class="w-full h-80 object-cover rounded-xl">
       </div>
       <h2 class="text-2xl font-semibold mb-2 mt-8 text-center">Nuestro equipo</h2>
       <p class="text-center max-w-3xl mx-auto">
