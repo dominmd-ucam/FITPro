@@ -1,23 +1,27 @@
 <?php
 
-function contactar(){
-    if (isset($_POST["enviar"])) {
-    $to_email = "prueba@localhost.com";
-    $from = isset($_POST["mail"])?$_POST["mail"]:"";
-    $asunto= isset($_POST["asunto"])?$_POST["asunto"]:"";
-    $nombre= isset($_POST["nombre"])?$_POST["nombre"]:"";
-    $mensaje= isset($_POST["mensaje"])?$_POST["mensaje"]:"";
-    $body = "Mensaje de: $nombre.<br>$mensaje";
-    $headers = "From: $from";
+function contacto() {
+  $message = '';
 
-    if (mail($to_email, $asunto, $body, $headers)) {
-    echo "Email enviado correctamente a $to_email...";
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = htmlspecialchars($_POST['nombre']);
+    $email = htmlspecialchars($_POST['email']);
+    $mensaje = htmlspecialchars($_POST['mensaje']);
+
+    $destinatario = 'robertosegadodiaz@gmail.com';  // ← Sustituye por tu email real
+    $asunto = "Nuevo mensaje de $nombre (FitPro)";
+    $cuerpo = "Nombre: $nombre\n";
+    $cuerpo .= "Email: $email\n";
+    $cuerpo .= "Mensaje:\n$mensaje\n";
+
+    $cabeceras = "From: $email\r\nReply-To: $email\r\n";
+
+    if (mail($destinatario, $asunto, $cuerpo, $cabeceras)) {
+      $message = "✅ ¡Mensaje enviado correctamente!";
     } else {
-    echo "Envio de Email fallido...";
+      $message = "❌ Error al enviar el mensaje. Inténtalo más tarde.";
     }
-}
-//que me mande al home cuando lo tenga
-    require_once("view/contacto_view.php");
-}
+  }
 
-?>
+  include 'view/contacto_view.php';
+}

@@ -26,7 +26,8 @@ $public_routes = [
     'entrenamientoyconsejo_nutricion' => true,
     'entrenamientoyconsejo_homefichas' => true,
     'entrenamientoyconsejo_comunidad' => true,
-    'entrenamientoyconsejo_quienes_somos' => true
+    'entrenamientoyconsejo_quienes_somos' => true,
+    'contactar_contacto' => true
 ];
 
 // Función para verificar la sesión
