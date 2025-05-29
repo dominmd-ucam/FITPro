@@ -1,198 +1,136 @@
 ```markdown
-# Sistema de Gestión de Gimnasio 🏋️‍♂️
+# FITPro 🏋️‍♂️
 
-Sistema de gestión integral para gimnasios desarrollado en PHP siguiendo el patrón MVC.
+![FITPro29 Logo](assets/imagenes/logo.png)
 
-## 📋 Características
+## 🌟 Descripción
 
-- Gestión completa de miembros
-- Sistema de membresías
-- Control de rutinas y clases
-- Seguimiento de progreso
-- Planes de nutrición
-- Panel de administración
-- Interfaz responsiva y moderna
+FITPro es un sistema de gestión integral para gimnasios moderno y eficiente, desarrollado con las últimas tecnologías web. Nuestra plataforma está diseñada para revolucionar la forma en que los gimnasios gestionan sus operaciones y cómo los usuarios interactúan con sus rutinas de entrenamiento.
 
-## 🚀 Tecnologías Utilizadas
+## 🎯 Características Principales
 
-- PHP 7.4+
-- MySQL
-- JavaScript
-- HTML5
-- CSS3 (Tailwind CSS)
-- AJAX
+### 💪 Para Miembros
+- Dashboard personalizado con métricas de progreso
+- Planes nutricionales personalizados
+- Seguimiento de rutinas y clases
+- Sistema de progreso con gráficos interactivos
+- Comunidad integrada para compartir logros
 
-## 📦 Instalación
+### 👨‍💼 Para Administradores
+- Panel de control intuitivo
+- Gestión avanzada de miembros
+- Control de clases y entrenadores
+- Reportes y estadísticas en tiempo real
+- Sistema de membresías flexible
 
-1. Clona el repositorio:
-```bash
-git clone https://github.com/tu-usuario/gimnasio-mvc.git
+## 🛠️ Stack Tecnológico
+
+- **Backend**: PHP 7.4+ con arquitectura MVC
+- **Frontend**: HTML5, CSS3 (Tailwind CSS), JavaScript
+- **Base de Datos**: MySQL
+- **APIs**: RESTful con AJAX
+- **Seguridad**: Encriptación avanzada y validación robusta
+
+## 🚀 Instalación Rápida
+
+1. **Requisitos Previos**
+   ```bash
+   - PHP 7.4 o superior
+   - MySQL 5.7+
+   - Servidor Apache/Nginx
+   - Composer (gestor de dependencias)
+   ```
+
+2. **Clonar el Repositorio**
+   ```bash
+   git clone https://github.com/dominmd-ucam/FITPro.git
+   cd FITPro29
+   ```
+
+3. **Configuración de Base de Datos**
+   ```bash
+   mysql -u root -p < assets/gimnasio_db.sql
+   ```
+
+4. **Configuración del Entorno**
+   ```php
+   // model/conectar.php
+   define('DB_HOST', 'localhost');
+   define('DB_USER', 'tu_usuario');
+   define('DB_PASS', 'tu_contraseña');
+   define('DB_NAME', 'gimnasio_db');
+   ```
+
+## 📁 Estructura del Proyecto
+
+```
+FITPro/
+├── assets/          # Recursos estáticos
+├── controller/      # Controladores MVC
+├── model/          # Modelos y lógica de negocio
+├── view/           # Vistas y templates
+└── Documentacion/  # Documentación técnica
 ```
 
-2. Importa la base de datos:
+## 🔐 Seguridad
 
-mysql -u root -p < assets/gimnasio_db.sql
-
-3. Configura la conexión a la base de datos en `model/conectar.php`:
-```php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'tu_usuario');
-define('DB_PASS', 'tu_contraseña');
-define('DB_NAME', 'gimnasio_db');
-```
-
-4. Configura tu servidor web (Apache/Nginx) para apuntar al directorio del proyecto.
-
-## 🏗️ Estructura del Proyecto
-
-```
-MVC/
-├── assets/
-│   ├── css/
-│   │   ├── headercss.css
-│   │   └── login.css
-│   └── gimnasio_db.sql
-├── controller/
-│   ├── dashboard_controller.php
-│   ├── front_controller.php
-│   └── miembros_controller.php
-├── model/
-│   ├── conectar.php
-│   ├── dashboard_model.php
-│   ├── gimnasio_model.php
-│   └── miembros_model.php
-├── view/
-│   ├── dashboard_admin.php
-│   ├── dashboard_user.php
-│   ├── login_view.php
-│   ├── miembros_view.php
-│   └── registro_view.php
-└── index.php
-```
-
-## 📚 Documentación
-
-### Gestión de Miembros
-
-#### Vista de Miembros (`miembros_view.php`)
-- Tabla de miembros con información detallada
-- Modal para crear nuevos miembros
-- Modal de edición con pestañas para:
-  - Datos básicos
-  - Membresía
-  - Rutinas
-  - Accesos
-  - Progreso
-  - Nutrición
-  - Clases
-
-#### Controlador de Miembros (`miembros_controller.php`)
-```php
-// Funciones principales
-home()              // Muestra la vista principal
-crear_miembro()     // Crea nuevo miembro
-get_member_data()   // Obtiene datos del miembro
-update_member()     // Actualiza datos del miembro
-```
-
-#### Modelo de Miembros (`miembros_model.php`)
-```php
-// Funciones de base de datos
-get_usuarios()          // Lista todos los usuarios
-login()                 // Autenticación
-usuario_existe()        // Verifica existencia
-email_existe()          // Verifica email
-registrar_usuario()     // Registra nuevo usuario
-get_member_complete_data() // Datos completos
-update_member()         // Actualiza miembro
-```
-
-### Base de Datos
-
-#### Tablas Principales
-```sql
--- Usuarios
-CREATE TABLE usuarios (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(255),
-    email VARCHAR(255),
-    passwd VARCHAR(255),
-    tipo ENUM('cliente', 'admin')
-);
-
--- Membresías
-CREATE TABLE membresias (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT,
-    tipo_id INT,
-    fecha_inicio DATE,
-    fecha_fin DATE,
-    estado VARCHAR(50)
-);
-```
-
-### JavaScript
-
-#### Funciones Principales
-```javascript
-// Gestión de Modales
-openModal()          // Abre modal nuevo miembro
-closeModal()         // Cierra modal
-openEditModal(id)    // Abre modal edición
-closeEditModal()     // Cierra modal edición
-
-// Gestión de Datos
-saveMember()         // Guarda nuevo miembro
-saveEdit()           // Guarda edición
-loadTabData(tabId)   // Carga datos de pestaña
-```
-
-## 🎨 Estilos
-
-El proyecto utiliza Tailwind CSS para el diseño, con una paleta de colores personalizada:
-
-```css
---primary-color: #1568c1;    /* Azul principal */
---secondary-color: #243547;  /* Azul oscuro */
---text-color: #93adc8;      /* Texto */
---background-color: #111418; /* Fondo */
-```
-
-## 🔒 Seguridad
-
-- Validación de datos en servidor y cliente
+- Encriptación de contraseñas con bcrypt
 - Protección contra SQL Injection
-- Encriptación de contraseñas
-- Control de sesiones
-- Validación de permisos de usuario
+- Validación de datos en servidor y cliente
+- Control de sesiones seguro
+- Sistema de roles y permisos
 
-## 🤝 Contribuir
+## 🎨 Diseño y UX
 
-1. Haz un Fork del proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+- Interfaz moderna y responsiva
+- Paleta de colores profesional
+- Componentes interactivos
+- Experiencia de usuario optimizada
+- Diseño adaptable a todos los dispositivos
+
+## �� Características Avanzadas
+
+- Sistema de seguimiento de progreso
+- Planes nutricionales personalizados
+- Gestión de clases y reservas
+- Comunidad integrada
+- Reportes y estadísticas
+
+## 🤝 Contribución
+
+1. Fork del proyecto
+2. Crear rama feature (`git checkout -b feature/AmazingFeature`)
+3. Commit cambios (`git commit -m 'Add AmazingFeature'`)
 4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+5. Abrir Pull Request
 
-## 📝 Licencia
+## 📝 Roadmap
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
-
-## ✨ Características Futuras
-
-- [ ] Sistema de pagos integrado
-- [ ] App móvil para miembros
 - [ ] Integración con wearables
-- [ ] Sistema de reservas online
-- [ ] Generación de reportes PDF
+- [ ] App móvil nativa
+- [ ] Sistema de pagos online
+- [ ] IA para recomendaciones personalizadas
+- [ ] API pública para desarrolladores
 
-## 📞 Soporte
+## 📞 Soporte y Contacto
 
-Para soporte, email: tu@email.com o crea un issue en el repositorio.
+- Email: soporte@fitpro.com
+- Documentación: [docs.fitpro.com](https://docs.fitpro.com)
+- Issues: [GitHub Issues](https://github.com/dominmd-ucam/FITPro/issues)
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
 
 ## 🙏 Agradecimientos
 
-- [Tailwind CSS](https://tailwindcss.com)
-- [PHP](https://php.net)
-- [MySQL](https://mysql.com)
+- Equipo de desarrollo FITPro
+- Comunidad de código abierto
+- Contribuidores y testers
+
+---
+
+<div align="center">
+  <sub>Construido con ❤️ por el equipo FITPro</sub>
+</div>
 ```
