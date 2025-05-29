@@ -1,8 +1,6 @@
 ```markdown
 # FITPro 🏋️‍♂️
 
-![alt Logo](https://github.com/dominmd-ucam/FITPro/blob/79e2864e8ced948e569079e2329466a5929ac7ae/assets/imagenes/LogoFitPro.png)
-
 ## 🌟 Descripción
 
 FITPro es un sistema de gestión integral para gimnasios moderno y eficiente, desarrollado con las últimas tecnologías web. Nuestra plataforma está diseñada para revolucionar la forma en que los gimnasios gestionan sus operaciones y cómo los usuarios interactúan con sus rutinas de entrenamiento.
