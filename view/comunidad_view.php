@@ -9,23 +9,19 @@
 
 <?php require_once("view/menu.php"); ?>
 
-<body class="bg-[#F8FAFC] text-white font-sans leading-relaxed">
+<body class="bg-[#F8FAFC] text-black font-sans leading-relaxed">
 
-  <!-- Encabezado -->
-  <header class="text-center py-12 shadow-md">
-    <h1 class="text-4xl font-bold mb-4">Preguntas Frecuentes</h1>
-    <p class="text-lg text-white max-w-xl mx-auto">
-      Aquí encontrarás respuestas a las dudas más comunes sobre entrenamiento, nutrición y bienestar. ¡Explora y aprende!
-    </p>
-  </header>
-
-  <!-- Imagen destacada -->
-  <div class="max-w-6xl mx-auto px-4 py-8">
-    <img src="assets/imagenes/blog-ejercicio-preguntas.jpg" alt="Blog preguntas frecuentes" class="rounded-xl shadow-md w-full h-64 object-cover mb-10">
-  </div>
+  <!-- Hero con imagen de fondo -->
+  <section class="relative h-[350px] md:h-[420px] flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/imagenes/levantarBarra.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-10"></div> <!-- puedes quitar esta capa si no quieres oscurecer -->
+    <div class="relative z-10 text-center text-white px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Preguntas Frecuentes</h1>
+      <p class="text-lg max-w-2xl mx-auto">Aquí encontrarás respuestas a las dudas más comunes sobre entrenamiento, nutrición y bienestar. ¡Explora y aprende!</p>
+    </div>
+  </section>
 
   <!-- Preguntas frecuentes -->
-  <main class="max-w-4xl mx-auto px-4 pb-16">
+  <main class="max-w-4xl mx-auto px-4 py-16">
     <div class="space-y-6">
 
       <!-- Pregunta 1 -->
@@ -34,7 +30,7 @@
           ¿Cuántos días a la semana debo entrenar?
           <span class="transition-transform duration-300" id="icon-q1">▼</span>
         </button>
-        <div id="q1" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-gray-700">
+        <div id="q1" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-black">
           <p class="mt-2">Lo ideal es entrenar entre 3 y 5 veces por semana, combinando fuerza, cardio y movilidad. Lo más importante es la constancia.</p>
         </div>
       </div>
@@ -45,7 +41,7 @@
           ¿Qué debo comer antes y después de entrenar?
           <span class="transition-transform duration-300" id="icon-q2">▼</span>
         </button>
-        <div id="q2" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-gray-700">
+        <div id="q2" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-black">
           <p class="mt-2">Antes de entrenar es ideal una comida ligera con carbohidratos complejos. Después del ejercicio se recomienda proteína y algo de carbohidratos para recuperar energía.</p>
         </div>
       </div>
@@ -56,7 +52,7 @@
           ¿Necesito suplementos para ver resultados?
           <span class="transition-transform duration-300" id="icon-q3">▼</span>
         </button>
-        <div id="q3" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-gray-700">
+        <div id="q3" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-black">
           <p class="mt-2">No son imprescindibles. Una buena alimentación y descanso son suficientes para la mayoría. Los suplementos pueden ayudar si hay carencias específicas.</p>
         </div>
       </div>
@@ -67,7 +63,7 @@
           ¿Cuánto tiempo tardaré en notar resultados?
           <span class="transition-transform duration-300" id="icon-q4">▼</span>
         </button>
-        <div id="q4" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-gray-700">
+        <div id="q4" class="max-h-0 overflow-hidden opacity-0 transition-all duration-500 ease-in-out text-black">
           <p class="mt-2">Depende de tu punto de partida, pero en general entre 4 y 8 semanas puedes comenzar a notar mejoras físicas y de energía si eres constante.</p>
         </div>
       </div>
@@ -76,18 +72,18 @@
   </main>
 
   <!-- Sección tipo blog -->
-  <section class=" py-16">
+  <section class="py-16">
     <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10">
       <div>
         <img src="assets/imagenes/blog-entrenamiento-fitpro.jpg" alt="Artículo de blog" class="rounded-xl shadow-md mb-4">
         <h2 class="text-2xl font-bold mb-2">¿Cardio o pesas primero?</h2>
-        <p class="text-white mb-4">Descubre cuál es el orden más efectivo según tus objetivos: perder grasa, ganar músculo o mejorar tu resistencia.</p>
+        <p class="mb-4 text-black">Descubre cuál es el orden más efectivo según tus objetivos: perder grasa, ganar músculo o mejorar tu resistencia.</p>
         <a href="#" class="text-[#0C77F2] font-semibold hover:underline">Leer más →</a>
       </div>
       <div>
         <img src="assets/imagenes/blog-comida-saludable.jpg" alt="Nutrición deportiva" class="rounded-xl shadow-md mb-4">
         <h2 class="text-2xl font-bold mb-2">Ideas de snacks post-entreno</h2>
-        <p class="text-white mb-4">Te damos opciones rápidas y saludables para recuperar energía después del ejercicio sin perder tiempo en la cocina.</p>
+        <p class="mb-4 text-black">Te damos opciones rápidas y saludables para recuperar energía después del ejercicio sin perder tiempo en la cocina.</p>
         <a href="#" class="text-[#0C77F2] font-semibold hover:underline">Leer más →</a>
       </div>
     </div>

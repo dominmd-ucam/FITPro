@@ -235,7 +235,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Reports</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=contactar&action=contacto">Reports</a>
                   </div>
                 </div>
               </div>
@@ -259,7 +259,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Help &amp; feedback</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=contactar&action=contacto">Help &amp; feedback</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="Question" data-size="24px" data-weight="regular">

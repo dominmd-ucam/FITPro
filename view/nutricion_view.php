@@ -9,7 +9,7 @@
 
 <?php require_once("view/menu.php"); ?>
 
-<body class="font-sans leading-relaxed bg-[#F8FAFC] text-white">
+<body class="font-sans leading-relaxed bg-[#F8FAFC] text-black">
 
   <main class="max-w-5xl mx-auto px-4 py-12">
 
@@ -73,9 +73,15 @@
         <li>Lee las etiquetas de los productos y prioriza ingredientes naturales.</li>
         <li>No te obsesiones con las calorías: prioriza la calidad nutricional.</li>
       </ul>
-      <p>
+      <p class="mb-6">
         La clave está en adoptar hábitos sostenibles a largo plazo. No se trata de “hacer dieta”, sino de aprender a comer bien todos los días.
       </p>
+      <!-- Botón añadido -->
+      <div class="text-center">
+        <a href="#" class="bg-[#0C77F2] text-[#F8FAFC] px-5 py-2 rounded-lg shadow-md hover:bg-[#095ec0] transition">
+          Empezar ahora
+        </a>
+      </div>
     </section>
 
     <!-- Cierre -->

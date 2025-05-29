@@ -9,11 +9,11 @@
 
 <?php require_once("view/menu.php"); ?>
 
-<body class="bg-[#F8FAFC] text-white font-sans leading-relaxed">
+<body class="bg-[#F8FAFC] text-black font-sans leading-relaxed">
 
   <!-- Hero -->
   <section class="relative h-[350px] md:h-[420px] flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/imagenes/personasPesas.jpg');">
-    <div class="absolute inset-0 bg-opacity-60"></div>
+    
     <div class="relative z-10 text-center text-white px-4">
       <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in">Quiénes somos</h1>
       <p class="text-lg max-w-2xl mx-auto fade-in">Un equipo comprometido con tu salud y bienestar. Tecnología, personas y movimiento al servicio de tu transformación.</p>
@@ -70,7 +70,9 @@
     <section class="text-center mt-24 fade-in">
       <h2 class="text-3xl font-bold mb-4">¿Quieres unirte a FitPro?</h2>
       <p class="mb-6 max-w-xl mx-auto">Forma parte de un movimiento que apuesta por la salud desde lo humano y lo digital. Tu mejor versión comienza hoy.</p>
-      <a href="index.php?controlador=miembros&action=registro" class="bg-[#0C77F2] text-white px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition">Empieza ahora</a>
+      <a href="index.php?controlador=miembros&action=registro" class="bg-[#0C77F2] text-[#F8FAFC] px-6 py-3 rounded-md font-medium hover:bg-blue-700 transition">
+        Empieza ahora
+      </a>
     </section>
 
   </main>

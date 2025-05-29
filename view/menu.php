@@ -41,7 +41,7 @@
           <?php endif; ?>
 
 
-          <a href="index.php?controlador=contactar&action=contactar" class="link-customer-service" target="_self" rel="noopener">
+          <a href="index.php?controlador=contactar&action=contacto" class="link-customer-service" target="_self" rel="noopener">
             <i class="bi bi-question-circle"></i>
             <span>Atención al cliente</span>
           </a>
@@ -81,7 +81,7 @@
           <li class="main-header-menu-item"><a class="main-header-menu-link" href="index.php?controlador=entrenamientoyconsejo&action=comunidad"><span class="value">Comunidad</span></a></li>
           <li class="main-header-menu-item"><a class="main-header-menu-link" href="index.php?controlador=entrenamientoyconsejo&action=quienes_somos"><span class="value">Quienes somos</span></a></li>
         </ul>
-        <a class="btn btn--secondary become-member js-become-member custom-button" href="/member">
+        <a class="btn btn--secondary become-member js-become-member custom-button" href="index.php?controlador=miembros&action=login">
           APÚNTATE
         </a>
       </div>
@@ -108,7 +108,7 @@
             <?php endif; ?>
           </li>
           <li class="mobile-only">
-            <a href="index.php?controlador=contactar&action=contactar">
+            <a href="index.php?controlador=contactar&action=contacto">
               <i class="bi bi-question-circle"></i> Atención al cliente
             </a>
           </li>

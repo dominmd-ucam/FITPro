@@ -28,17 +28,22 @@ require_once("view/menu.php");
     }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-gray-800">
+<body class="bg-[#F8FAFC] text-gray-800">
+
+  <!-- Hero con fondo de imagen -->
+  <section class="relative h-[350px] md:h-[420px] flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/imagenes/personas-en-clase-reformadora-de-pilates-ejercitando-sus-cuerpos.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-10"></div> <!-- Capa oscura opcional -->
+    <div class="relative z-10 text-center text-white px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Conoce a Nuestro Equipo</h1>
+      <p class="text-lg max-w-2xl mx-auto">Profesionales apasionados que te acompañan en tu transformación física y personal.</p>
+    </div>
+  </section>
 
   <main class="max-w-7xl mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold text-center text-[#FFFFF] mb-10">Conoce a Nuestro Equipo</h1>
-
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       <?php foreach($entrenadores as $entrenador): 
-        // Construir la ruta de la imagen del entrenador
         $imagen_entrenador = "assets/imagenes/entrenadores/" . strtolower(str_replace(' ', '_', $entrenador['nombre'])) . ".jpg";
-        // Si no existe la imagen específica, usar la imagen por defecto local
         $imagen_final = file_exists($imagen_entrenador) ? $imagen_entrenador : "assets/imagenes/entrenador_generico.jpg";
       ?>
         <div class="bg-white rounded-lg shadow-md overflow-hidden border border-[#e2e8f0] hover:shadow-lg transition-shadow duration-300">
@@ -77,7 +82,7 @@ require_once("view/menu.php");
     </div>
   </main>
 
-  <!-- Añadir Font Awesome para los iconos -->
+  <!-- Font Awesome para iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </body>
 </html>

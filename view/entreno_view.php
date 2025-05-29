@@ -11,7 +11,7 @@
 
 <body class="bg-[#F8FAFC] text-black font-sans leading-relaxed">
 
-  <main class="max-w-5xl mx-auto px-4 py-12 text-[#FFFFFF]">
+  <main class="max-w-5xl mx-auto px-4 py-12">
 
     <!-- Imagen de portada -->
     <div class="w-full mb-10 rounded-xl overflow-hidden shadow-md">
@@ -83,9 +83,15 @@
         <li>Evita compararte: cada cuerpo responde de manera diferente.</li>
         <li>No temas pedir ayuda: un entrenador puede acelerar y optimizar tus resultados.</li>
       </ul>
-      <p>
+      <p class="mb-6">
         Lo más importante es la constancia. Un entrenamiento imperfecto pero constante es mucho mejor que uno perfecto e inconstante.
       </p>
+      <!-- Botón añadido -->
+      <div class="text-center">
+        <a href="#" class="bg-[#0C77F2] text-[#F8FAFC] px-5 py-2 rounded-lg shadow-md hover:bg-[#095ec0] transition">
+          Empezar ahora
+        </a>
+      </div>
     </section>
 
     <!-- Cierre -->
