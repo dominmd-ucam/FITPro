@@ -14,7 +14,7 @@
     <div class="grid md:grid-cols-2">
       
       <!-- Imagen lateral -->
-      <div class="bg-cover bg-center hidden md:block" style="background-image: url('assets/imagenes/hombre-de-alto-angulo-haciendo-ejercicio-en-el-gimnasio.jpg'); min-height: 100%;">
+      <div class="bg-cover bg-center hidden md:block" style="background-image: url('assets/imagenes/hombrePressbanca.jpg'); min-height: 100%;">
       </div>
 
       <!-- Formulario -->
