@@ -1,7 +1,7 @@
 ```markdown
 # FITPro 🏋️‍♂️
 
-![FITPro Logo](https://github.com/dominmd-ucam/FITPro/blob/main/assets/imagenes/LogoFitPro.png)
+![alt Logo](https://github.com/dominmd-ucam/FITPro/blob/main/assets/imagenes/LogoFitPro.png)
 
 ## 🌟 Descripción
 
