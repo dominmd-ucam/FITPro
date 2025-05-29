@@ -31,7 +31,7 @@ require_once("view/menu.php");
 <body class="bg-[#F8FAFC] text-gray-800">
 
   <!-- Hero con fondo de imagen -->
-  <section class="relative h-[350px] md:h-[420px] flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/imagenes/personas-en-clase-reformadora-de-pilates-ejercitando-sus-cuerpos.jpg');">
+  <section class="relative h-[350px] md:h-[420px] flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/imagenes/personasPilates.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-10"></div> <!-- Capa oscura opcional -->
     <div class="relative z-10 text-center text-white px-4">
       <h1 class="text-4xl md:text-5xl font-bold mb-4">Conoce a Nuestro Equipo</h1>
