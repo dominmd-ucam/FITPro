@@ -34,7 +34,7 @@
               <i class="bi bi-x-lg fs-5"></i>
             </a>
           <?php else : ?>
-            <a href="index.php?controlador=miembros&action=login" class="link-my-basicfit" target="_blank" rel="noopener">
+            <a href="index.php?controlador=miembros&action=login" class="link-my-basicfit">
               <i class="bi bi-person-circle"></i>
               <span>Mi cuenta FitPro</span>
             </a>

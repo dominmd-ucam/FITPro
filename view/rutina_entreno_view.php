@@ -20,11 +20,15 @@ if (!verificarSesionIniciada()) {
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 
     <title>FitMax - Rutina de Entrenamiento</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <style>
       @media (max-width: 768px) {
         .layout-content-container {
@@ -189,6 +193,15 @@ if (!verificarSesionIniciada()) {
         color: #49709c !important;
         opacity: 0.7;
       }
+
+      .btn-danger {
+        color: #ef4444;
+        transition: color 0.2s;
+      }
+
+      .btn-danger:hover {
+        color: #dc2626;
+      }
     </style>
   </head>
   <body>
@@ -343,13 +356,23 @@ if (!verificarSesionIniciada()) {
               <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Historial de Progreso</h3>
               <?php foreach ($progreso as $registro): ?>
                 <div class="exercise-card">
-                  <div class="flex flex-col justify-center">
-                    <p class="text-[#0d141c] text-base font-medium leading-normal line-clamp-1"><?php echo htmlspecialchars($registro['nombre']); ?></p>
-                    <p class="text-[#49709c] text-sm font-normal leading-normal line-clamp-2">
-                      <?php echo date('d/m/Y', strtotime($registro['fecha'])); ?> - 
-                      Peso: <?php echo $registro['peso']; ?> kg | 
-                      Reps: <?php echo $registro['repeticiones']; ?>
-                    </p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex flex-col justify-center">
+                      <p class="text-[#0d141c] text-base font-medium leading-normal line-clamp-1"><?php echo htmlspecialchars($registro['nombre']); ?></p>
+                      <p class="text-[#49709c] text-sm font-normal leading-normal line-clamp-2">
+                        <?php echo date('d/m/Y', strtotime($registro['fecha'])); ?> - 
+                        Peso: <?php echo $registro['peso']; ?> kg | 
+                        Reps: <?php echo $registro['repeticiones']; ?>
+                      </p>
+                    </div>
+                    <form action="index.php?controlador=rutina&action=eliminar_progreso" method="POST" class="ml-auto" onsubmit="return confirmarEliminacion(event)">
+                      <input type="hidden" name="progreso_id" value="<?php echo $registro['id']; ?>">
+                      <button type="submit" class="btn-danger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                          <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM80,104a8,8,0,0,1,16,0v64a8,8,0,0,1-16,0Zm80,0a8,8,0,0,1,16,0v64a8,8,0,0,1-16,0Z"></path>
+                        </svg>
+                      </button>
+                    </form>
                   </div>
                 </div>
               <?php endforeach; ?>
@@ -378,5 +401,185 @@ if (!verificarSesionIniciada()) {
         });
       });
     </script>
+
+<!-- Chatbot Integration -->
+<button
+  class="fixed bottom-4 right-4 inline-flex items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16 bg-black hover:bg-gray-700 m-0 cursor-pointer border-gray-200 bg-none p-0 normal-case leading-5 hover:text-gray-900"
+  type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed" id="chatToggle">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white block border-gray-200 align-middle">
+    <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" class="border-gray-200">
+    </path>
+  </svg>
+</button>
+
+<div style="box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);"
+  class="fixed bottom-[calc(4rem+1.5rem)] right-0 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[634px] flex flex-col hidden" id="chatContainer">
+
+  <!-- Heading -->
+  <div class="flex flex-col space-y-1.5 pb-6">
+    <h2 class="font-semibold text-lg tracking-tight text-gray-900">Chatbot</h2>
+    <p class="text-sm text-[#6b7280] leading-3">Powered by Gemini-2.0-flash</p>
+  </div>
+
+  <!-- Chat Container -->
+  <div class="flex-1 overflow-y-auto pr-2">
+    <!-- Chat Message AI -->
+    <div class="flex gap-3 my-4 text-gray-600 text-sm">
+      <span class="relative flex shrink-0 overflow-hidden rounded-full w-8 h-8">
+        <div class="rounded-full bg-gray-100 border p-1">
+          <svg stroke="none" fill="black" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
+          </svg>
+        </div>
+      </span>
+      <p class="leading-relaxed break-words flex-1"><span class="block font-bold text-gray-700">AI </span>¡Hola! Soy tu asistente virtual para el gimnasio. ¿En qué puedo ayudarte hoy?</p>
+    </div>
+  </div>
+  <!-- Input box  -->
+  <div class="flex items-center pt-4 mt-auto">
+    <form class="flex items-center justify-center w-full space-x-2">
+      <input
+        class="flex h-10 w-full rounded-md border border-[#e5e7eb] px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
+        placeholder="Type your message" value="">
+      <button
+        class="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2">
+        Send</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const chatToggle = document.getElementById('chatToggle');
+  const chatContainer = document.getElementById('chatContainer');
+  const chatInput = document.querySelector('input[placeholder="Type your message"]');
+  const sendChatBtn = document.querySelector('button:last-child');
+  const chatMessagesContainer = document.querySelector('.flex-1.overflow-y-auto');
+  let messages = [
+      { role: "system", content: "You are a helpful assistant for a gym website." }
+  ];
+
+  // Función para alternar la visibilidad del chat
+  chatToggle.addEventListener('click', () => {
+      const isHidden = chatContainer.classList.contains('hidden');
+      chatContainer.classList.toggle('hidden');
+      chatToggle.setAttribute('aria-expanded', !isHidden);
+      chatToggle.setAttribute('data-state', isHidden ? 'open' : 'closed');
+  });
+
+  // Verificar que los elementos existan
+  if (!chatInput || !sendChatBtn || !chatMessagesContainer) {
+      console.error('No se pudieron encontrar los elementos necesarios del chat');
+  }
+
+  const createChatMessage = (message, isUser = false) => {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex gap-3 my-4 text-gray-600 text-sm';
+      
+      const iconSpan = document.createElement('span');
+      iconSpan.className = 'relative flex shrink-0 overflow-hidden rounded-full w-8 h-8';
+      
+      const iconDiv = document.createElement('div');
+      iconDiv.className = 'rounded-full bg-gray-100 border p-1';
+      
+      // Icono SVG según si es usuario o AI
+      iconDiv.innerHTML = isUser ? 
+          `<svg stroke="none" fill="black" stroke-width="0" viewBox="0 0 16 16" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"></path>
+          </svg>` :
+          `<svg stroke="none" fill="black" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
+          </svg>`;
+      
+      iconSpan.appendChild(iconDiv);
+      
+      const messageP = document.createElement('p');
+      messageP.className = 'leading-relaxed break-words flex-1';
+      messageP.innerHTML = `<span class="block font-bold text-gray-700">${isUser ? 'You' : 'AI'}</span>${message}`;
+      
+      messageDiv.appendChild(iconSpan);
+      messageDiv.appendChild(messageP);
+      
+      return messageDiv;
+  };
+
+  const generateResponse = (userMessage) => {
+      if (!chatMessagesContainer) return;
+      
+      const thinkingMessage = createChatMessage('Thinking...', false);
+      chatMessagesContainer.appendChild(thinkingMessage);
+      chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+
+      fetch("controller/chatbot.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: messages })
+      })
+      .then(res => {
+          if (!res.ok) throw new Error("Network error");
+          return res.json();
+      })
+      .then(data => {
+          const reply = data.choices[0].message.content;
+          thinkingMessage.remove();
+          chatMessagesContainer.appendChild(createChatMessage(reply, false));
+          chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+          messages.push({ role: "assistant", content: reply });
+      })
+      .catch(() => {
+          thinkingMessage.remove();
+          chatMessagesContainer.appendChild(createChatMessage("Oops! Something went wrong. Please try again!", false));
+          chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+      });
+  };
+
+  const handleChat = () => {
+      if (!chatInput || !chatMessagesContainer) return;
+      
+      const userMessage = chatInput.value.trim();
+      if (!userMessage) return;
+
+      messages.push({ role: "user", content: userMessage });
+      chatMessagesContainer.appendChild(createChatMessage(userMessage, true));
+      chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+      chatInput.value = "";
+      generateResponse(userMessage);
+  };
+
+  if (sendChatBtn) {
+      sendChatBtn.addEventListener("click", handleChat);
+  }
+  
+  if (chatInput) {
+      chatInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleChat();
+          }
+      });
+  }
+
+function confirmarEliminacion(event) {
+  event.preventDefault();
+  const form = event.target;
+  
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: "Esta acción no se puede deshacer",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#0c77f2',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      form.submit();
+    }
+  });
+  
+  return false;
+}
+</script>
+
   </body>
 </html>

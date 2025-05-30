@@ -26,11 +26,15 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 
     <title>Dashboard</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     <style>
       @media (max-width: 768px) {
         .layout-content-container {
@@ -326,7 +330,59 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
               <?php endforeach; ?>
             </div>
           </div>
+
+          <?php
+          require_once("model/clases_model.php");
+          $clasesModel = new ClasesModel();
+          $clasesHoy = $clasesModel->get_clases_hoy();
+          ?>
+
+          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Clases de Hoy</h2>
           
+          <div class="px-4 py-3">
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+              <?php foreach ($clasesHoy as $clase): ?>
+              <div class="flex flex-col gap-3 rounded-xl border border-[#49709c] bg-[#f8fafc] p-4">
+                <div>
+                  <p class="text-[#0d141c] text-lg font-bold leading-normal"><?php echo htmlspecialchars($clase['nombre']); ?></p>
+                  <p class="text-[#49709c] text-sm font-normal leading-normal">Instructor: <?php echo htmlspecialchars($clase['nombre_entrenador']); ?></p>
+                  <p class="text-[#49709c] text-sm font-normal leading-normal">
+                    <?php echo htmlspecialchars($clase['dia_semana']); ?> - 
+                    <?php echo date('H:i', strtotime($clase['hora_inicio'])); ?> a 
+                    <?php echo date('H:i', strtotime($clase['hora_fin'])); ?>
+                  </p>
+                </div>
+                
+                <?php if (!empty($clase['alumnos'])): ?>
+                <div class="mt-2">
+                  <p class="text-[#0d141c] text-sm font-medium leading-normal mb-2">Alumnos Inscritos:</p>
+                  <div class="flex flex-col gap-2">
+                    <?php foreach ($clase['alumnos'] as $alumno): ?>
+                    <div class="flex items-center gap-2 bg-[#e7edf4] px-3 py-2 rounded-lg">
+                      <p class="text-[#0d141c] text-sm font-normal leading-normal flex-1"><?php echo htmlspecialchars($alumno); ?></p>
+                      <form action="index.php?controlador=clases&action=eliminarAlumno" method="POST" class="ml-auto" onsubmit="return confirmarEliminacion(event)">
+                        <input type="hidden" name="clase_id" value="<?php echo $clase['id']; ?>">
+                        <input type="hidden" name="alumno_nombre" value="<?php echo htmlspecialchars($alumno); ?>">
+                        <button type="submit" class="text-red-500 hover:text-red-700 transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM80,104a8,8,0,0,1,16,0v64a8,8,0,0,1-16,0Zm80,0a8,8,0,0,1,16,0v64a8,8,0,0,1-16,0Z"></path>
+                          </svg>
+                        </button>
+                      </form>
+                    </div>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
+                <?php else: ?>
+                <div class="mt-2">
+                  <p class="text-[#49709c] text-sm font-normal leading-normal">No hay alumnos inscritos</p>
+                </div>
+                <?php endif; ?>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+
           <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Revenue this month</h2>
           <div class="flex flex-wrap gap-4 px-4 py-3">
             <div class="flex min-w-72 flex-1 flex-col gap-2">
@@ -387,6 +443,28 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
           }
         });
       });
+
+      function confirmarEliminacion(event) {
+        event.preventDefault();
+        const form = event.target;
+        
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: "Esta acción no se puede deshacer",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#0c77f2',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit();
+          }
+        });
+        
+        return false;
+      }
     </script>
 
     <!-- Chatbot Integration -->
