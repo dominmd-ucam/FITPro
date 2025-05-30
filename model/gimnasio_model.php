@@ -330,7 +330,7 @@ class Gimnasio_model {
     }
 
     public function get_progreso_rutina($rutina_id) {
-        $sql = "SELECT e.nombre, p.peso, p.repeticiones, p.fecha 
+        $sql = "SELECT e.nombre, p.peso, p.repeticiones, p.fecha, p.id 
                 FROM progreso_ejercicios p 
                 INNER JOIN ejercicios e ON p.ejercicio_id = e.id 
                 WHERE p.rutina_id = ? 
@@ -374,6 +374,13 @@ class Gimnasio_model {
             $inscripciones[] = $row;
         }
         return $inscripciones;
+    }
+
+    public function eliminar_progreso_ejercicio($progreso_id) {
+        $sql = "DELETE FROM progreso_ejercicios WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $progreso_id);
+        return $stmt->execute();
     }
 }
 ?>
