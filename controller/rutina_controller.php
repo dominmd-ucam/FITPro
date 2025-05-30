@@ -61,4 +61,22 @@ function registrar_progreso() {
         header('Location: index.php?controlador=rutina&action=home');
     }
 }
+
+// Función global para eliminar progreso
+function eliminar_progreso() {
+    if (!isset($_SESSION['nombre'])) {
+        header('Location: index.php?controlador=miembros&action=login');
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $controller = new Rutina_controller();
+        $progreso_id = $_POST['progreso_id'];
+        
+        $controller->model->eliminar_progreso_ejercicio($progreso_id);
+        
+        // Redirigir de vuelta a la página de rutina
+        header('Location: index.php?controlador=rutina&action=home');
+    }
+}
 ?> 

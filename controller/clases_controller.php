@@ -198,4 +198,24 @@ function eliminar_clase() {
     echo json_encode($response);
     exit();
 }
+
+function eliminarAlumno() {
+    require_once("model/clases_model.php");
+    $clases = new ClasesModel();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clase_id']) && isset($_POST['alumno_nombre'])) {
+        $clase_id = $_POST['clase_id'];
+        $alumno_nombre = $_POST['alumno_nombre'];
+        
+        $resultado = $clases->eliminar_alumno_clase($clase_id, $alumno_nombre);
+        
+        if ($resultado['success']) {
+            $_SESSION['mensaje'] = $resultado['message'];
+        } else {
+            $_SESSION['error'] = $resultado['message'];
+        }
+    }
+    header("Location: index.php?controlador=home&action=home");
+    exit();
+}
 ?> 

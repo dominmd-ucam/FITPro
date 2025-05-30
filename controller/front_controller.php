@@ -1,23 +1,17 @@
 <?php
-function console_log( $data ){
+function console_log($data) {
     echo '<script>';
-    echo 'console.log('. json_encode( $data ) .')';
+    echo 'console.log(' . json_encode($data) . ')';
     echo '</script>';
 }
 
-// Iniciar la sesión al principio de todo
 session_start();
 
 const BASE_URL = '/MVC/MVC/';
-
-// La carpeta donde buscaremos los controladores
 define('CONTROLLERS_FOLDER', "controller/");
-// Si no se indica un controlador, este es el controlador que se usará por defecto
 define('DEFAULT_CONTROLLER', "home");
-// Si no se indica una acción, esta acción es la que se usará por defecto
 define('DEFAULT_ACTION', "home");
 
-// Lista de rutas públicas que no requieren sesión
 $public_routes = [
     'home_home' => true,
     'miembros_login' => true,
@@ -30,46 +24,39 @@ $public_routes = [
     'contactar_contacto' => true
 ];
 
-// Función para verificar la sesión
 function verificarSesionIniciada() {
     return isset($_SESSION['nombre']);
 }
 
-// Obtenemos el controlador.
-// Si el usuario no lo introduce, seleccionamos el de por defecto.
-$controlador = DEFAULT_CONTROLLER;
-if (!empty($_GET['controlador']))
-    $controlador = $_GET['controlador'];
+// Obtener controlador y acción
+$controlador = !empty($_GET['controlador']) ? $_GET['controlador'] : DEFAULT_CONTROLLER;
+$action = !empty($_GET['action']) ? $_GET['action'] : DEFAULT_ACTION;
 
-// Obtenemos la acción seleccionada.
-// Si el usuario no la introduce, seleccionamos la de por defecto.
-$action = DEFAULT_ACTION;
-if (!empty($_GET['action']))
-    $action = $_GET['action'];
+// Comprobar si el archivo del controlador existe
+$controller_path = CONTROLLERS_FOLDER . $controlador . '_controller.php';
 
-// Verificar si la ruta actual requiere autenticación
+if (!is_file($controller_path)) {
+    include 'view/404.php';
+    exit();
+}
+
+// Requerir el controlador
+require_once($controller_path);
+
+// Comprobar si la acción existe
+if (!function_exists($action)) {
+    include 'view/404.php';
+    exit();
+}
+
+// Comprobar si la acción requiere sesión
 $ruta_actual = $controlador . '_' . $action;
 $requiere_sesion = !isset($public_routes[$ruta_actual]);
 
-// Si la ruta requiere sesión y el usuario no está autenticado, redirigir al login
 if ($requiere_sesion && !verificarSesionIniciada()) {
     header("Location: index.php?controlador=miembros&action=login");
     exit();
 }
 
-// Ya tenemos el controlador y la acción
-// Formamos el nombre del fichero que contiene nuestro controlador
-$controller = CONTROLLERS_FOLDER . $controlador . '_controller.php';
-
-// Si la variable ($controller) es un fichero, lo requerimos
-if (is_file($controller))
-    require_once($controller);
-else
-    die('El controlador no existe - 404 not found');
-
-// Si la variable $action es una función la ejecutamos o detenemos el script
-if (is_callable($action))
-    $action();
-else
-    die('La acción no existe - 404 not found');
-?>
+// Ejecutar la acción
+$action();
