@@ -11,9 +11,30 @@ class Miembros_model {
 
     // Obtener todos los usuarios
     public function get_usuarios() {
-        $sql = "SELECT * FROM usuarios";
-        $consulta = $this->db->query($sql);
-        return $consulta;
+        try {
+            $sql = "SELECT u.*, 
+                    (SELECT m.nombre 
+                     FROM usuarios_membresias um 
+                     JOIN membresias m ON um.membresia_id = m.id 
+                     WHERE um.usuario_id = u.id_usuario 
+                     ORDER BY um.fecha_fin DESC 
+                     LIMIT 1) as tipo_membresia,
+                    (SELECT um.fecha_fin 
+                     FROM usuarios_membresias um 
+                     WHERE um.usuario_id = u.id_usuario 
+                     ORDER BY um.fecha_fin DESC 
+                     LIMIT 1) as fecha_fin_membresia 
+                    FROM usuarios u";
+            $consulta = $this->db->query($sql);
+            if (!$consulta) {
+                error_log("Error en get_usuarios: " . $this->db->error);
+                return false;
+            }
+            return $consulta;
+        } catch (Exception $e) {
+            error_log("Error en get_usuarios: " . $e->getMessage());
+            return false;
+        }
     }
 
     // Login de usuario
@@ -134,18 +155,26 @@ class Miembros_model {
         }
     }
 
-    public function get_membresia_data($id) {
+    public function get_membresia_data($id_usuario) {
         try {
-            $sql = "SELECT m.*, t.nombre as tipo 
-                    FROM membresias m 
-                    JOIN tipos_membresia t ON m.tipo_id = t.id 
-                    WHERE m.usuario_id = ? 
-                    ORDER BY m.fecha_inicio DESC 
+            $sql = "SELECT um.fecha_inicio, um.fecha_fin, m.nombre as tipo_nombre 
+                    FROM usuarios_membresias um 
+                    JOIN membresias m ON um.membresia_id = m.id 
+                    WHERE um.usuario_id = ? 
+                    ORDER BY um.fecha_inicio DESC 
                     LIMIT 1";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([$id]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
+            $stmt->bind_param("i", $id_usuario);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            
+            if ($resultado->num_rows > 0) {
+                $membresia = $resultado->fetch_assoc();
+                $membresia['estado'] = strtotime($membresia['fecha_fin']) >= time() ? 'Activo' : 'Expirado';
+                return $membresia;
+            }
+            return null;
+        } catch (Exception $e) {
             error_log("Error en get_membresia_data: " . $e->getMessage());
             return null;
         }
@@ -159,9 +188,16 @@ class Miembros_model {
                     WHERE ur.usuario_id = ? 
                     ORDER BY ur.fecha_asignacion DESC";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([$id]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            
+            $rutinas = array();
+            while($row = $resultado->fetch_assoc()) {
+                $rutinas[] = $row;
+            }
+            return $rutinas;
+        } catch (Exception $e) {
             error_log("Error en get_rutinas_data: " . $e->getMessage());
             return null;
         }
@@ -174,9 +210,16 @@ class Miembros_model {
                     ORDER BY fecha DESC, hora DESC 
                     LIMIT 10";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([$id]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            
+            $accesos = array();
+            while($row = $resultado->fetch_assoc()) {
+                $accesos[] = $row;
+            }
+            return $accesos;
+        } catch (Exception $e) {
             error_log("Error en get_accesos_data: " . $e->getMessage());
             return null;
         }
@@ -189,9 +232,16 @@ class Miembros_model {
                     ORDER BY fecha DESC 
                     LIMIT 10";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([$id]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            
+            $progreso = array();
+            while($row = $resultado->fetch_assoc()) {
+                $progreso[] = $row;
+            }
+            return $progreso;
+        } catch (Exception $e) {
             error_log("Error en get_progreso_data: " . $e->getMessage());
             return null;
         }
@@ -206,9 +256,15 @@ class Miembros_model {
                     ORDER BY pn.fecha_inicio DESC 
                     LIMIT 1";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([$id]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            
+            if ($resultado->num_rows > 0) {
+                return $resultado->fetch_assoc();
+            }
+            return null;
+        } catch (Exception $e) {
             error_log("Error en get_nutricion_data: " . $e->getMessage());
             return null;
         }
@@ -224,9 +280,16 @@ class Miembros_model {
                     WHERE uc.usuario_id = ? 
                     ORDER BY h.dia, h.hora_inicio";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([$id]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+            
+            $clases = array();
+            while($row = $resultado->fetch_assoc()) {
+                $clases[] = $row;
+            }
+            return $clases;
+        } catch (Exception $e) {
             error_log("Error en get_clases_data: " . $e->getMessage());
             return null;
         }
