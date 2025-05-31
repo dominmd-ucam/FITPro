@@ -24,7 +24,7 @@ if (!verificarSesionIniciada()) {
   <!-- SweetAlert2 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
 
-  <title>Class Schedule</title>
+  <title>Agenda de Clases</title>
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -379,7 +379,7 @@ if (!verificarSesionIniciada()) {
       <!-- Content -->
       <div class="content-container">
               <div class="flex flex-wrap justify-between gap-3 p-4">
-          <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Class Schedule</p>
+          <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Calendario de Clases</p>
               </div>
 
               <!-- Calendario -->
@@ -545,7 +545,7 @@ if (!verificarSesionIniciada()) {
           </div>
         </div>
 
-        <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Today</h3>
+        <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Hoy</h3>
         <div class="flex flex-col gap-2 px-4 rounded-xl bg-[#e7edf4] p-4">
                 <?php 
                 // Obtener el día actual en español
@@ -601,7 +601,7 @@ if (!verificarSesionIniciada()) {
                 endif; ?>
         </div>
 
-        <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Upcoming</h3>
+        <h3 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Proximas</h3>
         <div class="flex flex-col gap-2 px-4 rounded-xl bg-[#e7edf4] p-4">
                 <?php 
                 // Obtener el día actual en español
