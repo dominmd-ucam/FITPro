@@ -19,7 +19,7 @@
 
   <!-- Logo más grande -->
   <a href="index.php">
-    <img src="assets/imagenes/logofitpro.png" alt="Logo FitPro" class="h-32 mb-6 drop-shadow-md">
+    <img src="assets/imagenes/LogoFitPro.png" alt="Logo FitPro" class="h-32 mb-6 drop-shadow-md">
   </a>
 
   <!-- Tarjeta de login -->
