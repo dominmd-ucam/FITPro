@@ -580,27 +580,27 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `email`, `passwd`, `fecha_registro`, `tipo`) VALUES
-(1, 'roberto', 'robertosegadodiaz@gmail.com', '1234', '2025-05-10', 'admin'),
-(2, 'lui', 'asdasd@asda.com', '1234', '2025-05-10', 'cliente'),
-(3, 'Domin', 'dominmd99@gmail.com', '1234', '2025-05-10', 'admin'),
-(5, 'pedro', 'pericopericales@elterrordelospascales', '1234', '2025-05-10', 'cliente'),
-(6, 'Domin2', 'domin2@gmail.com', '1234', '2025-05-10', 'cliente'),
-(7, 'Maria Garcia', 'maria.garcia@email.com', 'pass123', '2025-05-10', 'cliente'),
-(8, 'Juan Perez', 'juan.perez@email.com', 'pass123', '2025-05-10', 'cliente'),
-(9, 'Ana Rodriguez', 'ana.rodriguez@email.com', 'pass123', '2025-05-10', 'cliente'),
-(10, 'Carlos Sanchez', 'carlos.sanchez@email.com', 'pass123', '2025-05-10', 'cliente'),
-(11, 'Laura Martinez', 'laura.martinez@email.com', 'pass123', '2025-05-10', 'cliente'),
-(12, 'David Lopez', 'david.lopez@email.com', 'pass123', '2025-05-10', 'cliente'),
-(13, 'Sofia Fernandez', 'sofia.fernandez@email.com', 'pass123', '2025-05-10', 'cliente'),
-(14, 'prueba1', 'prueba1@gmail.com', '1234', '2025-05-14', 'cliente'),
-(15, 'prueba', 'prueba2@gmail.com', '1234', '2025-05-14', 'cliente'),
-(16, 'asdasd asdasd', 'asdasd@gmail.com', 'asdasd', '2025-05-14', 'cliente'),
-(18, 'qwe3', 'awsed3@gmail.com', 'asd', '2025-05-14', 'admin'),
-(20, 'anapruebas23', 'pruebasemail@noseque.com', 'asd123', '2025-05-14', 'cliente'),
-(21, 'Nuevo', 'nuevo@gmail.com', 'asd123', '2025-05-15', 'cliente'),
-(22, 'PruebasDomin', 'pruebasdomin@gmail.com', '1234', '2025-05-16', 'admin'),
-(23, 'pruebafinal', 'pruebafinal@gmail.com', '1234', '2025-05-16', 'admin'),
-(24, 'ana', 'ana@ana.com', '1234', '2025-05-17', 'cliente');
+(1, 'roberto', 'robertosegadodiaz@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'admin'),
+(2, 'lui', 'asdasd@asda.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(3, 'Domin', 'dominmd99@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'admin'),
+(5, 'pedro', 'pericopericales@elterrordelospascales', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(6, 'Domin2', 'domin2@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(7, 'Maria Garcia', 'maria.garcia@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(8, 'Juan Perez', 'juan.perez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(9, 'Ana Rodriguez', 'ana.rodriguez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(10, 'Carlos Sanchez', 'carlos.sanchez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(11, 'Laura Martinez', 'laura.martinez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(12, 'David Lopez', 'david.lopez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(13, 'Sofia Fernandez', 'sofia.fernandez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(14, 'prueba1', 'prueba1@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
+(15, 'prueba', 'prueba2@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
+(16, 'asdasd asdasd', 'asdasd@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
+(18, 'qwe3', 'awsed3@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'admin'),
+(20, 'anapruebas23', 'pruebasemail@noseque.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
+(21, 'Nuevo', 'nuevo@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-15', 'cliente'),
+(22, 'PruebasDomin', 'pruebasdomin@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-16', 'admin'),
+(23, 'pruebafinal', 'pruebafinal@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-16', 'admin'),
+(24, 'ana', 'ana@ana.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-17', 'cliente');
 
 -- --------------------------------------------------------
 
