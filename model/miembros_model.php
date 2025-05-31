@@ -18,11 +18,16 @@ class Miembros_model {
 
     // Login de usuario
     public function login($user, $contra) {
-        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE nombre=? AND passwd=?");
-        $stmt->bind_param("ss", $user, $contra);
+        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE nombre=?");
+        $stmt->bind_param("s", $user);
         $stmt->execute();
         $resultado = $stmt->get_result();
-        return ($resultado->num_rows > 0);
+        
+        if ($resultado->num_rows > 0) {
+            $usuario = $resultado->fetch_assoc();
+            return password_verify($contra, $usuario['passwd']);
+        }
+        return false;
     }
 
     // Comprobar si el usuario ya existe
@@ -45,8 +50,9 @@ class Miembros_model {
 
     // Registrar nuevo usuario (ahora incluye email y tipo)
     public function registrar_usuario($user, $email, $contra, $tipo = 'cliente') {
+        $hash = password_hash($contra, PASSWORD_DEFAULT);
         $stmt = $this->db->prepare("INSERT INTO usuarios (nombre, email, passwd, tipo) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $user, $email, $contra, $tipo);
+        $stmt->bind_param("ssss", $user, $email, $hash, $tipo);
         return $stmt->execute();
     }
 
