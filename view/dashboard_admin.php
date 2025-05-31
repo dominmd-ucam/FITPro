@@ -209,7 +209,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=miembros&action=home">Members</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=miembros&action=home">Miembros</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="User" data-size="24px" data-weight="regular">
@@ -219,7 +219,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=entrenadores&action=home">Trainers</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=entrenadores&action=home">Entrenadores</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="UsersThree" data-size="24px" data-weight="regular">
@@ -229,7 +229,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=clases&action=home">Classes</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=clases&action=home">Clases</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="File" data-size="24px" data-weight="regular">
@@ -239,7 +239,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=contactar&action=contacto">Reports</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=contactar&action=contacto">Incidencias</a>
                   </div>
                 </div>
               </div>
@@ -253,7 +253,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Settings</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Ajustes</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="Question" data-size="24px" data-weight="regular">
@@ -263,7 +263,7 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
                         ></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=contactar&action=contacto">Help &amp; feedback</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=contactar&action=contacto">Ayuda &amp; feedback</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="Question" data-size="24px" data-weight="regular">
@@ -283,25 +283,25 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
         <!-- Content -->
         <div class="content-container">
           <div class="flex flex-wrap justify-between gap-3 p-4">
-            <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Good morning, <?php echo htmlspecialchars($_SESSION["nombre"]); ?></p>
+            <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Bienvenido, <?php echo htmlspecialchars($_SESSION["nombre"]); ?></p>
           </div>
           
           <div class="flex flex-wrap gap-3 p-4">
             <div class="flex min-w-[200px] flex-1 flex-col gap-1 rounded-xl bg-[#e7edf4] p-4">
-              <p class="text-[#49709c] text-sm font-medium leading-normal">Total members</p>
+              <p class="text-[#49709c] text-sm font-medium leading-normal">Miembros Totales</p>
               <p class="text-[#0d141c] text-[32px] font-bold leading-tight"><?php echo $totalMembers; ?></p>
             </div>
             <div class="flex min-w-[200px] flex-1 flex-col gap-1 rounded-xl bg-[#e7edf4] p-4">
-              <p class="text-[#49709c] text-sm font-medium leading-normal">Active members</p>
+              <p class="text-[#49709c] text-sm font-medium leading-normal">Miembros Activos</p>
               <p class="text-[#0d141c] text-[32px] font-bold leading-tight"><?php echo $activeMembers; ?></p>
             </div>
             <div class="flex min-w-[200px] flex-1 flex-col gap-1 rounded-xl bg-[#e7edf4] p-4">
-              <p class="text-[#49709c] text-sm font-medium leading-normal">Inactive members</p>
+              <p class="text-[#49709c] text-sm font-medium leading-normal">Miembros Inactivos</p>
               <p class="text-[#0d141c] text-[32px] font-bold leading-tight"><?php echo $inactiveMembers; ?></p>
             </div>
             <div class="flex min-w-[200px] flex-1 flex-col gap-1 rounded-xl bg-[#e7edf4] p-4">
-              <p class="text-[#49709c] text-sm font-medium leading-normal">Total revenue (Month)</p>
-              <p class="text-[#0d141c] text-[32px] font-bold leading-tight">$<?php echo number_format($totalRevenue, 2); ?></p>
+              <p class="text-[#49709c] text-sm font-medium leading-normal">Total Ingresos (Mes)</p>
+              <p class="text-[#0d141c] text-[32px] font-bold leading-tight">€<?php echo number_format($totalRevenue, 2); ?></p>
             </div>
           </div>
           
@@ -383,10 +383,10 @@ if (!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1) {
             </div>
           </div>
 
-          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Revenue this month</h2>
+          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Ingresos esperados</h2>
           <div class="flex flex-wrap gap-4 px-4 py-3">
             <div class="flex min-w-72 flex-1 flex-col gap-2">
-              <p class="text-[#0d141c] text-base font-medium leading-normal">$10,000</p>
+              <p class="text-[#0d141c] text-base font-medium leading-normal">3.000€</p>
               <div class="flex overflow-hidden rounded-xl border border-[#49709c] bg-[#f8fafc] p-4">
                 <div class="flex min-h-[180px] flex-1 flex-col gap-8 py-4">
                   <svg width="100%" height="148" viewBox="-3 0 478 150" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
