@@ -36,7 +36,7 @@ $action = !empty($_GET['action']) ? $_GET['action'] : DEFAULT_ACTION;
 $controller_path = CONTROLLERS_FOLDER . $controlador . '_controller.php';
 
 if (!is_file($controller_path)) {
-    include 'view/404.php';
+    require_once 'view/404.php';
     exit();
 }
 
@@ -45,7 +45,7 @@ require_once($controller_path);
 
 // Comprobar si la acción existe
 if (!function_exists($action)) {
-    include 'view/404.php';
+    require_once 'view/404.php';
     exit();
 }
 
