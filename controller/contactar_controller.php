@@ -8,7 +8,7 @@ function contacto() {
     $email = htmlspecialchars($_POST['email']);
     $mensaje = htmlspecialchars($_POST['mensaje']);
 
-    $destinatario = 'robertosegadodiaz@gmail.com';  // ← Sustituye por tu email real
+    $destinatario = 'admin@gimnasiofitpro.com';  // ← Sustituye por tu email real
     $asunto = "Nuevo mensaje de $nombre (FitPro)";
     $cuerpo = "Nombre: $nombre\n";
     $cuerpo .= "Email: $email\n";
