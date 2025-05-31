@@ -232,7 +232,7 @@ if (!verificarSesionIniciada()) {
                         <path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=miembros&action=home">Members</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=miembros&action=home">Miembros</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2 rounded-xl bg-[#49709c]">
                     <div class="text-white" data-icon="User" data-size="24px" data-weight="regular">
@@ -240,7 +240,7 @@ if (!verificarSesionIniciada()) {
                         <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
                       </svg>
                     </div>
-                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=entrenadores&action=home">Trainers</a>
+                    <a class="text-white text-sm font-medium leading-normal" href="index.php?controlador=entrenadores&action=home">Entrenadores</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="UsersThree" data-size="24px" data-weight="regular">
@@ -248,7 +248,7 @@ if (!verificarSesionIniciada()) {
                         <path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=clases&action=home">Classes</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="index.php?controlador=clases&action=home">Clases</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="File" data-size="24px" data-weight="regular">
@@ -256,13 +256,13 @@ if (!verificarSesionIniciada()) {
                         <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Reports</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Incidencias</a>
                   </div>
                 </div>
               </div>
               <div class="flex flex-col gap-4">
-                <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#0c77f2] text-white text-sm font-bold leading-normal tracking-[0.015em]">
-                  <span class="truncate">New trainer</span>
+                <button id="newTrainerBtn" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#0c77f2] text-white text-sm font-bold leading-normal tracking-[0.015em]">
+                  <span class="truncate">Nuevo entrenador</span>
                 </button>
                 <div class="flex flex-col gap-1">
                   <div class="flex items-center gap-3 px-3 py-2">
@@ -271,7 +271,7 @@ if (!verificarSesionIniciada()) {
                         <path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Settings</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Ajustes</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="Question" data-size="24px" data-weight="regular">
@@ -279,7 +279,7 @@ if (!verificarSesionIniciada()) {
                         <path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"></path>
                       </svg>
                     </div>
-                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Help &amp; feedback</a>
+                    <a class="text-[#0d141c] text-sm font-medium leading-normal" href="#">Ayuda &amp; feedback</a>
                   </div>
                   <div class="flex items-center gap-3 px-3 py-2">
                     <div class="text-[#0d141c]" data-icon="Question" data-size="24px" data-weight="regular">
@@ -299,7 +299,7 @@ if (!verificarSesionIniciada()) {
         <!-- Content -->
         <div class="content-container">
           <div class="flex flex-wrap justify-between gap-3 p-4">
-            <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Trainers</p>
+            <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight min-w-72">Entrenadores</p>
           </div>
           
           <div class="px-4 py-3">
@@ -310,7 +310,7 @@ if (!verificarSesionIniciada()) {
                 </svg>
               </div>
               <div class="dataTables_filter flex-1">
-                <input type="search" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d141c] focus:outline-0 focus:ring-0 border-none bg-[#e7edf4] focus:border-none h-full placeholder:text-[#49709c] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search trainers by name, email, phone number">
+                <input type="search" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d141c] focus:outline-0 focus:ring-0 border-none bg-[#e7edf4] focus:border-none h-full placeholder:text-[#49709c] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Buscar entrenadores por nombre, email, teléfono">
               </div>
             </div>
           </div>
@@ -320,14 +320,14 @@ if (!verificarSesionIniciada()) {
               <table id="trainersTable" class="flex-1">
                 <thead>
                   <tr class="bg-[#e7edf4]">
-                    <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-120 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Name</th>
+                    <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-120 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Nombre</th>
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-240 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Email</th>
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-360 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">
-                      Phone number
+                      Telefono
                     </th>
-                    <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-480 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">Specialty</th>
+                    <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-480 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">Especialidad</th>
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-600 px-4 py-3 text-left text-[#0d141c] w-60 text-[#49709c] text-sm font-medium leading-normal">
-                      Actions
+                      Acciones
                     </th>
                   </tr>
                 </thead>
@@ -528,13 +528,13 @@ if (!verificarSesionIniciada()) {
                       language: {
                           search: "",
                           searchPlaceholder: "Search trainers by name, email, phone number",
-                          lengthMenu: "Show _MENU_ entries",
-                          info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                          lengthMenu: "Mostrar _MENU_ entradas",
+                          info: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
                           paginate: {
                               first: "First",
                               last: "Last",
-                              next: "Next",
-                              previous: "Previous"
+                              next: "Siguiente",
+                              previous: "Anterior"
                           },
                           buttons: {
                               collection: "Exportar <span class='caret'></span>"
@@ -635,7 +635,7 @@ if (!verificarSesionIniciada()) {
 
         // Funcionalidad del modal
         const modal = $('#newTrainerModal');
-        const newTrainerBtn = $('button span:contains("New trainer")').parent();
+        const newTrainerBtn = $('#newTrainerBtn');
         const closeModal = $('#closeModal');
         const cancelBtn = $('#cancelNewTrainer');
         const form = $('#newTrainerForm');
