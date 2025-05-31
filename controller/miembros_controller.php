@@ -82,8 +82,15 @@ function registrar() {
         } elseif ($datos->usuario_existe($usuario)) {
             $message = "El usuario ya existe. Intenta con otro nombre.";
         } else {
-            if ($datos->registrar_usuario($usuario,$email ,$paswd)) {
+            if ($datos->registrar_usuario($usuario, $email, $paswd)) {
                 $_SESSION["nombre"] = $usuario;
+                $_SESSION["email"] = $email;
+                $_SESSION["admin"] = false; // Por defecto, los nuevos usuarios no son admin
+                
+                // Asegurarnos de que no hay salida antes de los headers
+                if (ob_get_length()) ob_clean();
+                
+                // Redirigir al inicio
                 header("Location: index.php");
                 exit();
             } else {
