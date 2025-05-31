@@ -312,18 +312,18 @@ if (!verificarSesionIniciada()) {
       }
 
       /* Estilos para los botones de acción */
-      .edit-member-btn svg,
-      .text-red-500 svg {
-          width: 20px;
-          height: 20px;
-          stroke: currentColor;
+      .edit-member-btn,
+      .text-red-500 {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          transition: all 0.2s ease-in-out;
       }
 
       .edit-member-btn {
           color: #49709c;
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          transition: all 0.2s;
       }
 
       .edit-member-btn:hover {
@@ -332,13 +332,168 @@ if (!verificarSesionIniciada()) {
       }
 
       .text-red-500 {
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          transition: all 0.2s;
+          color: #ef4444;
       }
 
       .text-red-500:hover {
           background-color: #fee2e2;
+      }
+
+      .edit-member-btn svg,
+      .text-red-500 svg {
+          width: 20px;
+          height: 20px;
+          stroke: currentColor;
+      }
+
+      /* Estilos para el QR */
+      .qr-code {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 4px;
+      }
+
+      .qr-code-icon {
+          width: 20px;
+          height: 20px;
+          color: #93adc8;
+      }
+
+      .qr-code-text {
+          font-size: 14px;
+          color: #93adc8;
+      }
+
+      .copy-qr-btn {
+          background: #243547;
+          color: white;
+          border: none;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 12px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+      }
+
+      .copy-qr-btn:hover {
+          background: #344c65;
+      }
+
+      /* Estilos para el estado de membresía */
+      .membership-status {
+          display: inline-block;
+          padding: 4px 12px;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 500;
+          text-align: center;
+      }
+
+      .status-active {
+          background-color: rgba(34, 197, 94, 0.1);
+          color: #22c55e;
+      }
+
+      .status-expired {
+          background-color: rgba(239, 68, 68, 0.1);
+          color: #ef4444;
+      }
+
+      /* Estilos para el tooltip */
+      .status-tooltip,
+      button[data-tooltip] {
+          position: relative;
+          cursor: help;
+      }
+
+      button[data-tooltip]:hover::before {
+          content: attr(data-tooltip);
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 8px 12px;
+          background: #243547;
+          color: white;
+          border-radius: 4px;
+          font-size: 12px;
+          white-space: nowrap;
+          z-index: 1000;
+          margin-bottom: 8px;
+          pointer-events: none;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      button[data-tooltip]:hover::after {
+          content: '';
+          position: absolute;
+          bottom: calc(100% - 4px);
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 4px;
+          border-style: solid;
+          border-color: #243547 transparent transparent transparent;
+          z-index: 1000;
+          pointer-events: none;
+      }
+
+      /* Asegurar que el tooltip sea visible sobre otros elementos */
+      #membersTable td {
+          position: relative;
+      }
+
+      /* Ajustar el z-index de la tabla para que no interfiera con el tooltip */
+      .dataTables_wrapper {
+          position: relative;
+          z-index: 1;
+      }
+
+      /* Estilos para los botones de membresía y estado */
+      #membersTable button {
+          transition: all 0.2s ease-in-out;
+      }
+
+      #membersTable button:hover {
+          opacity: 0.9;
+          transform: translateY(-1px);
+      }
+
+      #membersTable button span {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+      }
+
+      /* Eliminar estilos antiguos que ya no se usan */
+      .membership-type,
+      .status-tooltip,
+      .status-active,
+      .status-expired {
+          display: none;
+      }
+
+      /* Estilos para las pestañas */
+      .tab-pane {
+        display: none;
+      }
+
+      .tab-pane.active {
+        display: block;
+      }
+
+      .tab-button {
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .tab-button.active {
+        color: #0d141c;
+        border-bottom: 2px solid #0c77f2;
+      }
+
+      .tab-button:not(.active) {
+        color: #49709c;
       }
     </style>
   </head>
@@ -461,7 +616,7 @@ if (!verificarSesionIniciada()) {
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-120 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Name</th>
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-240 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">Email</th>
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-360 px-4 py-3 text-left text-[#0d141c] w-[400px] text-sm font-medium leading-normal">
-                      Phone number
+                      QR Code
                     </th>
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-480 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">Membership type</th>
                     <th class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-600 px-4 py-3 text-left text-[#0d141c] w-60 text-sm font-medium leading-normal">Status</th>
@@ -482,6 +637,143 @@ if (!verificarSesionIniciada()) {
               @container(max-width:480px){.table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-480{display: none;}}
               @container(max-width:600px){.table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-600{display: none;}}
               @container(max-width:720px){.table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-720{display: none;}}
+
+              /* DataTables Custom Styling */
+              .dataTables_wrapper .dataTables_length,
+              .dataTables_wrapper .dataTables_filter,
+              .dataTables_wrapper .dataTables_info,
+              .dataTables_wrapper .dataTables_processing,
+              .dataTables_wrapper .dataTables_paginate {
+                  color: #49709c;
+                  margin: 1rem 0;
+                  padding: 0 2rem;
+              }
+
+              /* Estilos para el texto de la tabla */
+              #membersTable td {
+                  color: #0d141c !important;
+              }
+
+              .dataTables_wrapper .dataTables_paginate .paginate_button {
+                  color: #49709c !important;
+                  background: #e7edf4 !important;
+                  border: none !important;
+                  border-radius: 0.75rem;
+                  padding: 0.5rem 1rem;
+                  margin: 0 0.25rem;
+              }
+
+              .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+                  background: #49709c !important;
+                  color: white !important;
+              }
+
+              .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                  background: #49709c !important;
+                  color: white !important;
+              }
+
+              .dataTables_wrapper .dataTables_filter input {
+                  background: #e7edf4;
+                  border: none;
+                  border-radius: 0.75rem;
+                  padding: 0.5rem 1rem;
+                  color: #0d141c;
+              }
+
+              .dataTables_wrapper .dataTables_length select {
+                  background: #e7edf4;
+                  border: none;
+                  border-radius: 0.75rem;
+                  padding: 0.5rem 1rem;
+                  color: #0d141c;
+                  margin-left: 0.5rem;
+              }
+
+              /* Estilos para los botones de exportación */
+              .dt-buttons .dt-button {
+                  background: #49709c !important;
+                  color: white !important;
+                  border: none !important;
+                  border-radius: 0.75rem !important;
+                  padding: 0.5rem 1rem !important;
+                  margin: 0 0.25rem !important;
+                  font-size: 0.875rem !important;
+              }
+
+              .dt-buttons .dt-button:hover {
+                  background: #0c77f2 !important;
+                  color: white !important;
+              }
+
+              .dt-button-collection {
+                  background: white !important;
+                  border: 1px solid #49709c !important;
+                  border-radius: 0.75rem !important;
+                  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+              }
+
+              .dt-button-collection .dt-button {
+                  background: white !important;
+                  color: #49709c !important;
+                  border: none !important;
+                  padding: 0.5rem 1rem !important;
+              }
+
+              .dt-button-collection .dt-button:hover {
+                  background: #49709c !important;
+                  color: white !important;
+              }
+
+              /* Ajuste del contenedor de la tabla */
+              .flex.overflow-hidden.rounded-xl.border {
+                  margin: 0 2rem;
+              }
+
+              /* Ajuste del espaciado de las celdas */
+              #membersTable td, 
+              #membersTable th {
+                  padding: 1rem 2rem !important;
+              }
+
+              /* Estilos para los bordes de las filas */
+              #membersTable tbody tr {
+                  border-bottom: 2px solid #e7edf4 !important;
+              }
+
+              #membersTable tbody tr:last-child {
+                  border-bottom: none !important;
+              }
+
+              #membersTable tbody tr:hover {
+                  background-color: #f8fafc !important;
+              }
+
+              /* Asegurar que las celdas tengan bordes */
+              #membersTable td {
+                  border-bottom: 1px solid #e7edf4 !important;
+              }
+
+              #membersTable td:last-child {
+                  border-right: none !important;
+              }
+
+              /* Ajuste del espaciado de los controles */
+              .dataTables_wrapper .dataTables_length,
+              .dataTables_wrapper .dataTables_filter {
+                  margin-bottom: 1.5rem;
+              }
+
+              .dataTables_wrapper .dataTables_info,
+              .dataTables_wrapper .dataTables_paginate {
+                  margin-top: 1.5rem;
+              }
+
+              /* Ajuste del espaciado de los botones */
+              .dt-buttons {
+                  margin-bottom: 1rem;
+                  padding: 0 2rem;
+              }
             </style>
             <script>
               $(document).ready(function() {
@@ -675,7 +967,7 @@ if (!verificarSesionIniciada()) {
           </div>
 
           <!-- Membresía -->
-          <div id="membresia-content" class="tab-pane hidden" role="tabpanel">
+          <div id="membresia-content" class="tab-pane" role="tabpanel">
             <div class="space-y-4">
               <div id="membresia-actual" class="p-4 bg-[#e7edf4] rounded-xl">
                 <h4 class="text-[#0d141c] font-bold mb-2">Membresía Actual</h4>
@@ -687,7 +979,7 @@ if (!verificarSesionIniciada()) {
           </div>
 
           <!-- Rutinas -->
-          <div id="rutinas-content" class="tab-pane hidden" role="tabpanel">
+          <div id="rutinas-content" class="tab-pane" role="tabpanel">
             <div class="space-y-4">
               <div id="rutinas-actuales" class="p-4 bg-[#e7edf4] rounded-xl">
                 <h4 class="text-[#0d141c] font-bold mb-2">Rutinas Asignadas</h4>
@@ -699,7 +991,7 @@ if (!verificarSesionIniciada()) {
           </div>
 
           <!-- Accesos -->
-          <div id="accesos-content" class="tab-pane hidden" role="tabpanel">
+          <div id="accesos-content" class="tab-pane" role="tabpanel">
             <div class="space-y-4">
               <div class="p-4 bg-[#e7edf4] rounded-xl">
                 <h4 class="text-[#0d141c] font-bold mb-2">Últimos Accesos</h4>
@@ -711,7 +1003,7 @@ if (!verificarSesionIniciada()) {
           </div>
 
           <!-- Progreso -->
-          <div id="progreso-content" class="tab-pane hidden" role="tabpanel">
+          <div id="progreso-content" class="tab-pane" role="tabpanel">
             <div class="space-y-4">
               <div id="progreso-actual" class="p-4 bg-[#e7edf4] rounded-xl">
                 <h4 class="text-[#0d141c] font-bold mb-2">Historial de Progreso</h4>
@@ -723,7 +1015,7 @@ if (!verificarSesionIniciada()) {
           </div>
 
           <!-- Nutrición -->
-          <div id="nutricion-content" class="tab-pane hidden" role="tabpanel">
+          <div id="nutricion-content" class="tab-pane" role="tabpanel">
             <div class="space-y-4">
               <div id="plan-actual" class="p-4 bg-[#e7edf4] rounded-xl">
                 <h4 class="text-[#0d141c] font-bold mb-2">Plan Nutricional Actual</h4>
@@ -735,7 +1027,7 @@ if (!verificarSesionIniciada()) {
           </div>
 
           <!-- Clases -->
-          <div id="clases-content" class="tab-pane hidden" role="tabpanel">
+          <div id="clases-content" class="tab-pane" role="tabpanel">
             <div class="space-y-4">
               <div id="clases-actuales" class="p-4 bg-[#e7edf4] rounded-xl">
                 <h4 class="text-[#0d141c] font-bold mb-2">Clases Inscritas</h4>
@@ -928,15 +1220,15 @@ if (!verificarSesionIniciada()) {
             if (membresiaData) {
               container.innerHTML = `
                 <div class="p-4">
-                  <h3 class="text-lg font-semibold mb-2">Membresía Actual</h3>
-                  <p><strong>Tipo:</strong> ${membresiaData.tipo_nombre}</p>
-                  <p><strong>Fecha Inicio:</strong> ${membresiaData.fecha_inicio}</p>
-                  <p><strong>Fecha Fin:</strong> ${membresiaData.fecha_fin}</p>
-                  <p><strong>Estado:</strong> ${membresiaData.estado}</p>
+                  <h3 class="text-lg font-semibold mb-2 text-[#0d141c]">Membresía Actual</h3>
+                  <p class="text-[#49709c] mb-2"><span class="font-medium text-[#0d141c]">Tipo:</span> ${membresiaData.tipo_nombre}</p>
+                  <p class="text-[#49709c] mb-2"><span class="font-medium text-[#0d141c]">Fecha Inicio:</span> ${membresiaData.fecha_inicio}</p>
+                  <p class="text-[#49709c] mb-2"><span class="font-medium text-[#0d141c]">Fecha Fin:</span> ${membresiaData.fecha_fin}</p>
+                  <p class="text-[#49709c]"><span class="font-medium text-[#0d141c]">Estado:</span> <span class="${membresiaData.estado === 'Activo' ? 'text-[#22c55e]' : 'text-[#ef4444]'}">${membresiaData.estado}</span></p>
                 </div>
               `;
             } else {
-              container.innerHTML = '<p class="p-4">No hay datos de membresía disponibles.</p>';
+              container.innerHTML = '<p class="p-4 text-[#49709c]">No hay datos de membresía disponibles.</p>';
             }
           }
         })
@@ -1104,15 +1396,19 @@ if (!verificarSesionIniciada()) {
         // Ocultar todos los paneles
         document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
           panel.classList.add('hidden');
+          panel.classList.remove('active');
         });
         
         // Mostrar el panel correspondiente
         const targetId = this.getAttribute('aria-controls');
         const targetPane = document.getElementById(targetId);
-        targetPane.classList.remove('hidden');
-        
-        // Cargar los datos de la pestaña
-        loadTabData(this.id);
+        if (targetPane) {
+          targetPane.classList.remove('hidden');
+          targetPane.classList.add('active');
+          
+          // Cargar los datos de la pestaña
+          loadTabData(this.id);
+        }
       });
     });
 
@@ -1239,20 +1535,36 @@ if (!verificarSesionIniciada()) {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
     }
+
+    // Función para copiar el código QR
+    function copyQRCode(code) {
+        navigator.clipboard.writeText(code).then(() => {
+            alert('Código QR copiado al portapapeles');
+        }).catch(err => {
+            console.error('Error al copiar el código:', err);
+        });
+    }
+
+    // Función para verificar el estado de la membresía
+    function checkMembershipStatus(expirationDate) {
+        const today = new Date();
+        const expiration = new Date(expirationDate);
+        return today <= expiration;
+    }
     </script>
 
 
 <!-- Chatbot Integration -->
 <button
   class="fixed bottom-4 right-4 inline-flex items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16 bg-black hover:bg-gray-700 m-0 cursor-pointer border-gray-200 bg-none p-0 normal-case leading-5 hover:text-gray-900"
-  type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed" id="chatToggle">
+  type="button" aria-haspopup="dialog" aria-expanded="false" data-state="closed" id="chatToggle" style="z-index: 9999;">
   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white block border-gray-200 align-middle">
     <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" class="border-gray-200">
     </path>
   </svg>
 </button>
 
-<div style="box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);"
+<div style="box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05); z-index: 9998;"
   class="fixed bottom-[calc(4rem+1.5rem)] right-0 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[634px] flex flex-col hidden" id="chatContainer">
 
   <!-- Heading -->
