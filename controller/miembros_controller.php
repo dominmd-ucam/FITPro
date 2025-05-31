@@ -7,29 +7,80 @@ function home(){
     
     $resultado = $datos->get_usuarios();
     
-    $html = '';
-    while($row = $resultado->fetch_assoc()) {
-        $html .= '<tr class="border-t border-t-[#344c65]">';
-        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-120 h-[72px] px-4 py-2 w-[400px] text-white text-sm font-normal leading-normal">' . $row['nombre'] . '</td>';
-        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-240 h-[72px] px-4 py-2 w-[400px] text-[#93adc8] text-sm font-normal leading-normal">' . $row['email'] . '</td>';
-        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-360 h-[72px] px-4 py-2 w-[400px] text-[#93adc8] text-sm font-normal leading-normal">-</td>';
-        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-480 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">';
-        $html .= '<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#243547] text-white text-sm font-medium leading-normal w-full">';
-        $html .= '<span class="truncate">' . $row['tipo'] . '</span>';
-        $html .= '</button>';
-        $html .= '</td>';
-        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-600 h-[72px] px-4 py-2 w-60 text-sm font-normal leading-normal">';
-        $html .= '<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#243547] text-white text-sm font-medium leading-normal w-full">';
-        $html .= '<span class="truncate">Active</span>';
-        $html .= '</button>';
-        $html .= '</td>';
-        $html .= '<td class="table-53b9ae36-f9b1-418a-aa1b-d77389b436cd-column-720 h-[72px] px-4 py-2 w-60 text-[#93adc8] text-sm font-bold leading-normal tracking-[0.015em]">';
-        $html .= '<div class="flex gap-2">';
-        $html .= '<button class="edit-member-btn cursor-pointer" data-id="' . $row['id_usuario'] . '"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg></button>';
-        $html .= '<button onclick="confirmarBorrado(' . $row['id_usuario'] . ')" class="text-red-500 hover:text-red-700"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></button>';
-        $html .= '</div>';
-        $html .= '</td>';
-        $html .= '</tr>';
+    if (!$resultado) {
+        error_log("Error al obtener usuarios");
+        $html = '<tr><td colspan="6" class="text-center">Error al cargar los datos</td></tr>';
+    } else {
+        $html = '';
+        while($row = $resultado->fetch_assoc()) {
+            // Generar código QR único para cada miembro
+            $qrCode = 'QR-' . str_pad($row['id_usuario'], 10, '0', STR_PAD_LEFT);
+            
+            // Verificar estado de membresía
+            $isActive = false;
+            $statusClass = 'status-expired';
+            $statusText = 'Expirado';
+            $expirationDate = 'N/A';
+            
+            if (isset($row['fecha_fin_membresia'])) {
+                $isActive = strtotime($row['fecha_fin_membresia']) >= time();
+                $statusClass = $isActive ? 'status-active' : 'status-expired';
+                $statusText = $isActive ? 'Activo' : 'Expirado';
+                $expirationDate = date('d/m/Y', strtotime($row['fecha_fin_membresia']));
+            }
+            
+            $html .= '<tr>';
+            // Columna 1: Nombre
+            $html .= '<td class="px-4 py-2">' . htmlspecialchars($row['nombre']) . '</td>';
+            
+            // Columna 2: Email
+            $html .= '<td class="px-4 py-2">' . htmlspecialchars($row['email']) . '</td>';
+            
+            // Columna 3: QR Code
+            $html .= '<td class="px-4 py-2">';
+            $html .= '<div class="qr-code">';
+            $html .= '<svg class="qr-code-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="21" y2="14"/><line x1="14" y1="21" x2="21" y2="21"/><line x1="14" y1="14" x2="14" y2="21"/></svg>';
+            $html .= '<span class="qr-code-text">' . $qrCode . '</span>';
+            $html .= '</div>';
+            $html .= '</td>';
+            
+            // Columna 4: Tipo de Membresía
+            $html .= '<td class="px-4 py-2">';
+            $html .= '<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#243547] text-white text-sm font-medium leading-normal w-full">';
+            $html .= '<span class="truncate">' . (isset($row['tipo_membresia']) ? htmlspecialchars($row['tipo_membresia']) : 'Sin membresía') . '</span>';
+            $html .= '</button>';
+            $html .= '</td>';
+            
+            // Columna 5: Estado
+            $html .= '<td class="px-4 py-2">';
+            $html .= '<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 ' . ($isActive ? 'bg-[#22c55e]' : 'bg-[#ef4444]') . ' text-white text-sm font-medium leading-normal w-full">';
+            $html .= '<span class="truncate">' . $statusText . '</span>';
+            $html .= '</button>';
+            $html .= '</td>';
+            
+            // Columna 6: Acciones
+            $html .= '<td class="px-4 py-2">';
+            $html .= '<div class="flex items-center gap-2">';
+            $html .= '<button onclick="openEditModal(' . $row['id_usuario'] . ')" class="edit-member-btn" data-id="' . $row['id_usuario'] . '">';
+            $html .= '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                      <path d="m15 5 4 4"></path>
+                    </svg>';
+            $html .= '</button>';
+            $html .= '<button onclick="confirmarBorrado(' . $row['id_usuario'] . ')" class="text-red-500">';
+            $html .= '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 6h18"></path>
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                      <line x1="10" y1="11" x2="10" y2="17"></line>
+                      <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>';
+            $html .= '</button>';
+            $html .= '</div>';
+            $html .= '</td>';
+            
+            $html .= '</tr>';
+        }
     }
     
     require_once("view/miembros_view.php");
@@ -218,99 +269,159 @@ function update_member() {
 }
 
 function get_membresia_data() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
     if (!isset($_GET['id'])) {
         echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
-        return;
+        exit();
     }
 
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
     $id = $_GET['id'];
-    $membresia = $this->model->get_membresia_data($id);
+    $membresia = $datos->get_membresia_data($id);
     
     if ($membresia) {
         echo json_encode(['success' => true, 'data' => $membresia]);
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontró la membresía']);
     }
+    exit();
 }
 
 function get_rutinas_data() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
     if (!isset($_GET['id'])) {
         echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
-        return;
+        exit();
     }
 
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
     $id = $_GET['id'];
-    $rutinas = $this->model->get_rutinas_data($id);
+    $rutinas = $datos->get_rutinas_data($id);
     
     if ($rutinas) {
         echo json_encode(['success' => true, 'data' => $rutinas]);
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontraron rutinas']);
     }
+    exit();
 }
 
 function get_accesos_data() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
     if (!isset($_GET['id'])) {
         echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
-        return;
+        exit();
     }
 
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
     $id = $_GET['id'];
-    $accesos = $this->model->get_accesos_data($id);
+    $accesos = $datos->get_accesos_data($id);
     
     if ($accesos) {
         echo json_encode(['success' => true, 'data' => $accesos]);
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontraron accesos']);
     }
+    exit();
 }
 
 function get_progreso_data() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
     if (!isset($_GET['id'])) {
         echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
-        return;
+        exit();
     }
 
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
     $id = $_GET['id'];
-    $progreso = $this->model->get_progreso_data($id);
+    $progreso = $datos->get_progreso_data($id);
     
     if ($progreso) {
         echo json_encode(['success' => true, 'data' => $progreso]);
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontró progreso']);
     }
+    exit();
 }
 
 function get_nutricion_data() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
     if (!isset($_GET['id'])) {
         echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
-        return;
+        exit();
     }
 
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
     $id = $_GET['id'];
-    $nutricion = $this->model->get_nutricion_data($id);
+    $nutricion = $datos->get_nutricion_data($id);
     
     if ($nutricion) {
         echo json_encode(['success' => true, 'data' => $nutricion]);
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontró plan nutricional']);
     }
+    exit();
 }
 
 function get_clases_data() {
+    // Limpiar cualquier salida anterior
+    if (ob_get_length()) ob_clean();
+    
+    // Establecer headers
+    header('Content-Type: application/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    
     if (!isset($_GET['id'])) {
         echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
-        return;
+        exit();
     }
 
+    require_once("model/miembros_model.php");
+    $datos = new Miembros_model();
     $id = $_GET['id'];
-    $clases = $this->model->get_clases_data($id);
+    $clases = $datos->get_clases_data($id);
     
     if ($clases) {
         echo json_encode(['success' => true, 'data' => $clases]);
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontraron clases']);
     }
+    exit();
 }
 
 function delete_member() {
