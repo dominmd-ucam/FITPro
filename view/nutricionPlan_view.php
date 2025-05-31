@@ -9,12 +9,9 @@ if (!verificarSesionIniciada()) {
 
 // Verificar si hay un plan nutricional
 if (!isset($plan_nutricional) || empty($plan_nutricional)) {
-    echo '<div class="text-center p-8">
-            <h2 class="text-[#0d141c] text-2xl font-bold mb-4">No tienes un plan nutricional activo</h2>
-            <p class="text-[#49709c] mb-4">Contacta con un entrenador para obtener un plan personalizado</p>
-            <button class="bg-[#49709c] text-white px-6 py-2 rounded-xl hover:bg-[#0c77f2] transition-colors">Contactar Entrenador</button>
-          </div>';
-    exit;
+    $no_plan = true;
+} else {
+    $no_plan = false;
 }
 ?>
 <!DOCTYPE html>
@@ -267,96 +264,104 @@ if (!isset($plan_nutricional) || empty($plan_nutricional)) {
         
         <!-- Content -->
         <div class="content-container">
-          <div class="flex flex-wrap justify-between gap-3 p-4">
-            <div class="flex min-w-72 flex-col gap-3">
-              <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">Tu plan nutricional</p>
-              <p class="text-[#49709c] text-sm font-normal leading-normal">Inicio: <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_inicio'])); ?></p>
+          <?php if ($no_plan): ?>
+            <div class="text-center p-8">
+              <h2 class="text-[#0d141c] text-2xl font-bold mb-4">No tienes un plan nutricional activo</h2>
+              <p class="text-[#49709c] mb-4">Contacta con un entrenador para obtener un plan personalizado</p>
+              <a href="index.php?controlador=contactar&action=contacto" class="inline-block bg-[#49709c] text-white px-6 py-2 rounded-xl hover:bg-[#0c77f2] transition-colors">Contactar Entrenador</a>
             </div>
-          </div>
-          <div class="flex flex-wrap gap-4 p-4">
-            <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
-              <p class="text-[#0d141c] text-base font-medium leading-normal">Calorías</p>
-              <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_calorias']); ?></p>
-            </div>
-            <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
-              <p class="text-[#0d141c] text-base font-medium leading-normal">Proteínas</p>
-              <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_proteinas']); ?>g</p>
-            </div>
-            <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
-              <p class="text-[#0d141c] text-base font-medium leading-normal">Carbohidratos</p>
-              <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_carbohidratos']); ?>g</p>
-            </div>
-            <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
-              <p class="text-[#0d141c] text-base font-medium leading-normal">Grasas</p>
-              <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_grasas']); ?>g</p>
-            </div>
-          </div>
-          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Plan Semanal</h2>
-          <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-            <?php
-            $dias_semana = [
-              'Lunes' => 'https://travelingua.es/wp-content/uploads/2023/11/comida-tipica-canada.jpg',
-              'Martes' => 'https://sophiederam.com/wp-content/uploads/2022/05/alimentos-saudaveis-para-o-almoco.png',
-              'Miercoles' => 'https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2023/04/plato-harvard-3006638.jpg?tf=3840x',
-              'Jueves' => 'https://xurrosymas.mx/wp-content/uploads/2024/08/comida-saludable-1024x675.jpg',
-              'Viernes' => 'https://www.clarin.com/2024/08/18/GwjPHUqMQ_2000x1500__1.jpg',
-              'Sabado' => 'https://media-cdn.tripadvisor.com/media/photo-s/1a/44/72/cf/aprende-a-cocinar-comida.jpg',
-              'Domingo' => 'https://cdn-3.expansion.mx/dims4/default/dc6563f/2147483647/strip/true/crop/1253x658+0+89/resize/1200x630!/format/jpg/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fa9%2F68%2F255e44db4bc1be07dcc0b495e5ef%2Ftacos-comida-callejera-mexico.jpg'
-            ];
-            foreach ($dias_semana as $dia => $imagen) {
-                $comidas_dia = array_filter($dieta_diaria, function($comida) use ($dia) {
-                    return $comida['dia_semana'] === $dia;
-                });
-            ?>
-            <div class="flex flex-col gap-3 pb-3">
-              <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style="background-image: url('<?php echo $imagen; ?>');"></div>
-              <div>
-                <p class="text-[#0d141c] text-base font-medium leading-normal"><?php echo $dia; ?></p>
-                <?php foreach ($comidas_dia as $comida): ?>
-                <p class="text-[#49709c] text-sm font-normal leading-normal">
-                  <?php echo $comida['comida']; ?>: <?php echo $comida['descripcion']; ?>
-                </p>
-                <?php endforeach; ?>
+          <?php else: ?>
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#0d141c] tracking-light text-[32px] font-bold leading-tight">Tu plan nutricional</p>
+                <p class="text-[#49709c] text-sm font-normal leading-normal">Inicio: <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_inicio'])); ?></p>
               </div>
             </div>
-            <?php } ?>
-          </div>
-          <div class="flex flex-col gap-3 p-4">
-            <div class="flex gap-6 justify-between">
-              <p class="text-[#0d141c] text-base font-medium leading-normal">Progreso del Plan</p>
+            <div class="flex flex-wrap gap-4 p-4">
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Calorías</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_calorias']); ?></p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Proteínas</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_proteinas']); ?>g</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Carbohidratos</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_carbohidratos']); ?>g</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 stats-card">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Grasas</p>
+                <p class="text-[#0d141c] tracking-light text-2xl font-bold leading-tight"><?php echo round($info_nutricional['total_grasas']); ?>g</p>
+              </div>
             </div>
-            <div class="progress-bar">
-              <?php 
-              $dias_transcurridos = (strtotime(date('Y-m-d')) - strtotime($plan_nutricional['fecha_inicio'])) / (60 * 60 * 24);
-              $dias_totales = (strtotime($plan_nutricional['fecha_fin']) - strtotime($plan_nutricional['fecha_inicio'])) / (60 * 60 * 24);
-              $porcentaje = min(100, max(0, ($dias_transcurridos / $dias_totales) * 100));
+            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Plan Semanal</h2>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+              <?php
+              $dias_semana = [
+                'Lunes' => 'https://travelingua.es/wp-content/uploads/2023/11/comida-tipica-canada.jpg',
+                'Martes' => 'https://sophiederam.com/wp-content/uploads/2022/05/alimentos-saudaveis-para-o-almoco.png',
+                'Miercoles' => 'https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2023/04/plato-harvard-3006638.jpg?tf=3840x',
+                'Jueves' => 'https://xurrosymas.mx/wp-content/uploads/2024/08/comida-saludable-1024x675.jpg',
+                'Viernes' => 'https://www.clarin.com/2024/08/18/GwjPHUqMQ_2000x1500__1.jpg',
+                'Sabado' => 'https://media-cdn.tripadvisor.com/media/photo-s/1a/44/72/cf/aprende-a-cocinar-comida.jpg',
+                'Domingo' => 'https://cdn-3.expansion.mx/dims4/default/dc6563f/2147483647/strip/true/crop/1253x658+0+89/resize/1200x630!/format/jpg/quality/80/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fa9%2F68%2F255e44db4bc1be07dcc0b495e5ef%2Ftacos-comida-callejera-mexico.jpg'
+              ];
+              foreach ($dias_semana as $dia => $imagen) {
+                  $comidas_dia = array_filter($dieta_diaria, function($comida) use ($dia) {
+                      return $comida['dia_semana'] === $dia;
+                  });
               ?>
-              <div class="progress-bar-fill" style="width: <?php echo $porcentaje; ?>%;"></div>
+              <div class="flex flex-col gap-3 pb-3">
+                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl" style="background-image: url('<?php echo $imagen; ?>');"></div>
+                <div>
+                  <p class="text-[#0d141c] text-base font-medium leading-normal"><?php echo $dia; ?></p>
+                  <?php foreach ($comidas_dia as $comida): ?>
+                  <p class="text-[#49709c] text-sm font-normal leading-normal">
+                    <?php echo $comida['comida']; ?>: <?php echo $comida['descripcion']; ?>
+                  </p>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+              <?php } ?>
             </div>
-            <p class="text-[#49709c] text-sm font-normal leading-normal">
-              <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_inicio'])); ?> - 
-              <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_fin'])); ?>
-            </p>
-          </div>
-          <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Objetivos Nutricionales</h2>
-          <div class="px-4">
-            <label class="flex gap-x-3 py-3 flex-row">
-              <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
-              <p class="text-[#0d141c] text-base font-normal leading-normal">Mantener el objetivo de calorías diarias</p>
-            </label>
-            <label class="flex gap-x-3 py-3 flex-row">
-              <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
-              <p class="text-[#0d141c] text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_proteinas']); ?>g de proteínas diarias</p>
-            </label>
-            <label class="flex gap-x-3 py-3 flex-row">
-              <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
-              <p class="text-[#0d141c] text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_carbohidratos']); ?>g de carbohidratos diarios</p>
-            </label>
-            <label class="flex gap-x-3 py-3 flex-row">
-              <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
-              <p class="text-[#0d141c] text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_grasas']); ?>g de grasas diarias</p>
-            </label>
-          </div>
+            <div class="flex flex-col gap-3 p-4">
+              <div class="flex gap-6 justify-between">
+                <p class="text-[#0d141c] text-base font-medium leading-normal">Progreso del Plan</p>
+              </div>
+              <div class="progress-bar">
+                <?php 
+                $dias_transcurridos = (strtotime(date('Y-m-d')) - strtotime($plan_nutricional['fecha_inicio'])) / (60 * 60 * 24);
+                $dias_totales = (strtotime($plan_nutricional['fecha_fin']) - strtotime($plan_nutricional['fecha_inicio'])) / (60 * 60 * 24);
+                $porcentaje = min(100, max(0, ($dias_transcurridos / $dias_totales) * 100));
+                ?>
+                <div class="progress-bar-fill" style="width: <?php echo $porcentaje; ?>%;"></div>
+              </div>
+              <p class="text-[#49709c] text-sm font-normal leading-normal">
+                <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_inicio'])); ?> - 
+                <?php echo date('d/m/Y', strtotime($plan_nutricional['fecha_fin'])); ?>
+              </p>
+            </div>
+            <h2 class="text-[#0d141c] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Objetivos Nutricionales</h2>
+            <div class="px-4">
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
+                <p class="text-[#0d141c] text-base font-normal leading-normal">Mantener el objetivo de calorías diarias</p>
+              </label>
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
+                <p class="text-[#0d141c] text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_proteinas']); ?>g de proteínas diarias</p>
+              </label>
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
+                <p class="text-[#0d141c] text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_carbohidratos']); ?>g de carbohidratos diarios</p>
+              </label>
+              <label class="flex gap-x-3 py-3 flex-row">
+                <input type="checkbox" class="h-5 w-5 rounded border-2 checkbox-custom bg-transparent text-[#49709c] checked:bg-[#49709c] checked:border-[#49709c] focus:ring-0 focus:ring-offset-0 focus:border-[#49709c] focus:outline-none" />
+                <p class="text-[#0d141c] text-base font-normal leading-normal">Consumir <?php echo round($info_nutricional['total_grasas']); ?>g de grasas diarias</p>
+              </label>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
     </div>

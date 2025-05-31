@@ -280,8 +280,10 @@ if (!verificarSesionIniciada()) {
         <!-- Content -->
         <div class="content-container">
           <?php if (!isset($rutina) || !$rutina): ?>
-            <div class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
-              No tienes una rutina de entrenamiento asignada. Por favor, contacta con tu entrenador.
+            <div class="text-center p-8">
+              <h2 class="text-[#0d141c] text-2xl font-bold mb-4">No tienes una rutina de entrenamiento activa</h2>
+              <p class="text-[#49709c] mb-4">Contacta con un entrenador para obtener una rutina personalizada</p>
+              <a href="index.php?controlador=contactar&action=contacto" class="inline-block bg-[#49709c] text-white px-6 py-2 rounded-xl hover:bg-[#0c77f2] transition-colors">Contactar Entrenador</a>
             </div>
           <?php else: ?>
             <div class="flex flex-wrap justify-between gap-3 p-4">
