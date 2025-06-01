@@ -25,6 +25,8 @@ USE `gimnasio_db`;
 
 -- --------------------------------------------------------
 
+
+
 --
 -- Estructura de tabla para la tabla `alimentos`
 --
@@ -82,8 +84,29 @@ INSERT INTO `clases` (`id`, `nombre`, `descripcion`, `entrenador_id`) VALUES
 (8, 'TRX Total', 'Entrenamiento en suspension para todo el cuerpo', 8),
 (9, 'Calistenia Basica', 'Ejercicios con peso corporal para principiantes', 9),
 (10, 'HIIT Challenge', 'Entrenamiento intervalico de alta intensidad', 10),
-(11, 'Clase UFC2.0', 'Todo lo que necesitas saber de la UFC2.0', 14),
-(12, 'PruebaClase', 'Esto es una prueba de Clase', 14);
+(11, 'Clase MMA', 'Clase de tecnicas de defensa personal y MMA', 7),
+(17, 'Pilates', 'Clase especializada en pilates para señoras', 10),
+(18, 'Power Pump', 'Entrenamiento de fuerza con pesas y barra.', 7),
+(19, 'Yoga Flow', 'Secuencia fluida para activar cuerpo y mente.', 2),
+(20, 'HIIT Inferno', 'Cardio intenso en intervalos cortos para quemar grasa.', 1),
+(21, 'Spinning Energy', 'Clase de ciclismo indoor con música motivadora.', 8),
+(22, 'Pilates Core', 'Fortalece tu centro y mejora la postura.', 7),
+(23, 'Box Fit', 'Entrenamiento funcional con técnicas de boxeo.', 3),
+(24, 'Cardio Dance', 'Baile aeróbico para quemar calorías con ritmo.', 4),
+(25, 'Stretch & Relax', 'Estiramientos guiados para soltar tensiones.', 1),
+(26, 'Full Body Circuit', 'Circuito completo para trabajar todo el cuerpo.', 9),
+(27, 'Functional Express', '30 minutos intensos de entrenamiento funcional.', 6),
+(28, 'TRX Training', 'Suspensión corporal para fuerza y equilibrio.', 5),
+(29, 'Zumba Party', 'Clase de baile latino para divertirte y sudar.', 7),
+(30, 'Sunrise Mobility', 'Movilidad articular y activación suave.', 5),
+(31, 'Core Blast', 'Rutina específica para abdominales y zona lumbar.', 5),
+(32, 'Bootcamp Outdoor', 'Entrenamiento en el parque con peso corporal.', 9),
+(33, 'Weekend Warrior', 'Entrenamiento de alta intensidad en grupo.', 5),
+(34, 'Yoga Restaurativo', 'Práctica suave para relajación profunda.', 3),
+(35, 'Combat Cardio', 'Movimientos inspirados en artes marciales.', 9),
+(36, 'Mindful Movement', 'Movimientos conscientes para conectar cuerpo y mente.', 9),
+(39, 'Stretch & Breathe', 'Estiramientos largos y respiración guiada.', 7),
+(40, 'Family Fit', 'Sesión divertida para todas las edades.', 10);
 
 -- --------------------------------------------------------
 
@@ -224,19 +247,16 @@ CREATE TABLE `entrenadores` (
 --
 
 INSERT INTO `entrenadores` (`id`, `nombre`, `especialidad`, `telefono`, `email`) VALUES
-(1, 'Carlos Martinez', 'Crossfit', '555-1234', 'carlos.martinez@gimnasio.com'),
-(2, 'Ana Lopez', 'Yoga', '555-5678', 'ana.lopez@gimnasio.com'),
-(3, 'Miguel angel', 'Boxeo', '555-9012', 'miguel.angel@gimnasio.com'),
-(4, 'Elena Gomez', 'Pilates', '555-3456', 'elena.gomez@gimnasio.com'),
-(5, 'Javier Ruiz', 'Spinning', '555-7890', 'javier.ruiz@gimnasio.com'),
-(6, 'Patricia Diaz', 'Zumba', '555-2345', 'patricia.diaz@gimnasio.com'),
-(7, 'Fernando Castro', 'Funcional', '555-6789', 'fernando.castro@gimnasio.com'),
-(8, 'Lucia Mendez', 'TRX', '555-0123', 'lucia.mendez@gimnasio.com'),
-(9, 'Raul Navarro', 'Calistenia', '555-4567', 'raul.navarro@gimnasio.com'),
-(10, 'Marta Jimenez', 'HIIT', '555-8901', 'marta.jimenez@gimnasio.com'),
-(12, 'entrenador1', 'Personal Trainer', '123456789', 'entrenador1@gmail.com'),
-(14, 'AAPrueba Entrenador', 'boxeo', '123', 'pruebaentrenador@yahoo.com'),
-(16, 'AentrenadorFinal2', 'aFINAL', 'a123456789', 'aentrenadorFinal@gmail.com');
+(1, 'Carlos Martinez', 'Crossfit', '+34 600 000 002', 'carlos.martinez@gimnasio.com'),
+(2, 'Ana Lopez', 'Yoga', '+34 600 000 001', 'ana.lopez@gimnasio.com'),
+(3, 'Miguel angel', 'Boxeo', '+34 600 000 008', 'miguel.angel@gimnasio.com'),
+(4, 'Elena Gomez', 'Pilates', '+34 600 000 003', 'elena.gomez@gimnasio.com'),
+(5, 'Javier Ruiz', 'Spinning', '+34 600 000 005', 'javier.ruiz@gimnasio.com'),
+(6, 'Patricia Diaz', 'Zumba', '+34 600 000 009', 'patricia.diaz@gimnasio.com'),
+(7, 'Fernando Castro', 'Funcional', '+34 600 000 004', 'fernando.castro@gimnasio.com'),
+(8, 'Lucia Mendez', 'TRX', '+34 600 000 006', 'lucia.mendez@gimnasio.com'),
+(9, 'Raul Navarro', 'Calistenia', '+34 600 000 010', 'raul.navarro@gimnasio.com'),
+(10, 'Marta Jimenez', 'HIIT', '+34 600 000 007', 'marta.jimenez@gimnasio.com');
 
 -- --------------------------------------------------------
 
@@ -267,8 +287,29 @@ INSERT INTO `horarios` (`id`, `clase_id`, `dia_semana`, `hora_inicio`, `hora_fin
 (8, 8, 'Martes', '20:00:00', '21:00:00'),
 (9, 9, 'Miercoles', '18:00:00', '19:00:00'),
 (10, 10, 'Jueves', '19:30:00', '20:15:00'),
-(11, 11, 'Domingo', '18:30:00', '19:00:00'),
-(12, 12, 'Miercoles', '19:46:00', '19:46:00');
+(11, 11, 'Domingo', '17:30:00', '21:00:00'),
+(17, 17, 'Jueves', '09:30:00', '11:00:00'),
+(18, 18, 'Lunes', '07:00:00', '08:00:00'),
+(19, 19, 'Lunes', '13:30:00', '14:30:00'),
+(20, 20, 'Lunes', '19:00:00', '19:45:00'),
+(21, 21, 'Martes', '06:45:00', '07:30:00'),
+(22, 22, 'Martes', '12:30:00', '13:30:00'),
+(23, 23, 'Martes', '18:00:00', '19:00:00'),
+(24, 24, 'Miercoles', '08:00:00', '09:00:00'),
+(25, 25, 'Miercoles', '14:00:00', '14:45:00'),
+(26, 26, 'Miercoles', '20:00:00', '21:00:00'),
+(27, 27, 'Jueves', '07:15:00', '07:45:00'),
+(28, 28, 'Jueves', '13:00:00', '13:45:00'),
+(29, 29, 'Jueves', '18:30:00', '19:30:00'),
+(30, 30, 'Viernes', '08:00:00', '08:45:00'),
+(31, 31, 'Viernes', '12:00:00', '12:30:00'),
+(32, 32, 'Viernes', '17:30:00', '18:30:00'),
+(33, 33, 'Sabado', '09:00:00', '10:00:00'),
+(34, 34, 'Sabado', '11:30:00', '12:30:00'),
+(35, 35, 'Sabado', '17:00:00', '18:00:00'),
+(36, 36, 'Domingo', '10:00:00', '11:00:00'),
+(39, 39, 'Domingo', '12:00:00', '12:45:00'),
+(40, 40, 'Domingo', '17:00:00', '17:45:00');
 
 -- --------------------------------------------------------
 
@@ -289,22 +330,92 @@ CREATE TABLE `inscripciones` (
 --
 
 INSERT INTO `inscripciones` (`id`, `usuario_id`, `clase_id`, `horario_id`, `fecha_inscripcion`) VALUES
-(1, 2, 1, 1, '2023-01-10'),
-(2, 5, 2, 2, '2023-01-12'),
-(3, 7, 3, 3, '2023-02-05'),
-(4, 8, 4, 4, '2023-03-02'),
-(5, 9, 5, 5, '2023-01-18'),
-(6, 10, 6, 6, '2023-02-20'),
-(7, 11, 7, 7, '2023-01-22'),
-(8, 12, 8, 8, '2023-03-05'),
-(9, 13, 9, 9, '2023-02-12'),
-(10, 6, 10, 10, '2023-01-08'),
-(11, 24, 3, 1, NULL),
-(12, 24, 10, 10, '2025-05-17'),
-(13, 24, 2, 2, '2025-05-17'),
-(14, 24, 4, 12, '2025-05-30'),
-(15, 24, 3, 2, '2025-06-20'),
-(16, 24, 3, 6, '2025-05-27');
+(33, 24, 1, 1, '2025-06-02'),
+(34, 24, 8, 8, '2025-06-03'),
+(35, 24, 3, 3, '2025-06-04'),
+(37, 24, 17, 17, '2025-06-05'),
+(38, 24, 11, 11, '2025-06-01'),
+(39, 24, 19, 19, '2025-06-02'),
+(41, 24, 7, 7, '2025-06-09'),
+(42, 24, 8, 8, '2025-06-10'),
+(43, 24, 27, 27, '2025-06-12'),
+(44, 24, 32, 32, '2025-06-13'),
+(45, 24, 20, 20, '2025-06-23'),
+(68, 25, 20, 20, '2025-06-02'),
+(69, 25, 8, 8, '2025-06-03'),
+(70, 25, 26, 26, '2025-06-04'),
+(71, 25, 10, 10, '2025-06-05'),
+(72, 25, 5, 5, '2025-06-06'),
+(73, 25, 35, 35, '2025-06-07'),
+(75, 25, 20, 20, '2025-06-09'),
+(76, 25, 8, 8, '2025-06-10'),
+(77, 25, 26, 26, '2025-06-11'),
+(78, 25, 10, 10, '2025-06-12'),
+(79, 25, 5, 5, '2025-06-13'),
+(80, 25, 35, 35, '2025-06-14'),
+(137, 12, 36, 36, '2025-06-01'),
+(138, 12, 18, 18, '2025-06-02'),
+(139, 12, 21, 21, '2025-06-03'),
+(140, 12, 24, 24, '2025-06-04'),
+(141, 12, 27, 27, '2025-06-05'),
+(142, 12, 30, 30, '2025-06-06'),
+(143, 12, 33, 33, '2025-06-07'),
+(144, 12, 39, 39, '2025-06-08'),
+(145, 12, 19, 19, '2025-06-09'),
+(146, 12, 2, 2, '2025-06-10'),
+(147, 12, 25, 25, '2025-06-11'),
+(148, 12, 4, 4, '2025-06-12'),
+(149, 12, 31, 31, '2025-06-13'),
+(150, 12, 6, 6, '2025-06-14'),
+(151, 12, 40, 40, '2025-06-15'),
+(152, 12, 7, 7, '2025-06-16'),
+(153, 12, 22, 22, '2025-06-17'),
+(154, 12, 9, 9, '2025-06-18'),
+(155, 12, 17, 17, '2025-06-19'),
+(156, 12, 32, 32, '2025-06-20'),
+(157, 12, 34, 34, '2025-06-21'),
+(158, 13, 39, 39, '2025-06-01'),
+(159, 13, 19, 19, '2025-06-02'),
+(160, 13, 2, 2, '2025-06-03'),
+(161, 13, 25, 25, '2025-06-04'),
+(162, 13, 4, 4, '2025-06-05'),
+(163, 13, 31, 31, '2025-06-06'),
+(164, 13, 6, 6, '2025-06-07'),
+(165, 13, 11, 11, '2025-06-08'),
+(166, 13, 1, 1, '2025-06-09'),
+(167, 13, 23, 23, '2025-06-10'),
+(168, 11, 36, 36, '2025-06-01'),
+(169, 11, 18, 18, '2025-06-02'),
+(170, 11, 21, 21, '2025-06-03'),
+(171, 11, 24, 24, '2025-06-04'),
+(172, 11, 27, 27, '2025-06-05'),
+(173, 11, 30, 30, '2025-06-06'),
+(174, 11, 33, 33, '2025-06-07'),
+(175, 11, 39, 39, '2025-06-08'),
+(176, 11, 19, 19, '2025-06-09'),
+(177, 11, 2, 2, '2025-06-10'),
+(178, 11, 25, 25, '2025-06-11'),
+(179, 11, 4, 4, '2025-06-12'),
+(180, 11, 31, 31, '2025-06-13'),
+(181, 11, 6, 6, '2025-06-14'),
+(182, 13, 3, 3, '2025-06-11'),
+(183, 13, 28, 28, '2025-06-12'),
+(184, 13, 5, 5, '2025-06-13'),
+(185, 13, 35, 35, '2025-06-14'),
+(187, 8, 11, 11, '2025-06-01'),
+(188, 8, 20, 20, '2025-06-02'),
+(189, 8, 8, 8, '2025-06-03'),
+(190, 8, 26, 26, '2025-06-04'),
+(191, 8, 10, 10, '2025-06-05'),
+(192, 8, 5, 5, '2025-06-06'),
+(193, 8, 35, 35, '2025-06-07'),
+(194, 8, 39, 39, '2025-06-08'),
+(195, 8, 19, 19, '2025-06-09'),
+(196, 8, 2, 2, '2025-06-10'),
+(197, 8, 25, 25, '2025-06-11'),
+(198, 8, 4, 4, '2025-06-12'),
+(199, 8, 31, 31, '2025-06-13'),
+(200, 8, 6, 6, '2025-06-14');
 
 -- --------------------------------------------------------
 
@@ -414,20 +525,17 @@ CREATE TABLE `progreso_ejercicios` (
 --
 
 INSERT INTO `progreso_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `peso`, `repeticiones`, `fecha`) VALUES
-(1, 1, 1, 60.00, 8, '2024-05-15 10:30:00'),
-(2, 1, 2, 80.00, 10, '2024-05-15 10:45:00'),
-(3, 2, 3, 0.00, 12, '2024-05-16 09:00:00'),
-(4, 3, 4, 0.00, 15, '2024-05-17 11:15:00'),
-(5, 4, 5, 12.00, 12, '2024-05-18 16:30:00'),
-(6, 5, 6, 100.00, 5, '2024-05-19 17:00:00'),
-(7, 6, 7, 8.00, 10, '2024-05-20 15:45:00'),
-(8, 7, 8, 0.00, 30, '2024-05-21 14:30:00'),
-(9, 8, 9, 0.00, 12, '2024-05-22 13:15:00'),
-(10, 9, 10, 40.00, 10, '2024-05-23 12:00:00'),
-(11, 1, 1, 10.00, 12, '2025-05-18 04:00:01'),
-(12, 1, 6, 160.00, 4, '2025-05-18 04:00:21'),
-(13, 1, 2, 5.00, 12, '2025-05-18 04:00:36'),
-(14, 1, 1, 12.00, 12, '2025-05-18 04:12:31');
+(2, 2, 3, 0.00, 12, '2024-05-16 09:00:00'),
+(3, 3, 4, 0.00, 15, '2024-05-17 11:15:00'),
+(4, 4, 5, 12.00, 12, '2024-05-18 16:30:00'),
+(5, 5, 6, 100.00, 5, '2024-05-19 17:00:00'),
+(6, 6, 7, 8.00, 10, '2024-05-20 15:45:00'),
+(7, 7, 8, 0.00, 30, '2024-05-21 14:30:00'),
+(8, 8, 9, 0.00, 12, '2024-05-22 13:15:00'),
+(9, 9, 10, 40.00, 10, '2024-05-23 12:00:00'),
+(19, 1, 1, 20.00, 8, '2025-06-01 21:30:21'),
+(20, 1, 6, 40.00, 12, '2025-06-01 21:30:31'),
+(21, 1, 2, 30.00, 8, '2025-06-01 21:30:41');
 
 -- --------------------------------------------------------
 
@@ -460,9 +568,8 @@ INSERT INTO `progreso_usuario` (`id`, `usuario_id`, `fecha`, `peso`, `grasa_corp
 (8, 10, '2023-02-15', 60.50, 22.00, 38.00, 'Inicio entrenamiento'),
 (9, 11, '2023-01-20', 58.70, 21.50, 37.50, 'Primer registro'),
 (10, 12, '2023-03-01', 77.30, 14.90, 44.80, 'Inicio rutina espalda'),
-(11, 24, '2025-05-18', 58.70, 21.50, 37.50, 'Primer registro'),
-(13, 24, '2025-05-18', 57.00, 21.00, 37.00, 'Prueba de insert'),
-(14, 24, '2025-05-18', 56.00, 20.00, 38.00, 'Mejora Notable');
+(19, 24, '2025-06-01', 140.00, 20.00, 20.00, 'Primer registro'),
+(20, 24, '2025-06-01', 120.00, 18.00, 25.00, 'Segundo registro');
 
 -- --------------------------------------------------------
 
@@ -581,10 +688,8 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `email`, `passwd`, `fecha_registro`, `tipo`) VALUES
 (1, 'roberto', 'robertosegadodiaz@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'admin'),
-(2, 'lui', 'asdasd@asda.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
 (3, 'Domin', 'dominmd99@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'admin'),
-(5, 'pedro', 'pericopericales@elterrordelospascales', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
-(6, 'Domin2', 'domin2@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
+(5, 'pedro', 'pericos@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
 (7, 'Maria Garcia', 'maria.garcia@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
 (8, 'Juan Perez', 'juan.perez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
 (9, 'Ana Rodriguez', 'ana.rodriguez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
@@ -592,15 +697,10 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `email`, `passwd`, `fecha_regist
 (11, 'Laura Martinez', 'laura.martinez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
 (12, 'David Lopez', 'david.lopez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
 (13, 'Sofia Fernandez', 'sofia.fernandez@email.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-10', 'cliente'),
-(14, 'prueba1', 'prueba1@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
-(15, 'prueba', 'prueba2@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
-(16, 'asdasd asdasd', 'asdasd@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
-(18, 'qwe3', 'awsed3@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'admin'),
-(20, 'anapruebas23', 'pruebasemail@noseque.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-14', 'cliente'),
-(21, 'Nuevo', 'nuevo@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-15', 'cliente'),
-(22, 'PruebasDomin', 'pruebasdomin@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-16', 'admin'),
-(23, 'pruebafinal', 'pruebafinal@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-16', 'admin'),
-(24, 'ana', 'ana@ana.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-17', 'cliente');
+(24, 'Ana', 'ana@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-17', 'cliente'),
+(25, 'Manu', 'manu@gmail.com', '$2y$10$hirml3fXTR6oXx6Ga9VvouTNhWMdJe2IzmcDR/9laAPXPtsENdCHa', '2025-05-31', 'cliente'),
+(29, 'Admin', 'admin@gimnasiofitpro.com', '$2y$10$/xxJyTX1Xv4Z/gnWfMHhbuE.UdH6fnEkGdWG8QtBko7DB/cGKN5Sa', '2025-06-01', 'admin'),
+(30, 'rober1', 'rober1@gmail.com', '$2y$10$DKe9oxAOem37897/fssK1eEiKAVSSGx9KjXikkiozucEv20fF2f3q', '2025-06-01', 'cliente');
 
 -- --------------------------------------------------------
 
@@ -621,20 +721,14 @@ CREATE TABLE `usuarios_membresias` (
 --
 
 INSERT INTO `usuarios_membresias` (`id`, `usuario_id`, `membresia_id`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 2, 1, '2023-01-01', '2026-01-02'),
-(2, 5, 2, '2023-01-15', '2023-02-14'),
 (3, 7, 3, '2023-02-01', '2027-02-04'),
-(4, 8, 4, '2023-03-01', '2023-05-30'),
-(5, 9, 5, '2023-01-10', '2023-02-09'),
-(6, 10, 6, '2023-02-15', '2023-03-17'),
-(7, 11, 7, '2023-01-20', '2023-02-19'),
-(8, 12, 8, '2023-03-01', '2023-03-31'),
-(9, 13, 9, '2023-02-10', '2023-03-12'),
-(10, 6, 10, '2023-01-05', '2023-02-04'),
-(11, 24, 10, '2025-05-13', '2026-05-15');
+(11, 24, 10, '2025-05-13', '2026-05-15'),
+(12, 5, 6, '2025-06-01', '2025-07-01'),
+(13, 8, 9, '2025-06-01', '2025-07-01'),
+(14, 9, 5, '2025-06-20', '2025-07-20');
 
 --
--- indices para tablas volcadas
+-- Índices para tablas volcadas
 --
 
 --
@@ -696,51 +790,44 @@ ALTER TABLE `inventario`
 -- Indices de la tabla `membresias`
 --
 ALTER TABLE `membresias`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
 -- Indices de la tabla `planes_nutricionales`
 --
 ALTER TABLE `planes_nutricionales`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `progreso_ejercicios`
 --
 ALTER TABLE `progreso_ejercicios`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `rutina_id` (`rutina_id`),
-  ADD KEY `ejercicio_id` (`ejercicio_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `progreso_usuario`
 --
 ALTER TABLE `progreso_usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `registro_accesos`
 --
 ALTER TABLE `registro_accesos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `rutinas`
 --
 ALTER TABLE `rutinas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `rutina_ejercicios`
 --
 ALTER TABLE `rutina_ejercicios`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `rutina_id` (`rutina_id`),
-  ADD KEY `ejercicio_id` (`ejercicio_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -753,9 +840,7 @@ ALTER TABLE `usuarios`
 -- Indices de la tabla `usuarios_membresias`
 --
 ALTER TABLE `usuarios_membresias`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `membresia_id` (`membresia_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -771,7 +856,7 @@ ALTER TABLE `alimentos`
 -- AUTO_INCREMENT de la tabla `clases`
 --
 ALTER TABLE `clases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `dieta_diaria`
@@ -789,19 +874,19 @@ ALTER TABLE `ejercicios`
 -- AUTO_INCREMENT de la tabla `entrenadores`
 --
 ALTER TABLE `entrenadores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios`
 --
 ALTER TABLE `horarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `inscripciones`
 --
 ALTER TABLE `inscripciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
@@ -819,19 +904,19 @@ ALTER TABLE `membresias`
 -- AUTO_INCREMENT de la tabla `planes_nutricionales`
 --
 ALTER TABLE `planes_nutricionales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `progreso_ejercicios`
 --
 ALTER TABLE `progreso_ejercicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `progreso_usuario`
 --
 ALTER TABLE `progreso_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `registro_accesos`
@@ -855,89 +940,16 @@ ALTER TABLE `rutina_ejercicios`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios_membresias`
 --
 ALTER TABLE `usuarios_membresias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `clases`
---
-ALTER TABLE `clases`
-  ADD CONSTRAINT `clases_ibfk_1` FOREIGN KEY (`entrenador_id`) REFERENCES `entrenadores` (`id`);
-
---
--- Filtros para la tabla `dieta_diaria`
---
-ALTER TABLE `dieta_diaria`
-  ADD CONSTRAINT `dieta_diaria_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `planes_nutricionales` (`id`);
-
---
--- Filtros para la tabla `horarios`
---
-ALTER TABLE `horarios`
-  ADD CONSTRAINT `horarios_ibfk_1` FOREIGN KEY (`clase_id`) REFERENCES `clases` (`id`);
-
---
--- Filtros para la tabla `inscripciones`
---
-ALTER TABLE `inscripciones`
-  ADD CONSTRAINT `inscripciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `inscripciones_ibfk_2` FOREIGN KEY (`clase_id`) REFERENCES `clases` (`id`),
-  ADD CONSTRAINT `inscripciones_ibfk_3` FOREIGN KEY (`horario_id`) REFERENCES `horarios` (`id`);
-
---
--- Filtros para la tabla `planes_nutricionales`
---
-ALTER TABLE `planes_nutricionales`
-  ADD CONSTRAINT `planes_nutricionales_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Filtros para la tabla `progreso_ejercicios`
---
-ALTER TABLE `progreso_ejercicios`
-  ADD CONSTRAINT `progreso_ejercicios_ibfk_1` FOREIGN KEY (`rutina_id`) REFERENCES `rutinas` (`id`),
-  ADD CONSTRAINT `progreso_ejercicios_ibfk_2` FOREIGN KEY (`ejercicio_id`) REFERENCES `ejercicios` (`id`);
-
---
--- Filtros para la tabla `progreso_usuario`
---
-ALTER TABLE `progreso_usuario`
-  ADD CONSTRAINT `progreso_usuario_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Filtros para la tabla `registro_accesos`
---
-ALTER TABLE `registro_accesos`
-  ADD CONSTRAINT `registro_accesos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Filtros para la tabla `rutinas`
---
-ALTER TABLE `rutinas`
-  ADD CONSTRAINT `rutinas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Filtros para la tabla `rutina_ejercicios`
---
-ALTER TABLE `rutina_ejercicios`
-  ADD CONSTRAINT `rutina_ejercicios_ibfk_1` FOREIGN KEY (`rutina_id`) REFERENCES `rutinas` (`id`),
-  ADD CONSTRAINT `rutina_ejercicios_ibfk_2` FOREIGN KEY (`ejercicio_id`) REFERENCES `ejercicios` (`id`);
-
---
--- Filtros para la tabla `usuarios_membresias`
---
-ALTER TABLE `usuarios_membresias`
-  ADD CONSTRAINT `usuarios_membresias_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `usuarios_membresias_ibfk_2` FOREIGN KEY (`membresia_id`) REFERENCES `membresias` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
