@@ -1,4 +1,3 @@
-Te mostraré los colores principales utilizados en el proyecto, basándome en los archivos que hemos visto:
 Colores Principales:
 Azul Principal: #49709c
 Azul Hover/Interactivo: #0c77f2
